@@ -20,7 +20,7 @@ Vamos a realizar dos microservicios donde desarrollaremos funcionalidades relaci
 
 Cada tarea indica el número de días que invertiremos en el aprendizaje y desarrollo de la funcionalidad.
 
-### Tarea 0: día 1, día 2 y día 3
+## Tarea 0: día 1, día 2 y día 3
 
 1. Video de SQL desde cero. Descargar el siguiente programa para seguir el video y realizar los ejercicios que va mostrando el profesor. Anotar todas las dudas que tengáis para preguntarlas en la próxima sesión, si hay alguna que es bloqueante levantar la mano a través del Teams.
     1. https://sqlitebrowser.org/dl/
@@ -30,7 +30,7 @@ Cada tarea indica el número de días que invertiremos en el aprendizaje y desar
     1. <https://www.youtube.com/watch?v=3GymExBkKjE&t=10150s&ab_channel=MoureDevbyBraisMoure>
        (1 día)
 
-### Tarea 1: día 4
+## Tarea 1: día 4
 
 1.  Crear la paquetería base haciendo uso de la arquitectura MVC
 2.  Crear un controlador dummy tipo GET con nombre ```/hello```
