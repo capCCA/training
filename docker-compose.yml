@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+
+  db:
+    container_name: postgres
+    restart: unless-stopped
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+  adminer:
+    container_name: postgres_ui
+    image: adminer
+    depends_on:
+      - db
+    ports:
+      - "9090:8080"
