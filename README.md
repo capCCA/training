@@ -102,7 +102,22 @@ Cada tarea indica el número de días que invertiremos en el aprendizaje y desar
 ## Tarea 8: día 13
 
 1. Teoría de la arquitectura DDD (Domain Driver Desing).
-    1. Buscar todos los videos necesarios donde expliquen esto. ***A complementar por Alberto***.
+    1. Buscar todos los videos necesarios donde expliquen esto.
+    
+    Videos: 
+	1: DDD en 20 min 
+		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
+	2: Rigor Talks en Php pero son conceptos básicos
+		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
+	3: Qué es la arquitectura hexagona y cómo aplicarla
+		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
+	4: Clean architecure
+		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
+
+	Repo referencia:
+		https://github.com/sandokandias/spring-boot-ddd 
+		
+   
 
 ## Tarea 9: día 14 y día 15
 
