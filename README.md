@@ -1,6 +1,7 @@
 # Pasos previos
 1. Instálate
     1. IntelliJ Community: https://www.jetbrains.com/idea/download
+       1. Con este plugin: https://plugins.jetbrains.com/plugin/8527-google-java-format
     2. Postman: https://www.postman.com/downloads/
     3. Docker: https://docs.docker.com/desktop/previous-versions/3.x-windows/
 2. Clónate el repositorio: ```git clone https://github.com/capCCA/training.git```
@@ -46,32 +47,41 @@ Cada tarea indica el número de días que invertiremos en el aprendizaje y desar
 3.  Crear el siguiente modelo dentro de la base de datos que has creado en el punto anterior (utiliza lo aprendido en la *Tarea 0*)
 
 #### User
-| Field name                                         | customerId (primary key) | DocumentType  | DocumentNumber | Name     | SurName  | LastName | Country  | Telephone | CreationDate | UpdateDate |
-|----------------------------------------------------|--------------------------|---------------|----------------|----------|----------|----------|----------|-----------|--------------|------------|
-| Allowed Values                                     |                          | DNI, passport |                |          |          |          |          |           |              |            |
-| Allowed nulls                                      | Not null                 | Not null      | Not null       | Not null | Not null |          | Not null |           | Not null     |            |
-| Type (if it empties, it will be your own election) |                          | varchar       |                |          |          |          |          |           | TimeStamp    | TimeStamp  |
+| Field name                                         | customer_id (primary key) | Document_type | Document_number | Name         | SurName      | LastName     | Country    | Telephone | Creation_date | Update_date |
+|----------------------------------------------------|---------------------------|---------------|-----------------|--------------|--------------|--------------|------------|-----------|---------------|-------------|
+| Allowed Values                                     |                           | DNI, passport |                 |              |              |              |            |           |               |             |
+| Allowed nulls                                      | Not null                  | Not null      | Not null        | Not null     | Not null     |              | Not null   |           | Not null      |             |
+| Type (if it empties, it will be your own election) | varchar(10)               | varchar(8)    | varchar(50)     | varchar(100) | varchar(100) | varchar(100) | varchar(3) | integer   | TimeStamp     | TimeStamp   |
 
 #### Payment
-| Field name                                         | PaymentId  (primary key) | customerId         | paymentType      | amount   | CreationDate | UpdateDate |
-|----------------------------------------------------|--------------------------|--------------------|------------------|----------|--------------|------------|
-| Allowed Values                                     |                          | Must be a User row | bizum, transfer  |          |              |            |
-| Allowed nulls                                      | Not null                 | Not null           | Not null         | Not null | Not null     |            |
-| Type (if it empties, it will be your own election) | BigSerial                |                    |                  |          | TimeStamp    | TimeStamp  |
+| Field name                                         | Payment_id  (primary key) | Customer_id        | Beneficiary_id            | Payment_type    | Amount   | Creation_date | Update_date |
+|----------------------------------------------------|---------------------------|--------------------|---------------------------|-----------------|----------|---------------|-------------|
+| Allowed Values                                     |                           | Must be a User row | Must be a Beneficiary row | bizum, transfer |          |               |             |
+| Allowed nulls                                      | Not null                  | Not null           | Not null                  | Not null        | Not null | Not null      |             |
+| Type (if it empties, it will be your own election) | BigSerial                 | varchar(10)        | varchar(10)               | varchar(10)     | decimal  | TimeStamp     | TimeStamp   |
 
+#### Beneficiary
+| Field name                                         | Beneficiary_id  (primary key) | Creation_date | Update_date |
+|----------------------------------------------------|-------------------------------|---------------|-------------|
+| Allowed Values                                     |                               |               |             |
+| Allowed nulls                                      | Not null                      | Not null      |             |
+| Type (if it empties, it will be your own election) | varchar(10)                   | TimeStamp     | TimeStamp   |
 
-**El campo customerId damos por supuesto que van a tener una longitud de 9 dígitos numéricos. (No hace falta controlarlo en el código ni a nivel de base de datos).**
+1. La columna Customer_id de la tabla payment se relaciona con la columna Customer_id de la tabla customer.   <br>
+2. La columna Beneficiary_id de la tabla payment se relaciona con la columna Beneficiary_id de la tabla beneficiary.
+
+**El campo customerId damos por supuesto que va a tener una longitud de 10 dígitos numéricos. (No hace falta controlarlo en el código ni a nivel de base de datos).**
 
 ## Tarea 3: día 6
 
-1.  Crear los siguientes controladores haciendo uso de Lombok.
-    a. Obtener información de un usuario. Método GET, como parámetro de entrada en la URL el {customerId}. Devuelve un objeto Customer.
-    b. Creación de un usuario. Método POST, como body de entrada un objeto Customer (Mismo objeto que devuelve el punto a).
-    c. Actualización de un usuario. Método PUT, como body de entrada un objeto Customer.
-    d. Borrado de un usuario. Método Delete, como parámetro de entrada en la URL el {customerId}.
-2.  Crear tantos servicios como controladores tenemos en el punto 1 (usa lombok para la inyección de dependencias).
+1. Crear los siguientes controladores haciendo uso de Lombok. 
+   1. Obtener información de un usuario. Método GET, como parámetro de entrada en la URL el {customerId}. Devuelve un objeto Customer. 
+   2. Creación de un usuario. Método POST, como body de entrada un objeto Customer (Mismo objeto que devuelve el punto a). 
+   3. Actualización de un usuario. Método PUT, como body de entrada un objeto Customer. 
+   4. Borrado de un usuario. Método Delete, como parámetro de entrada en la URL el {customerId}.
+2. Crear tantos servicios como controladores tenemos en el punto 1 (usa lombok para la inyección de dependencias).
 
-**Nota**: Utilizar interfaces solamente para la definición de los repositorios. No usar interfaces para la definición de controladores ni  de servicios.
+**Nota**: Utilizar interfaces solamente para la definición de los repositorios. No usar interfaces para la definición de controladores ni de servicios.
 
 ## Tarea 4: día 7
 
@@ -103,25 +113,17 @@ controladores ni de servicios. <br>
 ## Tarea 8: día 13
 
 1. Teoría de la arquitectura DDD (Domain Driver Desing).
-    1. Buscar todos los videos necesarios donde expliquen esto.
-    
-    Videos: 
-	1: DDD en 20 min 
-		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
+    1. Buscar todos los videos necesarios donde expliquen esto. 
+       1. DDD en 20 min:
+          1. https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n
+       2. Rigor Talks en Php pero son conceptos básicos:
+          1. https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n
+       3. Qué es la arquitectura hexagona y cómo aplicarla:
+          1. https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n
+       4. Clean architecure:
+          1. https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n
 
-	2: Rigor Talks en Php pero son conceptos básicos
-		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
-
-	3: Qué es la arquitectura hexagona y cómo aplicarla
-		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
-
-	4: Clean architecure
-		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
-
-	Repo referencia:
-		https://github.com/sandokandias/spring-boot-ddd 
-		
-   
+**Repo de referencia:** https://github.com/sandokandias/spring-boot-ddd 
 
 ## Tarea 9: día 14 y día 15
 
