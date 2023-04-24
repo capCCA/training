@@ -1,18 +1,18 @@
 # Pasos previos
 1. Instálate
-   1. IntelliJ Community: https://www.jetbrains.com/idea/download
-   2. Postman: https://www.postman.com/downloads/
-   3. Docker: https://docs.docker.com/desktop/previous-versions/3.x-windows/
+    1. IntelliJ Community: https://www.jetbrains.com/idea/download
+    2. Postman: https://www.postman.com/downloads/
+    3. Docker: https://docs.docker.com/desktop/previous-versions/3.x-windows/
 2. Clónate el repositorio: ```git clone https://github.com/capCCA/training.git```
-3. Créate una nueva rama. Sustituir la palabra *apellidoNombre* por tus datos. 
-   1. Comando: ```git branch apellidoNombre```
+3. Créate una nueva rama. Sustituir la palabra *apellidoNombre* por tus datos.
+    1. Comando: ```git branch apellidoNombre```
 4. Ejecuta el siguiente comando para verificar que el proyecto compila correctamente.
-   1. Comando: ```mvn clean install```
+    1. Comando: ```mvn clean install```
 5. Realiza un *initial commit*.
-   1. Comandos:
-      1. ```git add *```
-      2. ```git commit -m "Initial commit."```
-      3. ```git push```
+    1. Comandos:
+        1. ```git add *```
+        2. ```git commit -m "Initial commit."```
+        3. ```git push```
 
 # Ejercicio
 
@@ -25,7 +25,7 @@ Cada tarea indica el número de días que invertiremos en el aprendizaje y desar
 1. Video de SQL desde cero. Descargar el siguiente programa para seguir el video y realizar los ejercicios que va mostrando el profesor. Anotar todas las dudas que tengáis para preguntarlas en la próxima sesión, si hay alguna que es bloqueante levantar la mano a través del Teams.
     1. https://sqlitebrowser.org/dl/
     2.  <https://www.youtube.com/watch?v=DFg1V-rO6Pg&ab_channel=SoyDalto> (2
-       días)
+        días)
 2. Video sobre comandos git, conocimiento durante todo el proyecto.
     1. <https://www.youtube.com/watch?v=3GymExBkKjE&t=10150s&ab_channel=MoureDevbyBraisMoure>
        (1 día)
@@ -35,7 +35,7 @@ Cada tarea indica el número de días que invertiremos en el aprendizaje y desar
 1.  Crear la paquetería base haciendo uso de la arquitectura MVC
 2.  Crear un controlador dummy tipo GET con nombre ```/hello```
 3.  Levantar el microservicio en local
-4.  Mediante el uso de Postman lanzar una petición contra el endpoint hello 
+4.  Mediante el uso de Postman lanzar una petición contra el endpoint hello
 
 ## Tarea 2: día 5
 
@@ -62,7 +62,7 @@ Cada tarea indica el número de días que invertiremos en el aprendizaje y desar
 
 **El campo customerId damos por supuesto que van a tener una longitud de 9 dígitos numéricos. (No hace falta controlarlo en el código ni a nivel de base de datos).**
 
-**Tarea 3: día 6**
+## Tarea 3: día 6
 
 1.  Crear los siguientes controladores haciendo uso de Lombok.
     a. Obtener información de un usuario. Método GET, como parámetro de entrada en la URL el {customerId}. Devuelve un objeto Customer.
@@ -90,10 +90,10 @@ Cada tarea indica el número de días que invertiremos en el aprendizaje y desar
 
 ## Tarea 6: dia 10 y dia 11
 
-1.  Crear un nuevo microservicio para toda la funcionalidad de payments (arquitectura MVC).
-    a. Listado de todos los pagos de un cliente.
-    b. Update de un pago.
-    c. Inserción de un nuevo pago.
+1. Crear un nuevo microservicio para toda la funcionalidad de payments (arquitectura MVC).
+    1. Listado de todos los pagos de un cliente.
+    2. Update de un pago.
+    3. Inserción de un nuevo pago.
 
 ## Tarea 7: día 12
 
@@ -101,9 +101,9 @@ Cada tarea indica el número de días que invertiremos en el aprendizaje y desar
 
 ## Tarea 8: día 13
 
-1.  Teoría de la arquitectura DDD (Domain Driver Desing).
-    a. Buscar todos los videos necesarios donde expliquen esto. ***A complementar por Alberto***.
+1. Teoría de la arquitectura DDD (Domain Driver Desing).
+    1. Buscar todos los videos necesarios donde expliquen esto. ***A complementar por Alberto***.
 
-**Tarea 7: día 14 y día 15**
+## Tarea 9: día 14 y día 15
 
 1. Criterio del formador para refactorizar la arquitectura DDD o repasar temas que crea que no están suficientemente preparados. *Improvisar*
