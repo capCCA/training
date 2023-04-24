@@ -108,10 +108,13 @@ controladores ni de servicios. <br>
     Videos: 
 	1: DDD en 20 min 
 		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
+
 	2: Rigor Talks en Php pero son conceptos básicos
 		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
+
 	3: Qué es la arquitectura hexagona y cómo aplicarla
 		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
+
 	4: Clean architecure
 		 https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n 
 
