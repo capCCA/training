@@ -1,4 +1,4 @@
-package com.capgemini.training.greeting;
+package com.capgemini.training.greeting.entity;
 
 import org.springframework.stereotype.Component;
 
