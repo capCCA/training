@@ -14,9 +14,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(path = "/hello")
 public class GreetingController {
-    // @Autowired
-    // GreetingService dummyservice;
-
     private final GreetingService dummyservice;// GreetingController(GreetingService) is created
 
     /**
