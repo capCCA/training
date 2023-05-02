@@ -1,16 +1,23 @@
-package com.capgemini.training.greeting;
+package com.capgemini.training.greeting.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.training.greeting.entity.Greeting;
+import com.capgemini.training.greeting.service.GreetingService;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/hello")
 public class GreetingController {
-    @Autowired
-    GreetingService dummyservice;
+    // @Autowired
+    // GreetingService dummyservice;
+
+    private final GreetingService dummyservice;// GreetingController(GreetingService) is created
 
     /**
      * Method that returns a basic greeting

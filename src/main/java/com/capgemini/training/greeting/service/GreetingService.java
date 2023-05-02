@@ -1,12 +1,18 @@
-package com.capgemini.training.greeting;
+package com.capgemini.training.greeting.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.training.greeting.entity.Greeting;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class GreetingService {
-    @Autowired
-    Greeting greeting;
+//    @Autowired
+//    Greeting greeting;
+
+    private final Greeting greeting;
 
     public String getGreeting() {
         return greeting.getMsg();
