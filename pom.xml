@@ -46,7 +46,7 @@
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
-	-->
+	using instead h2 database for now-->
 	<dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
@@ -62,6 +62,13 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- dto to entity Mapper  
+    <dependency>
+      <groupId>net.sf.dozer</groupId>
+      <artifactId>dozer</artifactId>
+      <version>5.5.1</version>
+    </dependency>  
+    -->  
   </dependencies>
   <dependencyManagement>
     <dependencies>

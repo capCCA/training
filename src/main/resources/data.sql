@@ -1,6 +1,6 @@
 select 1 from dual;
-
 /*
+
 INSERT INTO "User" ("customer_id", "Document_type", "Document_number", "Name", "SurName", "LastName", "Country", "Telephone", "Creation_date", "Update_date") VALUES
 ('1',	'Dni',	'123456',	'Aname',	'Asurname',	'ALastname',	'44',	123123,	'16:24:29.552419',	NULL),
 ('2',	'Dni',	'1234567',	'Anamea',	'Asurnameb',	'ALastnameb',	'045',	1231234,	'16:25:06.4578',	NULL),
