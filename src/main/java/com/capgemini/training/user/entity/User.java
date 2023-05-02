@@ -21,7 +21,7 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "UserTable")
+@Table(name = "User")
 public class User {
 //    @Id
 //    @Column(name = "customer_id", length = 10)
