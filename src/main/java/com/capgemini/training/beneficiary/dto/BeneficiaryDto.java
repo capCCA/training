@@ -1,14 +1,10 @@
-package com.caggemini.training.beneficiary;
+package com.capgemini.training.beneficiary.dto;
 
-<<<<<<< Updated upstream
-public class BeneficiaryDto {
-=======
 import java.sql.Timestamp;
 
 public class BeneficiaryDto {
     private String beneficiaryId;
     private Timestamp creationDate;
     private Timestamp updateDate;
->>>>>>> Stashed changes
 
 }

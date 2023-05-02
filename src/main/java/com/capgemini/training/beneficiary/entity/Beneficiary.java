@@ -1,4 +1,4 @@
-package com.caggemini.training.beneficiary;
+package com.capgemini.training.beneficiary.entity;
 
 import java.sql.Timestamp;
 
@@ -31,7 +31,7 @@ public class Beneficiary {
 //    @Column(name = "Beneficiary_id", nullable = false, length = 10)  
 //    private String beneficiaryId;
 //
-    //Temporary- con id generated
+    // Temporary- con id generated
     @Id
     @GeneratedValue
     @Column(name = "Beneficiary_id", nullable = false)
@@ -42,5 +42,5 @@ public class Beneficiary {
 
     @Column(name = "Update_date")
     Timestamp updateDate;
-  
+
 }

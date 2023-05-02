@@ -1,4 +1,4 @@
-package com.caggemini.training.user.entity;
+package com.capgemini.training.user.entity;
 
 import java.sql.Timestamp;
 
@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "User")
+@Table(name = "UserTable")
 public class User {
 //    @Id
 //    @Column(name = "customer_id", length = 10)
@@ -25,7 +25,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    @Column(name = "customer_id", length = 10)
+    @Column(name = "customer_id", nullable = false)
     private Long customerId;
 
     @Column(name = "Document_type", nullable = false)
@@ -44,7 +44,7 @@ public class User {
     private String lastname;
 
     @Column(name = "Country", nullable = false)
-    private String county;
+    private String country;
 
     @Column(name = "Telephone")
     private String telephone;
@@ -55,3 +55,7 @@ public class User {
     @Column(name = "Update_date")
     Timestamp updateDate;
 }
+/*
+ * {"documentType":"Dni", "documentNumber":"123" "name"="a","surname":"b",
+ * "country":"es", "creationDate":"02/05/2023" }
+ */
