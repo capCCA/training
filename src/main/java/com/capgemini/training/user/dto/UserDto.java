@@ -7,10 +7,12 @@ import com.capgemini.training.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class UserDto {
     private Long customerId;// String later
     private String documentType;
@@ -24,6 +26,8 @@ public class UserDto {
     Timestamp updateDate;
 
     public User toUser(User user) {
+        if (customerId != null)
+            user.setCustomerId(customerId);
         if (documentType != null)
             user.setDocumentType(documentType);
         if (documentNumber != null)
@@ -42,6 +46,23 @@ public class UserDto {
             user.setUpdateDate(creationDate);
         if (updateDate != null)
             user.setCreationDate(updateDate);
+        return user;
+
+    }
+
+    // @todo test
+    public User toUser() {
+        User user = new User();
+        user.setCustomerId(customerId);
+        user.setDocumentType(documentType);
+        user.setDocumentNumber(documentNumber);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setLastname(lastname);
+        user.setTelephone(telephone);
+        user.setCountry(country);
+        user.setUpdateDate(creationDate);
+        user.setCreationDate(updateDate);
         return user;
 
     }

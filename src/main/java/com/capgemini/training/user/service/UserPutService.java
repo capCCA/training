@@ -19,7 +19,6 @@ public class UserPutService {
         User user = userRepository.findById(id).orElse(null);
 
         if (user != null) {
-            // user = mapper.map(dto, User.class);
             user = dto.toUser(user);
             userRepository.save(user);
         } else {

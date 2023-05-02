@@ -3,7 +3,6 @@ package com.capgemini.training.user.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.dozer.DozerBeanMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class UserGetController {
 
     public final UserGetService userService;
-    public final DozerBeanMapper mapper; // TODO: remove
+    // public final DozerBeanMapper mapper; // TODO: remove
 
     /**
      * method that pings the Controller
@@ -46,7 +45,12 @@ public class UserGetController {
     public List<UserDto> findAll() {
         List<User> users = userService.findAll();
 
-        return users.stream().map(u -> mapper.map(u, UserDto.class)).collect(Collectors.toList());
+        // Was using DozerBeanMapper
+        // return users.stream().
+        // map(u -> mapper.map(u,UserDto.class)).collect(Collectors.toList());
+
+        return users.stream().map(u -> u.toDto()).collect(Collectors.toList());
+
     }
 
     /**
@@ -56,8 +60,7 @@ public class UserGetController {
      */
     @GetMapping(path = "/{userId}")
     public UserDto findById(@PathVariable(name = "userId") Long userId) {
-        User user = userService.findById(userId);
-        return mapper.map(user, UserDto.class);
+        return userService.findById(userId).toDto();
     }
 
 }

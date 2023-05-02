@@ -8,13 +8,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.capgemini.training.user.dto.UserDto;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 
 @Entity
 @Table(name = "UserTable")
@@ -54,6 +58,50 @@ public class User {
 
     @Column(name = "Update_date")
     Timestamp updateDate;
+
+    // TODO test
+    public UserDto toDto() {
+        UserDto dto = new UserDto();
+        dto.setCustomerId(customerId);
+        dto.setDocumentType(documentType);
+        dto.setDocumentNumber(documentNumber);
+        dto.setName(name);
+        dto.setSurname(surname);
+        dto.setLastname(lastname);
+        dto.setTelephone(telephone);
+        dto.setCountry(country);
+        dto.setUpdateDate(creationDate);
+        dto.setCreationDate(updateDate);
+        return dto;
+
+    }
+
+    // TODO test in save
+    public UserDto toDto(UserDto dto) {
+        if (customerId != null)
+            dto.setCustomerId(customerId);
+
+        if (documentType != null)
+            dto.setDocumentType(documentType);
+        if (documentNumber != null)
+            dto.setDocumentNumber(documentNumber);
+        if (name != null)
+            dto.setName(name);
+        if (surname != null)
+            dto.setSurname(surname);
+        if (lastname != null)
+            dto.setLastname(lastname);
+        if (telephone != null)
+            dto.setTelephone(telephone);
+        if (country != null)
+            dto.setCountry(country);
+        if (creationDate != null)
+            dto.setUpdateDate(creationDate);
+        if (updateDate != null)
+            dto.setCreationDate(updateDate);
+        return dto;
+
+    }
 }
 /*
  * {"documentType":"Dni", "documentNumber":"123" "name"="a","surname":"b",
