@@ -15,11 +15,23 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
       CustomerNotFoundException ex, WebRequest request) {
     CustomError error =
         CustomError.builder()
-            .status(HttpStatus.BAD_REQUEST)
-            .error(HttpStatus.BAD_REQUEST.value())
-            .message("El usuario no existe")
+            .status(HttpStatus.NOT_FOUND)
+            .error(HttpStatus.NOT_FOUND.value())
+            .message("El usuario no existe en la base de datos")
             .build();
 
+    return new ResponseEntity<>(error, new HttpHeaders(), error.getStatus());
+  }
+
+  @ExceptionHandler({CustomerBadRequestException.class})
+  public ResponseEntity<Object> handleCustomerBadRequest(
+      CustomerBadRequestException ex, WebRequest request) {
+    CustomError error =
+        CustomError.builder()
+            .status(HttpStatus.BAD_REQUEST)
+            .error(HttpStatus.BAD_REQUEST.value())
+            .message(ex.getMessage())
+            .build();
     return new ResponseEntity<>(error, new HttpHeaders(), error.getStatus());
   }
 }

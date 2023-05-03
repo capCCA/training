@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AddCustomerService {
+public class UpdateCustomerService {
 
   private final CustomerRepository repository;
 
-  public Optional<Customer> addCustomer(Customer customer) {
+  public Optional<Customer> updateCustomer(Customer customer) {
     return repository.existsById(customer.getCustomerId())
-        ? Optional.empty()
-        : Optional.of(repository.save(customer));
+        ? Optional.of(repository.save(customer))
+        : Optional.empty();
   }
 }

@@ -22,7 +22,9 @@ public class CustomerDetailsController {
   @GetMapping(path = "/{customerId}")
   public ResponseEntity<Customer> getDetailsCustomer(
       @PathVariable(name = "customerId") @NonNull String customerId) {
-    Optional<Customer> response = service.getCustomerDetail(customerId);
-    return response.map(ResponseEntity::ok).orElseThrow(CustomerNotFoundException::new);
+    return service
+        .getCustomerDetail(customerId)
+        .map(ResponseEntity::ok)
+        .orElseThrow(CustomerNotFoundException::new);
   }
 }
