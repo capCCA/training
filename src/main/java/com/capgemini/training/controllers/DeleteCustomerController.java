@@ -2,6 +2,8 @@ package com.capgemini.training.controllers;
 
 import com.capgemini.training.exceptions.CustomerNotFoundException;
 import com.capgemini.training.services.DeleteCustomerService;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +21,8 @@ public class DeleteCustomerController {
 
   @DeleteMapping(path = "/{customerId}")
   public ResponseEntity<String> deleteCustomer(
-      @PathVariable(name = "customerId") @NonNull String customerId) {
-    if (service.deleteCustomer(customerId)) {
-      return ResponseEntity.ok(
-          "El usuario con id " + customerId + " se ha eliminado correctamente");
-    }
-    throw new CustomerNotFoundException();
+      @PathVariable(name = "customerId") @NotBlank String customerId) {
+    service.deleteCustomer(customerId);
+    return ResponseEntity.ok().build();
   }
 }

@@ -1,5 +1,6 @@
 package com.capgemini.training.services;
 
+import com.capgemini.training.exceptions.CustomerNotFoundException;
 import com.capgemini.training.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,11 +11,11 @@ public class DeleteCustomerService {
 
   private final CustomerRepository repository;
 
-  public boolean deleteCustomer(String id) {
+  public void deleteCustomer(String id) {
     if (repository.existsById(id)) {
       repository.deleteById(id);
-      return true;
+    } else {
+      throw new CustomerNotFoundException();
     }
-    return false;
   }
 }

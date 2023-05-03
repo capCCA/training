@@ -20,7 +20,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "beneficiary")
-public class Beneficiary {
+public class BeneficiaryEntity {
   @Id
   @Column(length = 10, nullable = false)
   private String beneficiaryId;

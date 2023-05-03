@@ -17,7 +17,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         CustomError.builder()
             .status(HttpStatus.NOT_FOUND)
             .error(HttpStatus.NOT_FOUND.value())
-            .message("El usuario no existe en la base de datos")
+            .message("The id does not exist in the database")
             .build();
 
     return new ResponseEntity<>(error, new HttpHeaders(), error.getStatus());

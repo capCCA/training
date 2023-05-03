@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "payment")
-public class Payment {
+public class PaymentEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(length = 10, nullable = false)
@@ -33,12 +33,12 @@ public class Payment {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_customer")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-  private Customer customer;
+  private CustomerEntity customer;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_beneficiary")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-  private Beneficiary beneficiary;
+  private BeneficiaryEntity beneficiaryEntity;
 
   @Column(length = 10, nullable = false)
   private PaymentType paymentType;

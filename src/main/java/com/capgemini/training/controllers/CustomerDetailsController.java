@@ -1,10 +1,8 @@
 package com.capgemini.training.controllers;
 
-import com.capgemini.training.exceptions.CustomerNotFoundException;
-import com.capgemini.training.models.Customer;
+import com.capgemini.training.dtos.CustomerDTO;
 import com.capgemini.training.services.CustomerDetailsService;
-import java.util.Optional;
-import lombok.NonNull;
+import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +18,8 @@ public class CustomerDetailsController {
   private final CustomerDetailsService service;
 
   @GetMapping(path = "/{customerId}")
-  public ResponseEntity<Customer> getDetailsCustomer(
-      @PathVariable(name = "customerId") @NonNull String customerId) {
-    return service
-        .getCustomerDetail(customerId)
-        .map(ResponseEntity::ok)
-        .orElseThrow(CustomerNotFoundException::new);
+  public ResponseEntity<CustomerDTO> getDetailsCustomer(
+      @PathVariable(name = "customerId") @NotBlank String customerId) {
+    return ResponseEntity.ok(service.getCustomerDetail(customerId));
   }
 }

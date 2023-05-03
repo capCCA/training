@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "customer")
-public class Customer {
+public class CustomerEntity {
 
   @Id
   @Column(name = "customer_id", length = 10, nullable = false)

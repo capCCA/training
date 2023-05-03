@@ -1,8 +1,11 @@
 package com.capgemini.training.services;
 
-import com.capgemini.training.models.Customer;
+import com.capgemini.training.converters.CustomerConverter;
+import com.capgemini.training.dtos.CustomerDTO;
+import com.capgemini.training.exceptions.CustomerNotFoundException;
+import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
-import java.util.Optional;
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +14,14 @@ import org.springframework.stereotype.Service;
 public class UpdateCustomerService {
 
   private final CustomerRepository repository;
+  private final CustomerConverter converter;
 
-  public Optional<Customer> updateCustomer(Customer customer) {
-    return repository.existsById(customer.getCustomerId())
-        ? Optional.of(repository.save(customer))
-        : Optional.empty();
+  public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
+    customerDTO.setUpdateDate(new Date());
+    CustomerEntity customer = converter.toEntity(customerDTO);
+    if (repository.existsById(customer.getCustomerId())) {
+      return converter.toDTO(repository.save(customer));
+    }
+    throw new CustomerNotFoundException();
   }
 }
