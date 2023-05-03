@@ -17,6 +17,10 @@ import com.capgemini.training.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * UserController, No se usa, es el fichero antes de partirlo en User[_Method}Controller
+ */
+
 @RequiredArgsConstructor
 //@RestController
 //@RequestMapping(path = "/users")
@@ -86,8 +90,9 @@ public class UserController {
         userService.update(userId, dto);
     }
 
+    //Alternative: Save OrUpdate junto
 //    @PutMapping(path = { "", "/{id}" }, consumes = { "application/json" })
-//    public void saveOrUpdate(@PathVariable(name = "id") Long id, @RequestBody UserDto dto) throws Exception {
+//    public void saveOrUpdate(@PathVariable(name = "id") String id, @RequestBody UserDto dto) throws Exception {
 //        userService.saveOrUpdate(id, dto);
 //    }
 
