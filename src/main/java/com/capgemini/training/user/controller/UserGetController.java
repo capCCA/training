@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class UserGetController {
 
     public final UserGetService userService;
-    // public final DozerBeanMapper mapper; // TODO: remove
+    // public final DozerBeanMapper mapper; // Alternative 
 
     /**
      * method that pings the Controller
@@ -45,7 +45,7 @@ public class UserGetController {
     public List<UserDto> findAll() {
         List<User> users = userService.findAll();
 
-        // Was using DozerBeanMapper
+        //Alternative isopmg DozerBeanMapper
         // return users.stream().
         // map(u -> mapper.map(u,UserDto.class)).collect(Collectors.toList());
 

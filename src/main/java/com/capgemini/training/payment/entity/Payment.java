@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "Payment")
+@Table(name = "PaymentSpring")
 public class Payment {
     @Id
     @GeneratedValue

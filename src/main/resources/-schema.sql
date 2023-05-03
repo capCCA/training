@@ -32,7 +32,7 @@ CREATE TABLE "public"."Payment" (
     "Update_date" timestamp
 ) WITH (oids = false);
 
-COMMENT ON COLUMN "public"."Payment"."Payment_id" IS 'Serial, is autoincrememtn';
+COMMENT ON COLUMN "public"."Payment"."Payment_id" IS 'Serial, is autoincrement';
 
 COMMENT ON COLUMN "public"."Payment"."Payment_type" IS 'bizum,transfer';
 
@@ -41,11 +41,11 @@ INSERT INTO "Payment" ("Payment_id", "Customer_id", "Beneficiary_id", "Payment_t
 (3,	'2',	'3',	'Bizum',	'$200.00',	'2023-04-28 16:32:42.125722',	NULL);
 
 DROP TABLE IF EXISTS "User";
-DROP SEQUENCE IF EXISTS "User_customer_id_seq";
+DROP SEQUENCE IF EXISTS "User_customer:id_seq";
 CREATE SEQUENCE "User_customer_id_seq" INCREMENT  MINVALUE  MAXVALUE  CACHE ;
 
 CREATE TABLE "public"."User" (
-    "customer_id" character varying(10) DEFAULT 'nextval(''"User_customer_id_seq"'')' NOT NULL,
+    "customer_id" character varying(10) DEFAULT 'nextval(''"User_customer:id_seq"'')' NOT NULL,
     "Document_type" character varying(8) NOT NULL,
     "Document_number" character varying(50) NOT NULL,
     "Name" character varying(100) NOT NULL,

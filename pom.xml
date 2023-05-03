@@ -40,18 +40,19 @@
       <artifactId>spring-cloud-starter-openfeign</artifactId>
     </dependency>
 
-    <!--  	 org.postgresql.util.PSQLException: The connection attempt failed.
+    <!--  	 org.postgresql.util.PSQLException: The connection problem, aun cuando accesible desde web-->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
-	using instead h2 database for now-->
+	<!--using instead h2 database while problems connecting to postgres
 	<dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
 		<scope>runtime</scope>
 	</dependency>
+	-->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>

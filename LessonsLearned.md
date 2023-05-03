@@ -15,7 +15,7 @@
 3. Créate una nueva rama. Sustituir la palabra *apellidoNombre* por tus datos.
     1. Comando: ```git branch apellidoNombre```
    2.  _Nota_: acepta la invitacion al proyecto git donde hay una rama ya creada para cada uno
-   3.  _Nota_:  descargate tu rama remota: git checkout -b feature/apellidoNombre
+   3.  _Nota_:  descargate tu rama remota: ```git checkout -b feature/apellidoNombre```
 4. Ejecuta el siguiente comando para verificar que el proyecto compila correctamente.
     1. Comando: ```mvn clean install```
 5. Realiza un *initial commit*.

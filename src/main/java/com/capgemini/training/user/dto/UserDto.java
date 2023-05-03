@@ -25,6 +25,11 @@ public class UserDto {
     Timestamp creationDate;
     Timestamp updateDate;
 
+    /**Metodo que devuelve un User 
+     * 
+     * @return {@link User}
+     * @see UserPutService.update
+     */
     public User toUser(User user) {
         if (customerId != null)
             user.setCustomerId(customerId);
@@ -50,7 +55,11 @@ public class UserDto {
 
     }
 
-    // @todo test
+    /**Metodo que devuelve un User
+     * 
+     * @return {@link User}
+     * @see UserPostService.save
+     */
     public User toUser() {
         User user = new User();
         user.setCustomerId(customerId);

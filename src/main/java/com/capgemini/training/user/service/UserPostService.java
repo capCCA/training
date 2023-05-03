@@ -15,13 +15,6 @@ public class UserPostService {
     private final UserJpaRepository userRepository;
 
     // post
-//    public void save(UserDto dto) {
-//        User user = new User();
-//        user = dto.toUser(user); // user.setName(dto.getName());
-//        userRepository.save(user);
-//    }
-
-    // post
     public void save(UserDto dto) {
         User user = dto.toUser(); // user.setName(dto.getName());
         userRepository.save(user);

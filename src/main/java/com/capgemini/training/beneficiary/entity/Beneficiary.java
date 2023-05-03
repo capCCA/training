@@ -27,7 +27,7 @@ import lombok.ToString;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "Beneficiary")
+@Table(name = "BeneficiarySpring")
 public class Beneficiary {
 //    @Id
 //    @Column(name = "Beneficiary_id", nullable = false, length = 10)  

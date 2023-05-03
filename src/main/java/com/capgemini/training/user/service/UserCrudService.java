@@ -4,23 +4,24 @@ import java.util.List;
 
 import com.capgemini.training.user.dto.UserDto;
 import com.capgemini.training.user.entity.User;
-import com.capgemini.training.user.repository.UserJpaRepository;
+import com.capgemini.training.user.repository.UserCrudRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 
 //@Service
-public class UserService {
-    private final UserJpaRepository userRepository;
+public class UserCrudService {
+    private final UserCrudRepository userRepository;
 
     // get
     public List<User> findAll() {
-        return userRepository.findAll();
+        return (List<User>) userRepository.findAll();
     }
 
     public User findById(Long userId) {
-        return userRepository.getReferenceById(userId);
+        return userRepository.findById(userId).orElse(null);
+
     }
 
     // Put: is idenpotent: Could be used for both, save or Update
@@ -29,17 +30,16 @@ public class UserService {
         if (id == null) {
             user = new User();
         } else {
-            user = userRepository.getReferenceById(id);
+            user = userRepository.findById(id).orElse(null);
         }
+
         user = dto.toUser(user);
         userRepository.save(user);
-
     }
 
     // post
     public void save(UserDto dto) {
         User user = new User();
-        user.setName(dto.getName());
         user = dto.toUser(user);
         userRepository.save(user);
     }
@@ -49,7 +49,7 @@ public class UserService {
         User user = userRepository.findById(id).orElse(null);
 
         if (user != null) {
-            // user = mapper.map(dto, User.class);
+            user.setName(user.getName());
             user = dto.toUser(user);
             userRepository.save(user);
         } else {

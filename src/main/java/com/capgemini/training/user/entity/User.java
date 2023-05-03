@@ -1,10 +1,12 @@
 package com.capgemini.training.user.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -21,14 +23,15 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "User")
+@Table(name = "UserSpring")
 public class User {
 //    @Id
 //    @Column(name = "customer_id", length = 10)
 //    private String customerId;
 
     @Id
-    @GeneratedValue
+    //@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false)
     private Long customerId;
 
@@ -59,7 +62,11 @@ public class User {
     @Column(name = "Update_date")
     Timestamp updateDate;
 
-    // TODO test
+    /**Metodo que devuelve un dto
+     * 
+     * @return {@link UserDto}
+     * @see UserGetController findAll y findById
+     */
     public UserDto toDto() {
         UserDto dto = new UserDto();
         dto.setCustomerId(customerId);
@@ -76,7 +83,7 @@ public class User {
 
     }
 
-    // TODO test in save
+    // Not used. Save uses dto.toUser()
     public UserDto toDto(UserDto dto) {
         if (customerId != null)
             dto.setCustomerId(customerId);
