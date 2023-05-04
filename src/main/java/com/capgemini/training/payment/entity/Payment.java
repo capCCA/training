@@ -20,28 +20,28 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "Payment")
+@Table(name = "payment")
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Payment_id", nullable = false)
+    @Column(nullable = false)
     private Long paymentId;
 
-    @Column(name = "Customer_id", nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     private String customerId;
 
-    @Column(name = "Beneficiary_id", nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     private String beneficiaryId;
 
-    @Column(name = "Payment_type", nullable = false)
+    @Column(nullable = false)
     private String paymentType;
 
-    @Column(name = "Amount", nullable = false)
-    private String amount;
+    @Column(nullable = false)
+    private Double amount;
 
-    @Column(name = "Creation_date", nullable = false)
+    @Column(nullable = false)
     Date creationDate;
 
-    @Column(name = "Update_date")
+    @Column
     Date updateDate;
 }

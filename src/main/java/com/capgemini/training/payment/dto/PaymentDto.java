@@ -22,19 +22,19 @@ public class PaymentDto {
     private static final String SIZE_MESSAGE = "The maximum length is ";
 
     private Long paymentId;
-    
+
     @NotBlank(message = "customerId" + NOTBLANK_MESSAGE)
     @NotNull(message = "customerId" + NOTNULL_MESSAGE)
     @Size(max = 10, message = SIZE_MESSAGE + "10")
     private String customerId;
-    
+
     @NotBlank(message = "beneficiaryId" + NOTBLANK_MESSAGE)
     @NotNull(message = "beneficiaryId" + NOTNULL_MESSAGE)
     @Size(max = 10, message = SIZE_MESSAGE + "10")
     private String beneficiaryId;
-    
+
     private String paymentType;
-    private String amount;
+    private Double amount;
     Date creationDate;
     Date updateDate;
 }

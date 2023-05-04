@@ -9,9 +9,10 @@ import com.capgemini.training.user.entity.User;
 import com.capgemini.training.user.repository.UserJpaRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
 @RequiredArgsConstructor
-
+@Log
 @Service
 public class UserPutService {
     private final UserJpaRepository userRepository;
@@ -21,8 +22,13 @@ public class UserPutService {
         User user = userRepository.findById(id).orElse(null);
 
         if (user != null) {
-            dto.setUpdateDate( new Date());
+            dto.setUpdateDate(new Date());
             user = dto.toUser(user);
+            if (!id.equals(user.getCustomerId())) {
+                user.setCustomerId(id);
+                log.info("update: CustomerId " + id + " will not be updated if added to Body with id "
+                        + dto.getCustomerId());
+            }
             userRepository.save(user);
         } else {
             throw new Exception("Not found id " + id);

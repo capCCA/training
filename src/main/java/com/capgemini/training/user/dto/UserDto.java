@@ -52,7 +52,7 @@ public class UserDto {
     @Size(max = 3, message = SIZE_MESSAGE + "3")
     private String country;
 
-    private String telephone;
+    private Integer telephone;
     Date creationDate;
     Date updateDate;
 

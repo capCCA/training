@@ -21,37 +21,34 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "Users")
+@Table(name = "customer")
 public class User {
     @Id
-    @Column(name = "customer_id", length = 10)
+    @Column(length = 10)
     private String customerId;
 
-    @Column(name = "Document_type", nullable = false, length = 8)
+    @Column(nullable = false, length = 8)
     private String documentType;
 
-    @Column(name = "Document_number", nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String documentNumber;
 
-    @Column(name = "Name", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(name = "SurName", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String surname;
 
-    @Column(name = "LastName", length = 100)
+    @Column(length = 100)
     private String lastname;
 
-    @Column(name = "Country", nullable = false, length = 3)
+    @Column(nullable = false, length = 3)
     private String country;
 
-    @Column(name = "Telephone")
-    private String telephone;
+    private Integer telephone;
 
-    @Column(name = "Creation_date")
     Date creationDate;
 
-    @Column(name = "Update_date")
     Date updateDate;
 
     /**

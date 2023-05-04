@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 /*
 import javax.persistence.Column;
@@ -27,12 +26,11 @@ import lombok.ToString;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "Beneficiary")
+@Table(name = "beneficiary")
 public class Beneficiary {
     @Id
-    @Column(name = "Beneficiary_id", nullable = false, length = 10)  
+    @Column(name = "Beneficiary_id", nullable = false, length = 10)
     private String beneficiaryId;
-
 
     @Column(name = "Creation_date", nullable = false)
     Date creationDate;
