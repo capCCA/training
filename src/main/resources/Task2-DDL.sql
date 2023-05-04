@@ -63,5 +63,6 @@ INSERT INTO "User" ("customer_id", "Document_type", "Document_number", "Name", "
 ('3',	'Dni',	'123456',	'Aname',	'Asurnameb',	NULL,	'',	34,	'16:34:48.815022',	NULL);
 
 ALTER TABLE ONLY "public"."Payment" ADD CONSTRAINT "Payment_Customer_id_fkey" FOREIGN KEY ("Customer_id") REFERENCES "User"(customer_id) NOT DEFERRABLE;
+ALTER TABLE ONLY "public"."Payment" ADD CONSTRAINT "Payment_Beneficiary_id_fkey" FOREIGN KEY ("Beneficiary_id") REFERENCES "Beneficiary"("Beneficiary_id") NOT DEFERRABLE;
 
 -- 2023-04-28 16:35:56.570782+00
