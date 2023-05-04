@@ -1,10 +1,12 @@
-package com.capgemini.training.hello;
+package com.capgemini.training.hello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.capgemini.training.hello.service.HelloService;
 
 /**
  * @author ezm
@@ -23,8 +25,8 @@ public class HelloController {
      * 
      * 
      */
-    @RequestMapping(path = "", method = RequestMethod.GET)
-
+    // @RequestMapping(path = "", method = RequestMethod.GET)
+    @GetMapping("")
     public String saludo(@RequestParam("mensaje") String mensaje) {
 
         // URL de entrada, debe recibir como parametro

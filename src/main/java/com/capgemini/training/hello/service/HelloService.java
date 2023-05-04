@@ -1,4 +1,4 @@
-package com.capgemini.training.hello;
+package com.capgemini.training.hello.service;
 
 import org.springframework.stereotype.Service;
 
