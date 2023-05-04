@@ -1,16 +1,13 @@
 package com.capgemini.training.user.entity;
 
 import java.util.Date;
-import java.sql.Timestamp;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.capgemini.training.user.controller.UserGetController;
 import com.capgemini.training.user.dto.UserDto;
 
 import lombok.Getter;
@@ -24,28 +21,28 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "User")
+@Table(name = "Users")
 public class User {
     @Id
     @Column(name = "customer_id", length = 10)
     private String customerId;
 
-    @Column(name = "Document_type", nullable = false,length = 8)
+    @Column(name = "Document_type", nullable = false, length = 8)
     private String documentType;
 
     @Column(name = "Document_number", nullable = false, length = 50)
     private String documentNumber;
 
-    @Column(name = "Name", nullable = false, length = 100 )
+    @Column(name = "Name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "SurName", nullable = false,length = 100)
+    @Column(name = "SurName", nullable = false, length = 100)
     private String surname;
 
-    @Column(name = "LastName",length = 100)
+    @Column(name = "LastName", length = 100)
     private String lastname;
 
-    @Column(name = "Country", nullable = false,length = 3)
+    @Column(name = "Country", nullable = false, length = 3)
     private String country;
 
     @Column(name = "Telephone")
@@ -57,7 +54,8 @@ public class User {
     @Column(name = "Update_date")
     Date updateDate;
 
-    /**Metodo que devuelve un dto
+    /**
+     * Metodo que devuelve un dto
      * 
      * @return {@link UserDto}
      * @see UserGetController findAll y findById
@@ -72,8 +70,8 @@ public class User {
         dto.setLastname(lastname);
         dto.setTelephone(telephone);
         dto.setCountry(country);
-        dto.setUpdateDate(creationDate);
-        dto.setCreationDate(updateDate);
+        dto.setCreationDate(creationDate);
+        dto.setUpdateDate(updateDate);
         return dto;
 
     }
@@ -97,10 +95,10 @@ public class User {
             dto.setTelephone(telephone);
         if (country != null)
             dto.setCountry(country);
-        if (creationDate != null)
-            dto.setUpdateDate(creationDate);
         if (updateDate != null)
-            dto.setCreationDate(updateDate);
+            dto.setUpdateDate(updateDate);
+        if (creationDate != null)
+            dto.setCreationDate(creationDate);
         return dto;
 
     }

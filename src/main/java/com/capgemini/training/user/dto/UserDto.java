@@ -2,12 +2,13 @@ package com.capgemini.training.user.dto;
 
 import java.util.Date;
 
-import com.capgemini.training.user.entity.User;
-
 import javax.validation.constraints.NotBlank;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.capgemini.training.user.entity.User;
+import com.capgemini.training.user.service.UserPostService;
+import com.capgemini.training.user.service.UserPutService;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,35 +28,36 @@ public class UserDto {
     @NotNull(message = "customerId" + NOTNULL_MESSAGE)
     @Size(max = 10, message = SIZE_MESSAGE + "10")
     private String customerId;
-    
+
     @NotNull(message = "documentType" + NOTNULL_MESSAGE)
     @Size(max = 8, message = SIZE_MESSAGE + "8")
     private String documentType;
-    
+
     @NotNull(message = "documentNumber" + NOTNULL_MESSAGE)
     @Size(max = 50, message = SIZE_MESSAGE + "50")
     private String documentNumber;
-    
+
     @NotNull(message = "name" + NOTNULL_MESSAGE)
     @Size(max = 100, message = SIZE_MESSAGE + "100")
     private String name;
-    
+
     @NotNull(message = "surname " + NOTNULL_MESSAGE)
     @Size(max = 100, message = SIZE_MESSAGE + "100")
     private String surname;
-    
+
     @Size(max = 100, message = SIZE_MESSAGE + "100")
     private String lastname;
-    
+
     @NotNull(message = "country" + NOTNULL_MESSAGE)
     @Size(max = 3, message = SIZE_MESSAGE + "3")
     private String country;
-    
+
     private String telephone;
     Date creationDate;
-    Date updateDate ;
+    Date updateDate;
 
-    /**Metodo que devuelve un User 
+    /**
+     * Metodo que devuelve un User
      * 
      * @return {@link User}
      * @see UserPutService.update
@@ -78,14 +80,15 @@ public class UserDto {
         if (country != null)
             user.setCountry(country);
         if (creationDate != null)
-            user.setUpdateDate(creationDate);
+            user.setCreationDate(creationDate);
         if (updateDate != null)
-            user.setCreationDate(updateDate);
+            user.setUpdateDate(updateDate);
         return user;
 
     }
 
-    /**Metodo que devuelve un User
+    /**
+     * Metodo que devuelve un User
      * 
      * @return {@link User}
      * @see UserPostService.save
@@ -100,8 +103,8 @@ public class UserDto {
         user.setLastname(lastname);
         user.setTelephone(telephone);
         user.setCountry(country);
-        user.setUpdateDate(creationDate);
-        user.setCreationDate(updateDate);
+        user.setCreationDate(creationDate);
+        user.setUpdateDate(updateDate);
         return user;
 
     }
