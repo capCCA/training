@@ -8,7 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +22,8 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@Builder
+@AllArgsConstructor
 
 @Entity
 @Table(name = "payment")
@@ -39,9 +45,12 @@ public class Payment {
     @Column(nullable = false)
     private Double amount;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     Date creationDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column
     Date updateDate;
+
 }

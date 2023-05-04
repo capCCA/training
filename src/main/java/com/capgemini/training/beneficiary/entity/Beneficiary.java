@@ -14,7 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 */
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,18 +28,22 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 
 @Entity
 @Table(name = "beneficiary")
 public class Beneficiary {
     @Id
-    @Column(name = "Beneficiary_id", nullable = false, length = 10)
+    @Column(name = "beneficiary_id", nullable = false, length = 10)
     private String beneficiaryId;
 
-    @Column(name = "Creation_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date", nullable = false)
     Date creationDate;
 
-    @Column(name = "Update_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_date")
     Date updateDate;
 
 }

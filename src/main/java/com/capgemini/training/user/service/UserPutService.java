@@ -4,9 +4,10 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import com.capgemini.training.config.UserMapper;
 import com.capgemini.training.user.dto.UserDto;
 import com.capgemini.training.user.entity.User;
-import com.capgemini.training.user.repository.UserJpaRepository;
+import com.capgemini.training.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -15,19 +16,24 @@ import lombok.extern.java.Log;
 @Log
 @Service
 public class UserPutService {
-    private final UserJpaRepository userRepository;
+    private final UserRepository userRepository;
 
-    // put
     public void update(String id, UserDto dto) throws Exception {
         User user = userRepository.findById(id).orElse(null);
 
         if (user != null) {
-            dto.setUpdateDate(new Date());
-            user = dto.toUser(user);
+            Date wasCreated = user.getCreationDate();
+            user = UserMapper.toEntity(dto);
+            // corregir Date estan null al no existir en DTO
+            user.setCreationDate(wasCreated);
+            user.setUpdateDate(new Date());
+
+            // corregir CustomerId - si se hubiera cambiado por estar en el Body y ser
+            // distinto
             if (!id.equals(user.getCustomerId())) {
                 user.setCustomerId(id);
-                log.info("update: CustomerId " + id + " will not be updated if added to Body with id "
-                        + dto.getCustomerId());
+                log.info("update CustomerId " + id + ": Body contains customerId:" + dto.getCustomerId()
+                        + ", which is ignored.You can delete and create a new customer.");
             }
             userRepository.save(user);
         } else {

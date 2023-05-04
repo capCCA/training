@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.training.config.UserMapper;
 import com.capgemini.training.user.dto.UserDto;
 import com.capgemini.training.user.entity.User;
 import com.capgemini.training.user.service.UserGetService;
@@ -22,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class UserGetController {
 
     public final UserGetService userService;
-    // public final DozerBeanMapper mapper; // Alternative 
+    // public final DozerBeanMapper mapper; // Alternative
 
     /**
      * method that pings the Controller
@@ -47,11 +48,10 @@ public class UserGetController {
     public List<UserDto> findAll() {
         List<User> users = userService.findAll();
 
-        //Alternative using DozerBeanMapper
+        // Alternative using DozerBeanMapper
         // return users.stream().
         // map(u -> mapper.map(u,UserDto.class)).collect(Collectors.toList());
-
-        return users.stream().map(u -> u.toDto()).collect(Collectors.toList());
+        return users.stream().map(UserMapper::toDto).collect(Collectors.toList());
 
     }
 
@@ -61,8 +61,9 @@ public class UserGetController {
      * @return {@link User}
      */
     @GetMapping(path = "/{userId}")
-    public UserDto findById(@PathVariable(name = "userId")@NotBlank  String userId) {
-        return userService.findById(userId).toDto();
+    public UserDto findById(@PathVariable(name = "userId") @NotBlank String userId) {
+
+        return UserMapper.toDto(userService.findById(userId));
     }
 
 }

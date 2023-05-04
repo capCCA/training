@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.training.user.entity.User;
-import com.capgemini.training.user.repository.UserJpaRepository;
+import com.capgemini.training.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 public class UserGetService {
-    private final UserJpaRepository userRepository;
+    private final UserRepository userRepository;
 
     // get
     public List<User> findAll() {

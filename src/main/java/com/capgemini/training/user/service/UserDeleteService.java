@@ -2,7 +2,7 @@ package com.capgemini.training.user.service;
 
 import org.springframework.stereotype.Service;
 
-import com.capgemini.training.user.repository.UserJpaRepository;
+import com.capgemini.training.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 public class UserDeleteService {
-    private final UserJpaRepository userRepository;
+    private final UserRepository userRepository;
 
     // delete
     public void delete(String id) throws Exception {

@@ -6,10 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.capgemini.training.user.controller.UserGetController;
-import com.capgemini.training.user.dto.UserDto;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
 
 @Entity
@@ -45,10 +48,14 @@ public class User {
     @Column(nullable = false, length = 3)
     private String country;
 
+    @Column
     private Integer telephone;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     Date creationDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     Date updateDate;
 
     /**
@@ -57,50 +64,20 @@ public class User {
      * @return {@link UserDto}
      * @see UserGetController findAll y findById
      */
-    public UserDto toDto() {
-        UserDto dto = new UserDto();
-        dto.setCustomerId(customerId);
-        dto.setDocumentType(documentType);
-        dto.setDocumentNumber(documentNumber);
-        dto.setName(name);
-        dto.setSurname(surname);
-        dto.setLastname(lastname);
-        dto.setTelephone(telephone);
-        dto.setCountry(country);
-        dto.setCreationDate(creationDate);
-        dto.setUpdateDate(updateDate);
-        return dto;
+//    public UserDto toDto() {
+//        UserDto dto = new UserDto();
+//        dto.setCustomerId(customerId);
+//        dto.setDocumentType(documentType);
+//        dto.setDocumentNumber(documentNumber);
+//        dto.setName(name);
+//        dto.setSurname(surname);
+//        dto.setLastname(lastname);
+//        dto.setTelephone(telephone);
+//        dto.setCountry(country);
+//        dto.setCreationDate(creationDate);
+//        dto.setUpdateDate(updateDate);
+//        return dto;
+//
+//    }
 
-    }
-
-    // Not used. Save uses dto.toUser()
-    public UserDto toDto(UserDto dto) {
-        if (customerId != null)
-            dto.setCustomerId(customerId);
-
-        if (documentType != null)
-            dto.setDocumentType(documentType);
-        if (documentNumber != null)
-            dto.setDocumentNumber(documentNumber);
-        if (name != null)
-            dto.setName(name);
-        if (surname != null)
-            dto.setSurname(surname);
-        if (lastname != null)
-            dto.setLastname(lastname);
-        if (telephone != null)
-            dto.setTelephone(telephone);
-        if (country != null)
-            dto.setCountry(country);
-        if (updateDate != null)
-            dto.setUpdateDate(updateDate);
-        if (creationDate != null)
-            dto.setCreationDate(creationDate);
-        return dto;
-
-    }
 }
-/*
- * {"documentType":"Dni", "documentNumber":"123" "name"="a","surname":"b",
- * "country":"es", "creationDate":"02/05/2023" }
- */
