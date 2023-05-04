@@ -40,7 +40,6 @@
       <artifactId>spring-cloud-starter-openfeign</artifactId>
     </dependency>
 
-    <!--  	 org.postgresql.util.PSQLException: The connection problem, aun cuando accesible desde web-->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -63,6 +62,11 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <!--Add Spring Validation -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
     <!-- dto to entity Mapper  
     <dependency>
       <groupId>net.sf.dozer</groupId>
@@ -70,6 +74,7 @@
       <version>5.5.1</version>
     </dependency>  
     -->  
+    
   </dependencies>
   <dependencyManagement>
     <dependencies>

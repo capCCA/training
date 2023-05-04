@@ -1,5 +1,6 @@
 package com.capgemini.training.user.entity;
 
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -23,44 +24,38 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "UserSpring")
+@Table(name = "User")
 public class User {
-//    @Id
-//    @Column(name = "customer_id", length = 10)
-//    private String customerId;
-
     @Id
-    //@GeneratedValue
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id", nullable = false)
-    private Long customerId;
+    @Column(name = "customer_id", length = 10)
+    private String customerId;
 
-    @Column(name = "Document_type", nullable = false)
+    @Column(name = "Document_type", nullable = false,length = 8)
     private String documentType;
 
-    @Column(name = "Document_number", nullable = false)
+    @Column(name = "Document_number", nullable = false, length = 50)
     private String documentNumber;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "Name", nullable = false, length = 100 )
     private String name;
 
-    @Column(name = "SurName", nullable = false)
+    @Column(name = "SurName", nullable = false,length = 100)
     private String surname;
 
-    @Column(name = "LastName")
+    @Column(name = "LastName",length = 100)
     private String lastname;
 
-    @Column(name = "Country", nullable = false)
+    @Column(name = "Country", nullable = false,length = 3)
     private String country;
 
     @Column(name = "Telephone")
     private String telephone;
 
     @Column(name = "Creation_date", nullable = false)
-    Timestamp creationDate;
+    Date creationDate;
 
     @Column(name = "Update_date")
-    Timestamp updateDate;
+    Date updateDate;
 
     /**Metodo que devuelve un dto
      * 

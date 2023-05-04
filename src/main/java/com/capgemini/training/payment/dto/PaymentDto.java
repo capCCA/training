@@ -1,6 +1,10 @@
 package com.capgemini.training.payment.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +17,24 @@ import lombok.ToString;
 @ToString
 
 public class PaymentDto {
+    private static final String NOTBLANK_MESSAGE = " cannot be blank";
+    private static final String NOTNULL_MESSAGE = " is mandatory, cannot be null";
+    private static final String SIZE_MESSAGE = "The maximum length is ";
+
     private Long paymentId;
+    
+    @NotBlank(message = "customerId" + NOTBLANK_MESSAGE)
+    @NotNull(message = "customerId" + NOTNULL_MESSAGE)
+    @Size(max = 10, message = SIZE_MESSAGE + "10")
     private String customerId;
+    
+    @NotBlank(message = "beneficiaryId" + NOTBLANK_MESSAGE)
+    @NotNull(message = "beneficiaryId" + NOTNULL_MESSAGE)
+    @Size(max = 10, message = SIZE_MESSAGE + "10")
     private String beneficiaryId;
+    
     private String paymentType;
     private String amount;
-    Timestamp creationDate;
-    Timestamp updateDate;
+    Date creationDate;
+    Date updateDate;
 }

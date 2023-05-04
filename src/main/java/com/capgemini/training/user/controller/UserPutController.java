@@ -1,5 +1,8 @@
 package com.capgemini.training.user.controller;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +28,8 @@ public class UserPutController {
      * @param {@link UserDto}
      */
     @PutMapping(path = "/{userId}", consumes = { "application/json" })
-    public void update(@PathVariable(name = "userId") Long userId, @RequestBody UserDto dto) throws Exception {
+    public void update(@PathVariable(name = "userId") @NotBlank String userId,
+            @Valid @RequestBody UserDto dto) throws Exception {
         userService.update(userId, dto);
     }
 

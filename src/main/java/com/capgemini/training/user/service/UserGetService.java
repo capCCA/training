@@ -20,7 +20,7 @@ public class UserGetService {
         return userRepository.findAll();
     }
 
-    public User findById(Long userId) {
+    public User findById(String userId) {
         return userRepository.getReferenceById(userId);
     }
 

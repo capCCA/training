@@ -1,5 +1,7 @@
 package com.capgemini.training.user.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,7 @@ public class UserPostController {
      * @param {@link UserDto}
      */
     @PostMapping(path = "", consumes = { "application/json" })
-    public void save(@RequestBody UserDto dto) {
+    public void save(@RequestBody @Valid UserDto dto) {
         userService.save(dto);
     }
 

@@ -13,7 +13,7 @@ public class UserDeleteService {
     private final UserJpaRepository userRepository;
 
     // delete
-    public void delete(Long id) throws Exception {
+    public void delete(String id) throws Exception {
         if (userRepository.findById(id).orElse(null) == null) {
             throw new Exception("Not found id " + id);
         }

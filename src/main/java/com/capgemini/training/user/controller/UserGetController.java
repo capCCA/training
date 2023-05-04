@@ -3,6 +3,8 @@ package com.capgemini.training.user.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +47,7 @@ public class UserGetController {
     public List<UserDto> findAll() {
         List<User> users = userService.findAll();
 
-        //Alternative isopmg DozerBeanMapper
+        //Alternative using DozerBeanMapper
         // return users.stream().
         // map(u -> mapper.map(u,UserDto.class)).collect(Collectors.toList());
 
@@ -59,7 +61,7 @@ public class UserGetController {
      * @return {@link User}
      */
     @GetMapping(path = "/{userId}")
-    public UserDto findById(@PathVariable(name = "userId") Long userId) {
+    public UserDto findById(@PathVariable(name = "userId")@NotBlank  String userId) {
         return userService.findById(userId).toDto();
     }
 

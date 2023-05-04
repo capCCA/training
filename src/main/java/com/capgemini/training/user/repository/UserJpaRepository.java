@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.capgemini.training.user.entity.User;
 
 @Repository
-public interface UserJpaRepository extends JpaRepository<User, Long> {
+public interface UserJpaRepository extends JpaRepository<User, String> {
 
 }

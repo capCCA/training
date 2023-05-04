@@ -19,12 +19,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findById(Long userId) {
+    public User findById(String userId) {
         return userRepository.getReferenceById(userId);
     }
 
     // Put: is idenpotent: Could be used for both, save or Update
-    public void saveOrUpdate(Long id, UserDto dto) {
+    public void saveOrUpdate(String id, UserDto dto) {
         User user;
         if (id == null) {
             user = new User();
@@ -45,7 +45,7 @@ public class UserService {
     }
 
     // put
-    public void update(Long id, UserDto dto) throws Exception {
+    public void update(String id, UserDto dto) throws Exception {
         User user = userRepository.findById(id).orElse(null);
 
         if (user != null) {
@@ -58,7 +58,7 @@ public class UserService {
     }
 
     // delete
-    public void delete(Long id) throws Exception {
+    public void delete(String id) throws Exception {
         if (userRepository.findById(id).orElse(null) == null) {
             throw new Exception("Not found id " + id);
         }

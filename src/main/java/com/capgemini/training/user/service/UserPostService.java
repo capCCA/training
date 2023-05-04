@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.capgemini.training.user.dto.UserDto;
 import com.capgemini.training.user.entity.User;
 import com.capgemini.training.user.repository.UserJpaRepository;
-
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -16,7 +16,8 @@ public class UserPostService {
 
     // post
     public void save(UserDto dto) {
-        User user = dto.toUser(); // user.setName(dto.getName());
+        dto.setCreationDate( new Date());
+        User user = dto.toUser(); 
         userRepository.save(user);
     }
 }

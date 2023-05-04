@@ -1,6 +1,6 @@
 package com.capgemini.training.beneficiary.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,22 +27,17 @@ import lombok.ToString;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "BeneficiarySpring")
+@Table(name = "Beneficiary")
 public class Beneficiary {
-//    @Id
-//    @Column(name = "Beneficiary_id", nullable = false, length = 10)  
-//    private String beneficiaryId;
-//
-    // Temporary- con id generated
     @Id
-    @GeneratedValue
-    @Column(name = "Beneficiary_id", nullable = false)
-    private Long beneficiaryId;
+    @Column(name = "Beneficiary_id", nullable = false, length = 10)  
+    private String beneficiaryId;
+
 
     @Column(name = "Creation_date", nullable = false)
-    Timestamp creationDate;
+    Date creationDate;
 
     @Column(name = "Update_date")
-    Timestamp updateDate;
+    Date updateDate;
 
 }

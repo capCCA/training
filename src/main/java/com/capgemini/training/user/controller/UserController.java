@@ -18,7 +18,7 @@ import com.capgemini.training.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * UserController, No se usa, es el fichero antes de partirlo en User[_Method}Controller
+ * UserController, No se usa, es el fichero antes de partirlo en User{Method}Controller
  */
 
 @RequiredArgsConstructor
@@ -62,7 +62,7 @@ public class UserController {
      * @return {@link User}
      */
     @GetMapping(path = "/{userId}")
-    public UserDto findById(@PathVariable(name = "userId") Long userId) {
+    public UserDto findById(@PathVariable(name = "userId") String userId) {
         //User user = userService.findById(userId);
         //return mapper.map(user, UserDto.class);
         return userService.findById(userId).toDto();
@@ -86,7 +86,7 @@ public class UserController {
      * @param {@link UserDto}
      */
     @PutMapping(path = "/{userId}", consumes = { "application/json" })
-    public void update(@PathVariable(name = "userId") Long userId, @RequestBody UserDto dto) throws Exception {
+    public void update(@PathVariable(name = "userId") String userId, @RequestBody UserDto dto) throws Exception {
         userService.update(userId, dto);
     }
 
@@ -102,7 +102,7 @@ public class UserController {
      * @param userId  PK of the entity
      */
     @DeleteMapping(path = "/{userId}")
-    public void delete(@PathVariable(name = "userId") Long userId) throws Exception {
+    public void delete(@PathVariable(name = "userId") String userId) throws Exception {
         userService.delete(userId);
     }
 

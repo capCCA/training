@@ -1,10 +1,11 @@
 package com.capgemini.training.payment.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,17 +20,17 @@ import lombok.ToString;
 @ToString
 
 @Entity
-@Table(name = "PaymentSpring")
+@Table(name = "Payment")
 public class Payment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Payment_id", nullable = false)
     private Long paymentId;
 
-    @Column(name = "Customer_id", nullable = false)
+    @Column(name = "Customer_id", nullable = false, length = 10)
     private String customerId;
 
-    @Column(name = "Beneficiary_id", nullable = false)
+    @Column(name = "Beneficiary_id", nullable = false, length = 10)
     private String beneficiaryId;
 
     @Column(name = "Payment_type", nullable = false)
@@ -39,8 +40,8 @@ public class Payment {
     private String amount;
 
     @Column(name = "Creation_date", nullable = false)
-    Timestamp creationDate;
+    Date creationDate;
 
     @Column(name = "Update_date")
-    Timestamp updateDate;
+    Date updateDate;
 }

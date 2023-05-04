@@ -1,5 +1,7 @@
 package com.capgemini.training.user.controller;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,7 @@ public class UserDeleteController {
      * @param dto datos de la entidad
      */
     @DeleteMapping(path = "/{userId}")
-    public void delete(@PathVariable(name = "userId") Long userId) throws Exception {
+    public void delete(@PathVariable(name = "userId")@NotBlank String userId) throws Exception {
         userService.delete(userId);
     }
 
