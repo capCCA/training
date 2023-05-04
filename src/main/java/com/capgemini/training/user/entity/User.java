@@ -51,7 +51,7 @@ public class User {
     @Column(name = "Telephone")
     private String telephone;
 
-    @Column(name = "Creation_date", nullable = false)
+    @Column(name = "Creation_date")
     Date creationDate;
 
     @Column(name = "Update_date")
