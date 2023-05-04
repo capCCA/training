@@ -1,16 +1,16 @@
 package com.capgemini.training.controllers;
 
 import com.capgemini.training.dtos.CustomerDTO;
-import com.capgemini.training.exceptions.CustomError;
+import com.capgemini.training.errors.CustomError;
 import com.capgemini.training.services.CustomerDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +31,7 @@ public class CustomerDetailsController {
             responseCode = "200",
             content = {
               @Content(
-                  mediaType = "application/json",
+                  mediaType = MediaType.APPLICATION_JSON_VALUE,
                   schema = @Schema(implementation = CustomerDTO.class))
             }),
         @ApiResponse(
@@ -39,7 +39,7 @@ public class CustomerDetailsController {
             description = "This id already exists in the database",
             content = {
               @Content(
-                  mediaType = "application/json",
+                  mediaType = MediaType.APPLICATION_JSON_VALUE,
                   schema = @Schema(implementation = CustomError.class))
             }),
         @ApiResponse(
@@ -47,16 +47,13 @@ public class CustomerDetailsController {
             description = "The id does not exist in the database",
             content = {
               @Content(
-                  mediaType = "application/json",
+                  mediaType = MediaType.APPLICATION_JSON_VALUE,
                   schema = @Schema(implementation = CustomError.class))
             })
       })
   @GetMapping(path = "/{customerId}")
-  public ResponseEntity<CustomerDTO> getDetailsCustomer(
-      @Parameter(description = "id of de customer to be searched")
-          @PathVariable(name = "customerId")
-          @NotBlank
-          String customerId) {
+  public ResponseEntity<CustomerDTO> getCustomerDetails(
+      @PathVariable(name = "customerId") @NotBlank String customerId) {
     return ResponseEntity.ok(service.getCustomerDetail(customerId));
   }
 }

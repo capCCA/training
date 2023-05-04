@@ -1,6 +1,6 @@
 package com.capgemini.training.services;
 
-import com.capgemini.training.exceptions.CustomerNotFoundException;
+import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

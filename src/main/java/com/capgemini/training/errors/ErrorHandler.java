@@ -1,4 +1,4 @@
-package com.capgemini.training.exceptions;
+package com.capgemini.training.errors;
 
 import java.io.IOException;
 import java.util.ArrayList;

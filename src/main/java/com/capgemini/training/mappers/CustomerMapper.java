@@ -1,16 +1,12 @@
-package com.capgemini.training.converters;
+package com.capgemini.training.mappers;
 
 import com.capgemini.training.dtos.CustomerDTO;
-import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.dtos.DocumentType;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import com.capgemini.training.models.CustomerEntity;
 
-@Component
-@Slf4j
-public class CustomerConverter {
+public final class CustomerMapper {
 
-  public CustomerEntity toEntity(CustomerDTO customerDTO) {
+  public static CustomerEntity toEntity(CustomerDTO customerDTO) {
     return CustomerEntity.builder()
         .customerId(customerDTO.getCustomerId())
         .documentType(customerDTO.getDocumentType().getValue())
@@ -20,12 +16,10 @@ public class CustomerConverter {
         .lastname(customerDTO.getLastname())
         .country(customerDTO.getCountry())
         .telephone(customerDTO.getTelephone())
-        .creationDate(customerDTO.getCreationDate())
-        .updateDate(customerDTO.getUpdateDate())
         .build();
   }
 
-  public CustomerDTO toDTO(CustomerEntity customer) {
+  public static CustomerDTO toDTO(CustomerEntity customer) {
     return CustomerDTO.builder()
         .customerId(customer.getCustomerId())
         .documentType(DocumentType.valueOf(customer.getDocumentType()))
@@ -35,8 +29,6 @@ public class CustomerConverter {
         .lastname(customer.getLastname())
         .country(customer.getCountry())
         .telephone(customer.getTelephone())
-        .creationDate(customer.getCreationDate())
-        .updateDate(customer.getUpdateDate())
         .build();
   }
 }

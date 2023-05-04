@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,8 +48,9 @@ public class PaymentEntity {
   @Column(length = 10, nullable = false)
   private String account;
 
-  @Column(nullable = false)
+  @Temporal(TemporalType.TIMESTAMP)
   private Date creationDate;
 
+  @Temporal(TemporalType.TIMESTAMP)
   private Date updateDate;
 }

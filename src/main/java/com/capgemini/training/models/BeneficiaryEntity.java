@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,9 +27,9 @@ public class BeneficiaryEntity {
   @Column(length = 10, nullable = false)
   private String beneficiaryId;
 
-  @Column(nullable = false)
-  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
   private Date creationDate;
 
-  @UpdateTimestamp private Date updateDate;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date updateDate;
 }

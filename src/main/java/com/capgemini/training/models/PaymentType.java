@@ -1,6 +1,13 @@
 package com.capgemini.training.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum PaymentType {
-  BIZUM,
-  TRANSFER
+  BIZUM("BIZUM"),
+  TRANSFER("TRANSFER");
+
+  private String value;
 }

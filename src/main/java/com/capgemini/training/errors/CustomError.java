@@ -1,5 +1,6 @@
-package com.capgemini.training.exceptions;
+package com.capgemini.training.errors;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

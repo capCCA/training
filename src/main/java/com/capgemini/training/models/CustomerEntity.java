@@ -12,8 +12,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -23,29 +25,28 @@ import lombok.RequiredArgsConstructor;
 public class CustomerEntity {
 
   @Id
-  @Column(name = "customer_id", length = 10, nullable = false)
+  @Column(length = 10, nullable = false)
   private String customerId;
 
-  @Column(name = "document_type", length = 8, nullable = false)
+  @Column(length = 8, nullable = false)
   private String documentType;
 
-  @Column(name = "document_number", length = 50, nullable = false)
+  @Column(length = 50, nullable = false)
   private String documentNumber;
 
-  @Column(name = "name", length = 100, nullable = false)
+  @Column(length = 100, nullable = false)
   private String name;
 
-  @Column(name = "surname", length = 100, nullable = false)
+  @Column(length = 100, nullable = false)
   private String surname;
 
-  @Column(name = "lastname", length = 100)
+  @Column(length = 100)
   private String lastname;
 
-  @Column(name = "country", length = 3, nullable = false)
+  @Column(length = 3, nullable = false)
   private String country;
 
-  @Column(name = "telephone")
-  private Integer telephone;
+  @Column private Integer telephone;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date creationDate;

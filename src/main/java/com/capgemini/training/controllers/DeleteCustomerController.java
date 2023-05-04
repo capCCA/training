@@ -1,7 +1,6 @@
 package com.capgemini.training.controllers;
 
-import com.capgemini.training.dtos.CustomerDTO;
-import com.capgemini.training.exceptions.CustomError;
+import com.capgemini.training.errors.CustomError;
 import com.capgemini.training.services.DeleteCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +32,7 @@ public class DeleteCustomerController {
             description = "This id already exists in the database",
             content = {
               @Content(
-                  mediaType = "application/json",
+                  mediaType = MediaType.APPLICATION_JSON_VALUE,
                   schema = @Schema(implementation = CustomError.class))
             }),
         @ApiResponse(
@@ -40,13 +40,13 @@ public class DeleteCustomerController {
             description = "The id does not exist in the database",
             content = {
               @Content(
-                  mediaType = "application/json",
+                  mediaType = MediaType.APPLICATION_JSON_VALUE,
                   schema = @Schema(implementation = CustomError.class))
             })
       })
   @DeleteMapping(path = "/{customerId}")
-  public ResponseEntity<String> deleteCustomer(
-      @PathVariable(name = "customerId") @NotBlank String customerId) {
+  public ResponseEntity<Void> deleteCustomer(
+      @PathVariable("customerId") @NotBlank String customerId) {
     service.deleteCustomer(customerId);
     return ResponseEntity.ok().build();
   }
