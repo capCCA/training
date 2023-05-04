@@ -2,7 +2,7 @@ package com.capgemini.training.converters;
 
 import com.capgemini.training.dtos.CustomerDTO;
 import com.capgemini.training.models.CustomerEntity;
-import com.capgemini.training.models.DocumentType;
+import com.capgemini.training.dtos.DocumentType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +28,7 @@ public class CustomerConverter {
   public CustomerDTO toDTO(CustomerEntity customer) {
     return CustomerDTO.builder()
         .customerId(customer.getCustomerId())
-        .documentType(DocumentType.valueOf(customer.getDocumentType().toUpperCase()))
+        .documentType(DocumentType.valueOf(customer.getDocumentType()))
         .documentNumber(customer.getDocumentNumber())
         .name(customer.getName())
         .surname(customer.getSurname())

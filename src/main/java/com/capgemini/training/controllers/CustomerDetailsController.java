@@ -1,7 +1,14 @@
 package com.capgemini.training.controllers;
 
 import com.capgemini.training.dtos.CustomerDTO;
+import com.capgemini.training.exceptions.CustomError;
 import com.capgemini.training.services.CustomerDetailsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +24,39 @@ public class CustomerDetailsController {
 
   private final CustomerDetailsService service;
 
+  @Operation(summary = "Get customer details")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            responseCode = "200",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = CustomerDTO.class))
+            }),
+        @ApiResponse(
+            responseCode = "400",
+            description = "This id already exists in the database",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = CustomError.class))
+            }),
+        @ApiResponse(
+            responseCode = "404",
+            description = "The id does not exist in the database",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = CustomError.class))
+            })
+      })
   @GetMapping(path = "/{customerId}")
   public ResponseEntity<CustomerDTO> getDetailsCustomer(
-      @PathVariable(name = "customerId") @NotBlank String customerId) {
+      @Parameter(description = "id of de customer to be searched")
+          @PathVariable(name = "customerId")
+          @NotBlank
+          String customerId) {
     return ResponseEntity.ok(service.getCustomerDetail(customerId));
   }
 }

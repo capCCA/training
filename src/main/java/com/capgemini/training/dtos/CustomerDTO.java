@@ -1,6 +1,5 @@
 package com.capgemini.training.dtos;
 
-import com.capgemini.training.models.DocumentType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Date;
 import javax.validation.constraints.NotNull;

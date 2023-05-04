@@ -1,10 +1,14 @@
 package com.capgemini.training.controllers;
 
-import com.capgemini.training.exceptions.CustomerNotFoundException;
+import com.capgemini.training.dtos.CustomerDTO;
+import com.capgemini.training.exceptions.CustomError;
 import com.capgemini.training.services.DeleteCustomerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +23,27 @@ public class DeleteCustomerController {
 
   private final DeleteCustomerService service;
 
+  @Operation(summary = "Delete customer by Id")
+  @ApiResponses(
+      value = {
+        @ApiResponse(responseCode = "200"),
+        @ApiResponse(
+            responseCode = "400",
+            description = "This id already exists in the database",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = CustomError.class))
+            }),
+        @ApiResponse(
+            responseCode = "404",
+            description = "The id does not exist in the database",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = CustomError.class))
+            })
+      })
   @DeleteMapping(path = "/{customerId}")
   public ResponseEntity<String> deleteCustomer(
       @PathVariable(name = "customerId") @NotBlank String customerId) {
