@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class UserGetController {
 
     public final UserGetService userService;
-    // public final DozerBeanMapper mapper; // Alternative
+    // public final DozerBeanMapper mapper; // Alternative 
 
     /**
      * method that pings the Controller
@@ -44,22 +43,26 @@ public class UserGetController {
      * 
      * @return {@link List} of {@link User}
      */
-
     @GetMapping(path = "")
-    public ResponseEntity<List<UserDto>> findAll() {
-        List<UserDto> dtos = userService.findAll().stream().map(u -> u.toDto()).collect(Collectors.toList());
-        return ResponseEntity.ok(dtos);
+    public List<UserDto> findAll() {
+        List<User> users = userService.findAll();
+
+        //Alternative using DozerBeanMapper
+        // return users.stream().
+        // map(u -> mapper.map(u,UserDto.class)).collect(Collectors.toList());
+
+        return users.stream().map(u -> u.toDto()).collect(Collectors.toList());
 
     }
 
     /**
-     * Method that returns a Userdto
+     * Method that returns a User
      * 
-     * @return ResponseEntity <{@link User}>
+     * @return {@link User}
      */
     @GetMapping(path = "/{userId}")
-    public ResponseEntity<UserDto> findById(@PathVariable(name = "userId") @NotBlank String userId) {
-        return ResponseEntity.ok(userService.findById(userId).toDto());
+    public UserDto findById(@PathVariable(name = "userId")@NotBlank  String userId) {
+        return userService.findById(userId).toDto();
     }
 
 }

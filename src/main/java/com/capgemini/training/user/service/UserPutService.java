@@ -16,13 +16,14 @@ import lombok.RequiredArgsConstructor;
 public class UserPutService {
     private final UserJpaRepository userRepository;
 
-    public UserDto update(String id, UserDto dto) throws Exception {
+    // put
+    public void update(String id, UserDto dto) throws Exception {
         User user = userRepository.findById(id).orElse(null);
 
         if (user != null) {
-            dto.setUpdateDate(new Date());
+            dto.setUpdateDate( new Date());
             user = dto.toUser(user);
-            return userRepository.save(user).toDto();
+            userRepository.save(user);
         } else {
             throw new Exception("Not found id " + id);
         }
