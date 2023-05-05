@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 public class HelloService {
 
     public String getHello(String mensaje) {
+
         if (mensaje.isEmpty())
             mensaje = "Debe introducir un parametro mensaje en la url";
 
