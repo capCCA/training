@@ -12,11 +12,6 @@ CREATE TABLE "public"."beneficiary" (
     CONSTRAINT "Beneficiary_pkey" PRIMARY KEY ("Beneficiary_id")
 ) WITH (oids = false);
 
-INSERT INTO "beneficiary" ("Beneficiary_id", "Creation_date", "Update_date") VALUES
-('1',	'2023-04-28 16:25:33.49504',	NULL),
-('2',	'2023-04-28 16:31:24.013974',	NULL),
-('3',	'2023-04-28 16:31:34.584126',	NULL);
-
 DROP TABLE IF EXISTS "customer";
 DROP SEQUENCE IF EXISTS "User_customer_id_seq";
 CREATE SEQUENCE "User_customer_id_seq" INCREMENT  MINVALUE  MAXVALUE  CACHE ;
@@ -37,9 +32,6 @@ CREATE TABLE "public"."customer" (
 
 COMMENT ON COLUMN "public"."customer"."document_type" IS 'Dni, passport';
 
-INSERT INTO "customer" ("customer_id", "document_type", "document_number", "name", "surname", "lastname", "country", "telephone", "creation_date", "update_date") VALUES
-('004',	'Dni',	'2222222',	'c31',	'c32',	'c33',	'034',	99,	'13:23:39.723',	'2023-05-04 19:36:56.869');
-
 DROP TABLE IF EXISTS "payment";
 CREATE TABLE "public"."payment" (
     "Payment_id" bigint NOT NULL,
@@ -53,10 +45,6 @@ CREATE TABLE "public"."payment" (
 
 COMMENT ON COLUMN "public"."payment"."Payment_id" IS 'Serial, is autoincrememtn';
 COMMENT ON COLUMN "public"."payment"."Payment_type" IS 'bizum,transfer';
-
-INSERT INTO "payment" ("Payment_id", "Customer_id", "Beneficiary_id", "Payment_type", "amount", "Creation_date", "Update_date") VALUES
-(1,	'1',	'2',	'transfer',	'$101.00',	'2023-04-28 16:26:44.624301',	NULL),
-(3,	'2',	'3',	'Bizum',	'$200.00',	'2023-04-28 16:32:42.125722',	NULL);
 
 ALTER TABLE ONLY "public"."payment" ADD CONSTRAINT "Payment_Customer_id_fkey" FOREIGN KEY ("Customer_id") REFERENCES customer(customer_id) NOT DEFERRABLE;
 ALTER TABLE ONLY "public"."payment" ADD CONSTRAINT "Payment_m_Beneficiary_id_fkey" FOREIGN KEY ("Beneficiary_id") REFERENCES beneficiary("Beneficiary_id") NOT DEFERRABLE;

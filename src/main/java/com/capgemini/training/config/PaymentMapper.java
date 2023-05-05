@@ -1,7 +1,7 @@
 package com.capgemini.training.config;
 
-import com.capgemini.training.payment.dto.PaymentDto;
-import com.capgemini.training.payment.entity.Payment;
+import com.capgemini.training.dto.PaymentDto;
+import com.capgemini.training.entity.Payment;
 
 public final class PaymentMapper {
     public static Payment toEntity(PaymentDto dto) {

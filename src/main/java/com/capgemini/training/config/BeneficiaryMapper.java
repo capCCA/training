@@ -1,7 +1,7 @@
 package com.capgemini.training.config;
 
-import com.capgemini.training.beneficiary.dto.BeneficiaryDto;
-import com.capgemini.training.beneficiary.entity.Beneficiary;
+import com.capgemini.training.dto.BeneficiaryDto;
+import com.capgemini.training.entity.Beneficiary;
 
 public final class BeneficiaryMapper {
     public static Beneficiary toEntity(BeneficiaryDto dto) {

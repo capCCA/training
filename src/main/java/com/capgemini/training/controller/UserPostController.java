@@ -1,0 +1,32 @@
+package com.capgemini.training.controller;
+
+import javax.validation.Valid;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capgemini.training.dto.UserDto;
+import com.capgemini.training.service.UserPostService;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@RestController
+@RequestMapping(path = "/users")
+public class UserPostController {
+
+    public final UserPostService userService;
+
+    /**
+     * Method that saves a new User: creates a user
+     * 
+     * @param {@link UserDto}
+     */
+    @PostMapping(path = "", consumes = { "application/json" })
+    public void save(@RequestBody @Valid UserDto dto) {
+        userService.save(dto);
+    }
+
+}

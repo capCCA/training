@@ -1,7 +1,7 @@
 package com.capgemini.training.config;
 
-import com.capgemini.training.user.dto.UserDto;
-import com.capgemini.training.user.entity.User;
+import com.capgemini.training.dto.UserDto;
+import com.capgemini.training.entity.User;
 
 public final class UserMapper {
 
