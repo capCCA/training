@@ -12,33 +12,34 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Entity(name = "User")
-@Table( name = "User")
-public class User {
+@ToString
+@Entity
+@Table
+public class Customer {
 
   @Id
-  @Column(name = "customer_id", nullable = false)
-  private String customer_id;
-  @Column(name = "document_type", length = 8, nullable = false)
+  @Column(name = "customer_id" )
+  private String customerId;
+  @Column(name = "document_type", length = 8)
   private String DocumentType;
   @Column(name = "document_number", length = 50, nullable = false)
   private String DocumentNumber;
-  @Column(name = "Name", length = 100, nullable = false)
+  @Column( length = 100, nullable = false)
   private String name;
-  @Column(name = "SurName", length = 100, nullable = false)
+  @Column( length = 100, nullable = false)
   private String surname;
-  @Column(name = "LastName", length = 10)
+  @Column( length = 10)
   private String lastname;
-  @Column(name = "country", length = 3, nullable = false)
+  @Column( length = 3, nullable = false)
   private String country;
-  @Column(name = "Telephone", length = 9)
+  @Column( length = 9)
   private int telephone;
   //Giving pattern for the date
   @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-  @Column(name = "Creation_Date", nullable = false)
+  @Column(name = "creation_date", nullable = false)
   private Date creationDate;
   //Giving pattern for the date
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-  @Column(name = "Update_Date")
+  @Column(name = "update_date")
   private Date updateDate;
 }
