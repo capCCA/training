@@ -2,6 +2,7 @@ package com.capgemini.training.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class PaymentEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(length = 10, nullable = false)
-  private Integer paymentId;
+  private Long paymentId;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_customer")
@@ -43,10 +44,10 @@ public class PaymentEntity {
   private BeneficiaryEntity beneficiaryEntity;
 
   @Column(length = 10, nullable = false)
-  private PaymentType paymentType;
+  private String paymentType;
 
   @Column(length = 10, nullable = false)
-  private String account;
+  private BigDecimal account;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date creationDate;

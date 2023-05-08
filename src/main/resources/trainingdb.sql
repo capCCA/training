@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS beneficiary (
 
 CREATE TABLE IF NOT EXISTS payment (
    payment_id BIGSERIAL PRIMARY KEY,
-   customer_id VARCHAR(10),
-   beneficiary_id VARCHAR(10),
+   customer_id VARCHAR(10) NOT NULL,
+   beneficiary_id VARCHAR(10) NOT NULL,
    payment_type VARCHAR(10) NOT NULL,
    account DECIMAL NOT NULL,
    creation_date TIMESTAMP NOT NULL,

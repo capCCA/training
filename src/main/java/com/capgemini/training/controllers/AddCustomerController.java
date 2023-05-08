@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class AddCustomerController {
   @ApiResponses(
       value = {
         @ApiResponse(
-            responseCode = "200",
+            responseCode = "201",
             description = "CustomerDetails",
             content = {
               @Content(
@@ -58,6 +59,6 @@ public class AddCustomerController {
   @PostMapping
   public ResponseEntity<CustomerDTO> addCustomer(
       @RequestBody @ParameterObject @Valid CustomerDTO customer) {
-    return ResponseEntity.ok(service.addCustomer(customer));
+    return ResponseEntity.status(HttpStatus.CREATED).body(service.addCustomer(customer));
   }
 }
