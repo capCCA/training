@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import com.capgemini.training.dtos.CustomerDTO;
 import com.capgemini.training.dtos.DocumentType;
-import com.capgemini.training.errors.CustomerBadRequestException;
 import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;

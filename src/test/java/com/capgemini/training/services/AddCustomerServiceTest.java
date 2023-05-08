@@ -1,22 +1,20 @@
 package com.capgemini.training.services;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import com.capgemini.training.dtos.CustomerDTO;
 import com.capgemini.training.dtos.DocumentType;
 import com.capgemini.training.errors.CustomerBadRequestException;
-import com.capgemini.training.mappers.CustomerMapper;
 import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
 import java.util.Date;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @WebMvcTest(AddCustomerServiceTest.class)
 class AddCustomerServiceTest {
