@@ -1,5 +1,6 @@
 package com.capgemini.training.services.user;
 
+import com.capgemini.training.dto.CustomerDto;
 import com.capgemini.training.mappers.CustomerMapper;
 import com.capgemini.training.models.Customer;
 import com.capgemini.training.repository.CustomerRepository;
@@ -16,17 +17,19 @@ public class UserSaveService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
-    public ResponseEntity saveUser( Customer customer ){
+    public ResponseEntity saveUser( CustomerDto customerDto ){
 
         //Removing spaces from customerId to save it clean in database
-        customer.setCustomerId(customer.getCustomerId().trim());
+        customerDto.setCustomerId(customerDto.getCustomerId().trim());
 
-        //Checking that ID does not exist on database
-        if( !customerRepository.findById( customer.getCustomerId() ).isPresent() ){
+        //Checking Customer ID does not exist on database
+        if( !customerRepository.findById( customerDto.getCustomerId() ).isPresent() ){
           // Avoiding null entitities
-          if (customer != null) {
+          if ( customerDto != null) {
 
-            if (customerRepository.save(customer) != null) {
+            Customer customer  = customerRepository.save( customerMapper.requestConvertDto(customerDto) );
+
+            if ( customer != null ) {
 
               return ResponseEntity.ok()
                   .body(
@@ -41,6 +44,5 @@ public class UserSaveService {
 
         }return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("El ID insertado ya se encuentra registrado en la base de datos");
-
     }
 }

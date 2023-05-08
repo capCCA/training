@@ -1,6 +1,6 @@
 package com.capgemini.training.controller.user;
 
-import com.capgemini.training.mappers.CustomerMapper;
+import com.capgemini.training.dto.CustomerDto;
 import com.capgemini.training.models.Customer;
 import com.capgemini.training.services.user.UserSaveService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
@@ -31,9 +33,9 @@ public class UserSaveController {
             @ApiResponse(responseCode = "500", description = "Error while inserting Customer",
                     content = @Content), })
     @PostMapping("/")
-    public ResponseEntity saveUser(@RequestBody Customer customer) {
+    public ResponseEntity saveUser( @RequestBody @Valid CustomerDto customerDto ) {
 
-        return userSaveService.saveUser(customer);
+        return userSaveService.saveUser(customerDto);
 
     }
 }

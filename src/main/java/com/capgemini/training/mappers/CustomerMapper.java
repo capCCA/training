@@ -13,14 +13,15 @@ import java.util.stream.Collectors;
 public class CustomerMapper {
 
     private final CustomerDto customerDto;
+    private final Customer customer;
     public CustomerDto customerConverterDto( Customer customer,String customMessage ){
 
         customerDto.setCustomerId(customer.getCustomerId());
         customerDto.setDocumentType(customer.getDocumentType());
         customerDto.setDocumentNumber(customer.getDocumentNumber());
         customerDto.setName(customer.getName());
-        customerDto.setSurName(customer.getSurname());
-        customerDto.setLastName(customer.getLastname());
+        customerDto.setSurname(customer.getSurname());
+        customerDto.setLastname(customer.getLastname());
         customerDto.setCountry(customer.getCountry());
         customerDto.setTelephone(customer.getTelephone());
         customerDto.setCreationDate(customer.getCreationDate());
@@ -35,5 +36,21 @@ public class CustomerMapper {
 
         return customer.stream().map( c -> customerConverterDto( c ,"")).collect(Collectors.toList());
 
+    }
+
+    public Customer requestConvertDto( CustomerDto customerDto ){
+
+        customer.setCustomerId( customerDto.getCustomerId() );
+        customer.setName( customerDto.getName() );
+        customer.setTelephone( customerDto.getTelephone() );
+        customer.setCountry( customerDto.getCountry() );
+        customer.setDocumentNumber( customerDto.getDocumentNumber() );
+        customer.setDocumentType( customerDto.getDocumentType() );
+        customer.setLastname( customerDto.getLastname() );
+        customer.setSurname( customerDto.getSurname() );
+        customer.setCreationDate( customerDto.getCreationDate() );
+        customer.setUpdateDate( customerDto.getUpdateDate() );
+
+        return customer;
     }
 }
