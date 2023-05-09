@@ -5,7 +5,7 @@ import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.mappers.CustomerMapper;
 import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class UpdateCustomerService {
   public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
     if (repository.existsById(customerDTO.getCustomerId())) {
       CustomerEntity customer = CustomerMapper.toEntity(customerDTO);
-      customer.setUpdateDate(new Date());
+      customer.setUpdateDate(LocalDateTime.now());
       return CustomerMapper.toDTO(repository.save(customer));
     }
     throw new CustomerNotFoundException();

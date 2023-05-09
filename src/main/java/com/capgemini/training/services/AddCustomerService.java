@@ -5,7 +5,7 @@ import com.capgemini.training.errors.CustomerBadRequestException;
 import com.capgemini.training.mappers.CustomerMapper;
 import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class AddCustomerService {
     if (repository.existsById(customer.getCustomerId())) {
       throw new CustomerBadRequestException("This id already exists in the database");
     }
-    customer.setCreationDate(new Date());
+    customer.setCreationDate(LocalDateTime.now());
     return CustomerMapper.toDTO(repository.save(customer));
   }
 }

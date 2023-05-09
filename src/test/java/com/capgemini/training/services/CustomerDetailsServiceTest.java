@@ -9,7 +9,7 @@ import com.capgemini.training.dtos.DocumentType;
 import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,20 +48,20 @@ class CustomerDetailsServiceTest {
             .lastname("LOPEZ")
             .country("ESP")
             .telephone(1234567)
-            .creationDate(new Date())
-            .updateDate(new Date())
+            .creationDate(LocalDateTime.now())
+            .updateDate(LocalDateTime.now())
             .build();
   }
 
   @Test
-  void getCustomerDetails_shouldResponseOK() {
+  void getCustomerDetails_whenIdExist_shouldReturnCustomer() {
     when(repository.findById(any())).thenReturn(Optional.of(customerEntity));
     CustomerDTO response = customerDetailsService.getCustomerDetail("0999");
     assertEquals(customerDTO.getCustomerId(), response.getCustomerId());
   }
 
   @Test
-  void getCustomerDetails_shouldResponseNotFound() {
+  void getCustomerDetail_whenCustomerNoExist_shouldThrowNotFound() {
     when(repository.findById(customerDTO.getCustomerId())).thenReturn(Optional.empty());
     assertThrows(
         CustomerNotFoundException.class, () -> customerDetailsService.getCustomerDetail("000"));

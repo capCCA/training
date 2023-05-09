@@ -1,6 +1,7 @@
 package com.capgemini.training.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -9,7 +10,7 @@ import com.capgemini.training.dtos.DocumentType;
 import com.capgemini.training.errors.CustomerBadRequestException;
 import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
-import java.util.Date;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -47,16 +48,18 @@ class AddCustomerServiceTest {
             .lastname("LOPEZ")
             .country("ESP")
             .telephone(1234567)
-            .creationDate(new Date())
-            .updateDate(new Date())
+            .creationDate(LocalDateTime.now())
+            .updateDate(LocalDateTime.now())
             .build();
   }
 
   @Test
-  void addCustomer() {
+  void addCustomer_whenCustomerProvided_shouldReturnCustomer() {
     when(repository.existsById(customerDTO.getCustomerId())).thenReturn(false);
     when(repository.save(any(CustomerEntity.class))).thenReturn(customer);
+
     CustomerDTO response = addCustomerService.addCustomer(customerDTO);
+
     assertEquals(customerDTO.getCustomerId(), response.getCustomerId());
   }
 

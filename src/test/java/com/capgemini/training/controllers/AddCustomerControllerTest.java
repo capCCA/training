@@ -2,6 +2,7 @@ package com.capgemini.training.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import com.capgemini.training.dtos.CustomerDTO;
@@ -10,8 +11,8 @@ import com.capgemini.training.errors.CustomerBadRequestException;
 import com.capgemini.training.services.AddCustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 class AddCustomerControllerTest {
 
   private CustomerDTO customerDTO;
-  @Autowired private AddCustomerController addCustomerController;
+  @InjectMocks private AddCustomerController addCustomerController;
   @Mock private AddCustomerService addCustomerService;
 
   @BeforeEach
@@ -39,7 +40,7 @@ class AddCustomerControllerTest {
   }
 
   @Test
-  void shouldReturnCreate() {
+  void addCustomer_whenCustomerProvidedOk_shouldReturnOK() {
 
     when(addCustomerService.addCustomer(customerDTO)).thenReturn(customerDTO);
 
@@ -50,9 +51,9 @@ class AddCustomerControllerTest {
   }
 
   @Test
-  void whenBodyAreNotProvided_shouldThrowBadRequest() throws Exception {
-
-    when(addCustomerService.addCustomer(customerDTO)).thenThrow(CustomerBadRequestException.class);
+  void addCustomer_whenIdAlreadyExist_shouldThrowBadRequest() throws Exception {
+    when(addCustomerService.addCustomer(any(CustomerDTO.class)))
+        .thenThrow(CustomerBadRequestException.class);
 
     assertThrows(
         CustomerBadRequestException.class, () -> addCustomerController.addCustomer(customerDTO));

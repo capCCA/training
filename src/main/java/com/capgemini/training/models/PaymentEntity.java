@@ -34,12 +34,12 @@ public class PaymentEntity {
   private Long paymentId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "fk_customer")
+  @JoinColumn(name = "customer_id")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private CustomerEntity customer;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "fk_beneficiary")
+  @JoinColumn(name = "beneficiary_id")
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private BeneficiaryEntity beneficiaryEntity;
 

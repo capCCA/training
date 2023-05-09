@@ -10,7 +10,7 @@ import com.capgemini.training.dtos.DocumentType;
 import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
-import java.util.Date;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -50,13 +50,13 @@ class UpdateCustomerServiceTest {
             .lastname("LOPEZ")
             .country("ESP")
             .telephone(1234567)
-            .creationDate(new Date())
-            .updateDate(new Date())
+            .creationDate(LocalDateTime.now())
+            .updateDate(LocalDateTime.now())
             .build();
   }
 
   @Test
-  void updateCustomer() {
+  void updateCustomer_whenParamsProvided_shouldReturnCustomer() {
     when(repository.existsById(anyString())).thenReturn(true);
     when(repository.save(any(CustomerEntity.class))).thenReturn(customer);
     CustomerDTO response = service.updateCustomer(customerDTO);
@@ -64,7 +64,7 @@ class UpdateCustomerServiceTest {
   }
 
   @Test
-  void addCustomer_BadRequest() {
+  void updateCustomer_whenIdNoExist_shouldReturnNotFound() {
     when(repository.existsById(customerDTO.getCustomerId())).thenReturn(false);
     assertThrows(CustomerNotFoundException.class, () -> service.updateCustomer(customerDTO));
   }

@@ -1,13 +1,11 @@
 package com.capgemini.training.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,9 +46,7 @@ public class CustomerEntity {
 
   @Column private Integer telephone;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date creationDate;
+  @Column private LocalDateTime creationDate;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date updateDate;
+  @Column private LocalDateTime updateDate;
 }

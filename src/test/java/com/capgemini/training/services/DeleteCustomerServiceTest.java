@@ -3,7 +3,6 @@ package com.capgemini.training.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,17 +24,18 @@ class DeleteCustomerServiceTest {
   @Mock private CustomerRepository repository;
 
   @Test
-  void deleteCustomer() {
-    CustomerRepository repositoryMock = mock(CustomerRepository.class);
+  void deleteCustomer_whenIdExist_shouldReturnOK() {
     when(repository.existsById(anyString())).thenReturn(true);
     doNothing().when(repository).deleteById("0000");
+
     service.deleteCustomer("0000");
+
     verify(repository).deleteById(anyString());
   }
 
   @Test
-  void addCustomer_BadRequest() {
+  void deleteCustomer_whenIdDoesNotExist_shouldThrowBadRequest() {
     when(repository.existsById(anyString())).thenReturn(false);
-    assertThrows(CustomerNotFoundException.class, () -> service.deleteCustomer(anyString()));
+    assertThrows(CustomerNotFoundException.class, () -> service.deleteCustomer(""));
   }
 }
