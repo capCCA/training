@@ -1,60 +1,41 @@
-select 1 from dual;
 
---Create tables from  http://localhost:9090/?pgsql=postgres&username=postgres
-/**
+CREATE DATABASE training_db;
 
--- Adminer 4.8.1 PostgreSQL 15.2 (Debian 15.2-1.pgdg110+1) dump
+CREATE TABLE IF NOT EXISTS customer (
+   customer_id VARCHAR(10) PRIMARY KEY,
+   document_type VARCHAR(8) NOT NULL,
+   document_number VARCHAR(50) NOT NULL ,
+   name VARCHAR(100) NOT NULL,
+   surname VARCHAR(100) NOT NULL,
+   lastname VARCHAR(100),
+   country VARCHAR(3) NOT NULL,
+   telephone INTEGER,
+   creation_date TIMESTAMP NOT NULL DEFAULT (now() at time zone 'utc'),
+   update_date TIMESTAMP DEFAULT (now() at time zone 'utc'),
+   CHECK( document_type in ('dni', 'passport') )
+);
 
-DROP TABLE IF EXISTS "Beneficiary";
-DROP SEQUENCE IF EXISTS "Beneficiary_Beneficiary:id_seq";
-CREATE SEQUENCE "Beneficiary_Beneficiary:id_seq" INCREMENT  MINVALUE  MAXVALUE  CACHE ;
+CREATE TABLE IF NOT EXISTS beneficiary (
+   beneficiary_id VARCHAR(10) PRIMARY KEY,
+   creation_date TIMESTAMP NOT NULL DEFAULT (now() at time zone 'utc'),
+   update_date TIMESTAMP DEFAULT (now() at time zone 'utc')
+);
 
-CREATE TABLE "public"."Beneficiary" (
-    "Beneficiary_id" character varying(10) DEFAULT 'nextval(''"Beneficiary_Beneficiary:id_seq"'')' NOT NULL,
-    "Creation_date" timestamp NOT NULL,
-    "Update_date" timestamp,
-    CONSTRAINT "Beneficiary_pkey" PRIMARY KEY ("Beneficiary_id")
-) WITH (oids = false);
+CREATE TABLE IF NOT EXISTS payment (
+   payment_id BIGSERIAL PRIMARY KEY,
+   customer_id VARCHAR(10),
+   beneficiary_id VARCHAR(10),
+   payment_type VARCHAR(10) NOT NULL,
+   amount DECIMAL NOT NULL,
+   creation_date TIMESTAMP NOT NULL DEFAULT (now() at time zone 'utc'),
+   update_date TIMESTAMP DEFAULT (now() at time zone 'utc'),
+   CHECK( payment_type in ('bizum', 'transfer'))
+);
 
-
-DROP TABLE IF EXISTS "Payment";
-CREATE TABLE "public"."Payment" (
-    "Payment_id" bigint NOT NULL,
-    "Customer_id" character varying(10) NOT NULL,
-    "Beneficiary_id" character varying(10) NOT NULL,
-    "Payment_type" character varying(10) NOT NULL,
-    "amount" money NOT NULL,
-    "Creation_date" timestamp NOT NULL,
-    "Update_date" timestamp
-) WITH (oids = false);
-
-COMMENT ON COLUMN "public"."Payment"."Payment_id" IS 'Serial, is autoincrement';
-
-COMMENT ON COLUMN "public"."Payment"."Payment_type" IS 'bizum,transfer';
-
-
-DROP TABLE IF EXISTS "User";
-DROP SEQUENCE IF EXISTS "User_customer:id_seq";
-CREATE SEQUENCE "User_customer_id_seq" INCREMENT  MINVALUE  MAXVALUE  CACHE ;
-
-CREATE TABLE "public"."User" (
-    "customer_id" character varying(10) DEFAULT 'nextval(''"User_customer:id_seq"'')' NOT NULL,
-    "Document_type" character varying(8) NOT NULL,
-    "Document_number" character varying(50) NOT NULL,
-    "Name" character varying(100) NOT NULL,
-    "SurName" character varying(100) NOT NULL,
-    "LastName" character varying(100),
-    "Country" character varying(3) NOT NULL,
-    "Telephone" integer,
-    "Creation_date" timestamp NOT NULL,
-    "Update_date" timestamp,
-    CONSTRAINT "User_pkey" PRIMARY KEY ("customer_id")
-) WITH (oids = false);
-
-COMMENT ON COLUMN "public"."User"."Document_type" IS 'Dni, passport';
-
-
-ALTER TABLE ONLY "public"."Payment" ADD CONSTRAINT "Payment_Customer_id_fkey" FOREIGN KEY ("Customer_id") REFERENCES "User"(customer_id) NOT DEFERRABLE;
-ALTER TABLE ONLY "public"."Payment" ADD CONSTRAINT "Payment_Beneficiary_id_fkey" FOREIGN KEY ("Beneficiary_id") REFERENCES "Beneficiary"("Beneficiary_id") NOT DEFERRABLE;
-
-**/
+ALTER TABLE  payment 
+  ADD CONSTRAINT payment_customer_fk 
+  FOREIGN KEY (customer_id) REFERENCES customer(customer_id);
+  
+ALTER TABLE  payment 
+  ADD CONSTRAINT payment_beneficiary_fk 
+  FOREIGN KEY (beneficiary_id) REFERENCES beneficiary(beneficiary_id);

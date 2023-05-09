@@ -113,55 +113,41 @@ controladores ni de servicios. <br>
 **Nota2**: No usar mapStruct, sino mappers custom.<br>
 **Nota3**: Siempre que tengamos que iterar sobre algo usar streams (programación funcional). No usar for, while, dowhile, etc.
 
-3._Duda_ 1: No se cual es la url para conectar a BBDD prostgres desde la aplicacion.
+_Duda_ 1: No se cual es la url para conectar a BBDD prostgres desde la aplicacion.
 desde el browser nos conectamos con http://localhost:9090/?pgsql=postgres&username=postgres&db=training_db
 Muestro application.properties
 
 ```#Load database that is not embedded
 spring.datasource.platform=postgres
-spring.datasource.url=jdbc:postgresql://localhost:9090/training_db
-#spring.datasource.url=jdbc:postgresql://localhost:9090/?pgsql=postgres&username=postgres&db=training_db
+spring.datasource.url=jdbc:postgresql://localhost:5432/training_db
+--spring.datasource.url=jdbc:postgresql://localhost:9090/training_db
+--spring.datasource.url=jdbc:postgresql://localhost:9090/?pgsql=postgres&username=postgres&db=training_db
 spring.datasource.username=postgres
-spring.datasource.password=password`
+spring.datasource.password=password
 ```
-4. _Duda_ 2: Si no se usa un numero para el ID de las entities sino un String,como es el caso para Beneficiary y User, 
+_Duda_ 2: Si no se usa un numero para el ID de las entities sino un String,como es el caso para Beneficiary y User, 
 >el JPARepository como se usa si el ID es String
-> 
->ya que no se puede usar @GeneratedValue que haga el autoincrement y se hace manualmente?
+>ya que no se puede usar @GeneratedValue que haga el autoincrement 
 
+_Duda_ 3: Cuando intento usar el FK de la tabla payment en postgress en el Entity para el @ManytoOne
+Spring no reconoce el FK.  
+Parece que el problema viene relacionado con haber usado el GUI para crear FK. Crear los scripts de creacion de tablas y FK con sentencias SQL y no el GUI.
 
-## Tarea 5: día 8 y día 9
+## Problemas encontrados con Docker.
 
-1.  Realizar todos los tests unitarios de todas las clases.
+De pronto me ha dejado de funcionar con este error:
 
-**Nota**: Mockear todas las dependencias a la clase que se quiere testear.
+`System.InvalidOperationException:
+Failed to deploy distro docker-desktop to C:\Users\erigolpo\AppData\Local\Docker\wsl\distro: exit code: -1
+stdout: Logon failure: the user has not been granted the requested logon type at this computer.
+`
 
-## Tarea 6: dia 10 y dia 11
+### Solucion:  Deleting %appdata%\Docker Desktop and %appdata%\Docker
+Parar Docker ( reinicio del ordenador), y borrar 2 directorios se soluciona.
+Cuando se arranca de nuevo se vuelven a crear ambos.
+En mi caso no tengo la opcion de ejecutar como administrador, que según parece permite arrancar sin problema aunque nos haya dado el error mencionado.
 
-1. Crear un nuevo microservicio para toda la funcionalidad de payments (arquitectura MVC).
-    1. Listado de todos los pagos de un cliente.
-    2. Update de un pago.
-    3. Inserción de un nuevo pago.
+Según se menciona en https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html
 
-## Tarea 7: día 12
-
-1.  Creación de los test de la tarea 6 usando jUnit y Mockito.
-
-## Tarea 8: día 13
-
-1. Teoría de la arquitectura DDD (Domain Driver Desing).
-    1. Buscar todos los videos necesarios donde expliquen esto. 
-       1. DDD en 20 min:
-          1. https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n
-       2. Rigor Talks en Php pero son conceptos básicos:
-          1. https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n
-       3. Qué es la arquitectura hexagona y cómo aplicarla:
-          1. https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n
-       4. Clean architecure:
-          1. https://www.youtube.com/watch?v=dH5aSQLXtKg&t=24s&ab_channel=CodelyTV-Redescubrelaprogramaci%C3%B3n
-
-**Repo de referencia:** https://github.com/sandokandias/spring-boot-ddd 
-
-## Tarea 9: día 14 y día 15
-
-1. Criterio del formador para refactorizar la arquitectura DDD o repasar temas que crea que no están suficientemente preparados. *Improvisar*
+Solución tarea 1: https://github.com/capCCA/training-tarea-1
+Solución tarea 2: https://github.com/capCCA/training-tarea-2

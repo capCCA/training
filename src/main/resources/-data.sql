@@ -1,19 +1,25 @@
 select 1 from dual;
-/*
 
-INSERT INTO "User" ("customer_id", "Document_type", "Document_number", "Name", "SurName", "LastName", "Country", "Telephone", "Creation_date", "Update_date") VALUES
-('1',	'Dni',	'123456',	'Aname',	'Asurname',	'ALastname',	'44',	123123,	'16:24:29.552419',	NULL),
-('2',	'Dni',	'1234567',	'Anamea',	'Asurnameb',	'ALastnameb',	'045',	1231234,	'16:25:06.4578',	NULL),
-('3',	'Dni',	'123456',	'Aname',	'Asurnameb',	NULL,	'',	34,	'16:34:48.815022',	NULL);
+INSERT INTO customer (customer_id, document_type, document_number, name, Surname, Lastname, country, telephone) VALUES
+('1',	'dni',	'123456',	'Aname',	'Asurname',	'ALastname',	'44',	123123),
+('2',	'dni',	'1234567',	'Anamea',	'Asurnameb',	'ALastnameb',	'045',	1231234	),
+('3',	'dni',	'123456',	'Aname',	'Asurnameb',	NULL,	'',	34),
+('4',	'passport',	'1234568',	'Aname',	'Asurnamed',	NULL,	'',	345);
+--testear el check: Error in query: ERROR: new row for relation "customer" violates check constraint "customer_document_type_check"
+--INSERT INTO customer (customer_id, document_type, document_number, name, Surname, Lastname, country, telephone) VALUES
+--('5',	'Nie',	'1234568',	'Aname',	'Asurnamed',	NULL,	'',	345);
+--
 
-INSERT INTO "Payment" ("Payment_id", "Customer_id", "Beneficiary_id", "Payment_type", "amount", "Creation_date", "Update_date") VALUES
-(1,	'1',	'2',	'transfer',	'$101.00',	'2023-04-28 16:26:44.624301',	NULL),
-(3,	'2',	'3',	'Bizum',	'$200.00',	'2023-04-28 16:32:42.125722',	NULL);
+INSERT INTO beneficiary ("beneficiary_id") VALUES
+('01'),
+('02'),
+('03');
 
+--INSERT INTO "payment" ("Payment_id", "Customer_id", "Beneficiary_id", "Payment_type", "amount") VALUES
+INSERT INTO payment (customer_id, beneficiary_id, payment_type, amount) VALUES
+('1',	'01',	'transfer',	'201.00'),
+('2',	'02',	'bizum',	'20.00'),
+('3',	'03',	'bizum',	'50.50'),
+('1',	'02',	'transfer',	'990.00'),
+('1',	'03',	'bizum',	'500.99');
 
-INSERT INTO "Beneficiary" ("Beneficiary_id", "Creation_date", "Update_date") VALUES
-('1',	'2023-04-28 16:25:33.49504',	NULL),
-('2',	'2023-04-28 16:31:24.013974',	NULL),
-('3',	'2023-04-28 16:31:34.584126',	NULL);
-
-*/
