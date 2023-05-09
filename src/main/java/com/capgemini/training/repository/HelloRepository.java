@@ -1,4 +1,4 @@
-package com.capgemini.training.hello.repository;
+package com.capgemini.training.repository;
 
 import org.springframework.stereotype.Repository;
 

@@ -1,47 +1,44 @@
--- Adminer 4.8.1 PostgreSQL 15.2 (Debian 15.2-1.pgdg110+1) dump
-
-DROP TABLE IF EXISTS "Beneficiary";
-CREATE TABLE "public"."Beneficiary" (
-    "Beneficiary_id" character varying(10) NOT NULL,
-    "Creation_date" timestamp NOT NULL,
-    "Update_date" timestamp,
-    CONSTRAINT "Beneficiary_Beneficiary_id" PRIMARY KEY ("Beneficiary_id")
-) WITH (oids = false);
-
-
-DROP TABLE IF EXISTS "Payment";
-DROP SEQUENCE IF EXISTS "Payment_Payment_id_seq";
-CREATE SEQUENCE "Payment_Payment_id_seq" INCREMENT  MINVALUE  MAXVALUE  CACHE ;
-
-CREATE TABLE "public"."Payment" (
-    "Payment_id" bigint DEFAULT nextval('"Payment_Payment_id_seq"') NOT NULL,
-    "Customer_id" character varying(10) NOT NULL,
-    "Beneficiary_id" character varying(10) NOT NULL,
-    "Payment_type" character varying(10) DEFAULT 'bizum, transfer' NOT NULL,
-    "Amount" double precision NOT NULL,
-    "Creation_date" timestamp NOT NULL,
-    "Update_date" timestamp,
-    CONSTRAINT "Payment_pkey" PRIMARY KEY ("Payment_id")
-) WITH (oids = false);
+--CREATE DATABASE training_db;
+CREATE TABLE IF NOT EXISTS customer (											
+   customer_id VARCHAR(10) PRIMARY KEY,                   
+   document_type VARCHAR(8) NOT NULL,                     
+   document_number VARCHAR(50) NOT NULL ,                 
+   name VARCHAR(100) NOT NULL,                            
+   sur_name VARCHAR(100) NOT NULL,                        
+   last_name VARCHAR(100),                                
+   country VARCHAR(3) NOT NULL,                           
+   telephone INTEGER,                                     
+   creation_date TIMESTAMP NOT NULL,                      
+   update_date TIMESTAMP,                                 
+   check(document_type in ('DNI', 'PASSPORT'))            
+);                                                        
+CREATE TABLE IF NOT EXISTS beneficiary (
+   beneficiary_id VARCHAR(10) PRIMARY KEY,
+   creation_date TIMESTAMP NOT NULL,
+   update_date TIMESTAMP
+);
 
 
-DROP TABLE IF EXISTS "User";
-CREATE TABLE "public"."User" (
-    "customer_id" character varying(10) NOT NULL,
-    "Document_type" character varying(8) DEFAULT 'DNI, passport' NOT NULL,
-    "Document_number" character varying(50) NOT NULL,
-    "Name" character varying(100) NOT NULL,
-    "SurName" character varying(100) NOT NULL,
-    "LastName" character varying(100),
-    "Country" character varying(3) NOT NULL,
-    "Telephone" integer,
-    "Creation_date" timestamp NOT NULL,
-    "Update_date" timestamp,
-    CONSTRAINT "User_pkey" PRIMARY KEY ("customer_id")
-) WITH (oids = false);
+CREATE TABLE IF NOT EXISTS payment (
+   payment_id BIGSERIAL PRIMARY KEY,
+   customer_id VARCHAR(10),
+   beneficiary_id VARCHAR(10),
+   payment_type VARCHAR(10) NOT NULL,
+   account DECIMAL NOT NULL,
+   creation_date TIMESTAMP NOT NULL,
+   update_date TIMESTAMP,
+   check(payment_type in ('BIZUM', 'TRANSFER')),
+   CONSTRAINT fk_user FOREIGN KEY(customer_id)
+      REFERENCES user(customer_id),
+   CONSTRAINT fk_beneficiary FOREIGN KEY(beneficiary_id)
+      REFERENCES beneficiary(beneficiary_id)
+);
 
 
-ALTER TABLE ONLY "public"."Payment" ADD CONSTRAINT "Payment_Beneficiary_id_fkey" FOREIGN KEY ("Beneficiary_id") REFERENCES "Beneficiary"("Beneficiary_id") NOT DEFERRABLE;
-ALTER TABLE ONLY "public"."Payment" ADD CONSTRAINT "Payment_Customer_id_fkey" FOREIGN KEY ("Customer_id") REFERENCES "User"(customer_id) NOT DEFERRABLE;
 
--- 2023-05-05 11:54:41.61827+00
+ALTER TABLE  payment 
+		ADD CONSTRAINT Payment_Beneficiary_fkey 
+		FOREIGN KEY (beneficiary_id) REFERENCES beneficiary(beneficiary_id) ;
+ALTER TABLE  payment 
+		ADD CONSTRAINT Payment_Customer_fkey 
+		FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ;
