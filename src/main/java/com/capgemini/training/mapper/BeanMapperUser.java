@@ -55,14 +55,4 @@ public class BeanMapperUser {
 
     }
 
-    /*
-     * public static UserEntity toEntity(UserDto userDTO) { return
-     * UserEntity.builder().customer_id(userDTO.getCustomerId())
-     * .documentType(userDTO.getDocumentType().getValue()).documentNumber(userDTO.
-     * getDocumentNumber())
-     * .name(userDTO.getName()).surname(userDTO.getSurname()).lastname(userDTO.
-     * getLastname())
-     * .country(userDTO.getCountry()).telephone(userDTO.getTelephone()).build(); }
-     */
-
 }
