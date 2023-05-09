@@ -1,5 +1,6 @@
 package com.capgemini.training.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,33 +11,30 @@ import com.capgemini.training.service.GreetingService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/hello")
+@RequiredArgsConstructor
 public class GreetingController {
-    private final GreetingService dummyservice;// GreetingController(GreetingService) is created
+  private final GreetingService service;
 
-    /**
-     * Method that returns a basic greeting
-     * 
-     * @return {@link Greeting}
-     */
-    @GetMapping(path = "")
-    public String getGreeting() {
-        return dummyservice.getGreeting();
-    }
+  /**
+   * Method that returns a basic greeting
+   *
+   * @return {@link Greeting}
+   */
+  @GetMapping(path = "")
+  public ResponseEntity<String> getGreeting() {
+    return ResponseEntity.ok(service.getGreeting());
+  }
 
-    // Not needed
-    /**
-     * Method that returns a greeting if the user is given
-     * 
-     * @param user
-     * @return {@link Greeting}
-     */
-
-    @GetMapping("/{user}")
-    public String getGreeting(@PathVariable(name = "user") String user) {
-        return dummyservice.getGreeting(user);
-    }
-
+  /**
+   * Method that returns a greeting if the user is given
+   *
+   * @param user
+   * @return {@link Greeting}
+   */
+  @GetMapping("/{user}")
+  public ResponseEntity<String> getGreeting(@PathVariable(name = "user") String user) {
+    return ResponseEntity.ok(service.getGreeting(user));
+  }
 }

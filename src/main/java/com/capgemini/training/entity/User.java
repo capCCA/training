@@ -1,30 +1,19 @@
 package com.capgemini.training.entity;
 
 import java.util.Date;
+import javax.persistence.*;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+@Entity
+@Table(name = "customer")
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 @ToString
-
-@Entity
-@Table(name = "customer")
+@EqualsAndHashCode
 public class User {
     @Id
     @Column(length = 10)
@@ -57,27 +46,5 @@ public class User {
 
     @Temporal(TemporalType.TIMESTAMP)
     Date updateDate;
-
-    /**
-     * Metodo que devuelve un dto
-     * 
-     * @return {@link UserDto}
-     * @see UserGetController findAll y findById
-     */
-//    public UserDto toDto() {
-//        UserDto dto = new UserDto();
-//        dto.setCustomerId(customerId);
-//        dto.setDocumentType(documentType);
-//        dto.setDocumentNumber(documentNumber);
-//        dto.setName(name);
-//        dto.setSurname(surname);
-//        dto.setLastname(lastname);
-//        dto.setTelephone(telephone);
-//        dto.setCountry(country);
-//        dto.setCreationDate(creationDate);
-//        dto.setUpdateDate(updateDate);
-//        return dto;
-//
-//    }
 
 }
