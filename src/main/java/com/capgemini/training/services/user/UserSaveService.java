@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class UserSaveService {
         //Checking Customer ID does not exist on database
         if( !customerRepository.findById( customerDto.getCustomerId() ).isPresent() ){
 
-            customerDto.setCreationDate(new Date());
+            customerDto.setCreationDate( LocalDate.now() );
             Optional<Customer> customer  = Optional.of(customerRepository.save(customerMapper.requestConvertEntity(customerDto)));
 
             if ( customer.isPresent() ) {

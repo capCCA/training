@@ -1,6 +1,7 @@
 package com.capgemini.training.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -44,8 +45,8 @@ public class CustomerDto implements Serializable {
     private int telephone;
     @NotNull(message = "La fecha de creación no puede estar vacío")
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    private Date creationDate;
+    private LocalDate creationDate;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    private Date updateDate;
+    private LocalDate updateDate;
     private String customMessage;
 }

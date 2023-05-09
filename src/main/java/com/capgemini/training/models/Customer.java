@@ -1,17 +1,14 @@
 package com.capgemini.training.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.ToString;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -44,9 +41,9 @@ public class Customer {
   //Giving pattern for the date
   @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
   @Column(name = "creation_date", nullable = false)
-  private Date creationDate;
+  private LocalDate creationDate;
   //Giving pattern for the date
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
   @Column(name = "update_date")
-  private Date updateDate;
+  private LocalDate updateDate;
 }
