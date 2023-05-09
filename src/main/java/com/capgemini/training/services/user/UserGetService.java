@@ -39,7 +39,7 @@ public class UserGetService {
                 .internalServerError()
                 .body("Fallo al intentar recuperar al usuario en el sistema. Por favor contacte con su administrador ");
     }
-    public ResponseEntity getUsers(){
+    /*public ResponseEntity getUsers(){
 
         List<Customer> customers = customerRepository.findAll();
 
@@ -54,5 +54,5 @@ public class UserGetService {
             return ResponseEntity.ok(customerMapper.customerConverterDto(customers));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay clientes registrados en la base de datos");
-    }
+    }*/
 }

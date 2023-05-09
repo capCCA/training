@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserEditService {
@@ -21,8 +23,10 @@ public class UserEditService {
 
         if( customerRepository.findById( customer.getCustomerId() ).isPresent() ){
 
+            Optional<Customer> customer1 = Optional.of(customerRepository.save(customer));
+
             //If customer has been saved correctly
-            if( customerRepository.save(customer) != null){
+            if( customer1.isPresent() ){
 
                 return ResponseEntity
                         .ok( customerMapper.customerConverterDto( customer, "El usuario: " + customer + " ha sido actualizado correctamente "));

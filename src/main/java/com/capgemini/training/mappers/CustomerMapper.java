@@ -38,7 +38,7 @@ public class CustomerMapper {
 
     }
 
-    public Customer requestConvertDto( CustomerDto customerDto ){
+    public Customer requestConvertEntity(CustomerDto customerDto ){
 
         customer.setCustomerId( customerDto.getCustomerId() );
         customer.setName( customerDto.getName() );

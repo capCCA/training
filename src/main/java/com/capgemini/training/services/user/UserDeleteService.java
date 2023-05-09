@@ -2,7 +2,10 @@ package com.capgemini.training.services.user;
 
 import com.capgemini.training.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -11,14 +14,17 @@ public class UserDeleteService {
   // Repository injection
   private final CustomerRepository customerRepository;
 
-  public boolean delete( String id ) {
+  public ResponseEntity delete(String id ) {
+
 
     if( customerRepository.findById(id).isPresent() ){
 
       customerRepository.deleteById(id);
-      return true;
+      return ResponseEntity
+              .ok("El usuario con id " + id + " Ha sido eliminado correctamente");
 
     }
-    return false;
+    return ResponseEntity.status(404)
+            .body("El usuario con id " + id +  " no se encuentra registrado");
   }
 }

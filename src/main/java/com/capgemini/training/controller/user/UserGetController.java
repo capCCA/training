@@ -1,6 +1,5 @@
 package com.capgemini.training.controller.user;
 
-import com.capgemini.training.mappers.CustomerMapper;
 import com.capgemini.training.models.Customer;
 import com.capgemini.training.services.user.UserGetService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,11 +7,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/")
@@ -31,8 +34,8 @@ public class UserGetController {
                   content = @Content),
           @ApiResponse(responseCode = "500", description = "Fail while trying to retrieve the customer.",
                   content = @Content) })
-  @GetMapping("user/{customerId}")
-  public ResponseEntity getUser(@PathVariable @Valid @NotNull(message = "ID de usuario no insertado") String customerId) {
+  @GetMapping("users/{customerId}")
+  public ResponseEntity getUser( @Valid @PathVariable @NotBlank(message = "ID de usuario no insertado") String customerId) {
 
       return userGetService.getUserById(customerId);
 

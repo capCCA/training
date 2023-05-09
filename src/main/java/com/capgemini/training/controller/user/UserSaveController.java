@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserSaveController {
 
@@ -33,7 +34,7 @@ public class UserSaveController {
             @ApiResponse(responseCode = "500", description = "Error while inserting Customer",
                     content = @Content), })
     @PostMapping("/")
-    public ResponseEntity saveUser( @RequestBody @Valid CustomerDto customerDto ) {
+    public ResponseEntity saveUser( @Valid @RequestBody @NotNull(message="El objeto customer enviado es incorrecto") CustomerDto customerDto ) {
 
         return userSaveService.saveUser(customerDto);
 

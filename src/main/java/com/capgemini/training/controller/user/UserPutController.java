@@ -13,8 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserPutController {
 
@@ -32,7 +34,7 @@ public class UserPutController {
             content = @Content) })
 
     @PutMapping("/")
-    public ResponseEntity<CustomerDto> updateUser(@RequestBody Customer customer) {
+    public ResponseEntity<CustomerDto> updateUser( @Valid @RequestBody Customer customer) {
 
         return userEditService.editUser(customer);
 

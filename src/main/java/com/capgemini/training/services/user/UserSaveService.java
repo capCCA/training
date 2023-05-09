@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserSaveService {
@@ -24,23 +27,20 @@ public class UserSaveService {
 
         //Checking Customer ID does not exist on database
         if( !customerRepository.findById( customerDto.getCustomerId() ).isPresent() ){
-          // Avoiding null entitities
-          if ( customerDto != null) {
 
-            Customer customer  = customerRepository.save( customerMapper.requestConvertDto(customerDto) );
+            customerDto.setCreationDate(new Date());
+            Optional<Customer> customer  = Optional.of(customerRepository.save(customerMapper.requestConvertEntity(customerDto)));
 
-            if ( customer != null ) {
+            if ( customer.isPresent() ) {
 
               return ResponseEntity.ok()
                   .body(
                       customerMapper.customerConverterDto(
-                          customer, "El usuario " + customer + " ha sido insertado correctamente"));
+                          customer.get(), "El usuario " + customer.get() + " ha sido insertado correctamente"));
             }
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Fallo al intentar insertar el usuario " + customer);
-          }
-          return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-              .body("El objecto customer enviado es incorrecto.");
+
 
         }return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("El ID insertado ya se encuentra registrado en la base de datos");

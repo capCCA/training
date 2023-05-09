@@ -21,28 +21,28 @@ import javax.validation.constraints.Size;
 @ToString
 @Component
 public class CustomerDto implements Serializable {
-    @NotNull
+    @NotNull(message = "El ID de cliente no puede estar vacío")
     @Size(max = 10)
     private String customerId;
-    @NotNull
+    @NotNull(message = "El tipo de documento del cliente no puede estar vacío")
     @Size(max = 8)
     private String DocumentType;
-    @NotNull
+    @NotNull(message = "El número de documento no puede estar vacío")
     @Size(max = 50)
     private String DocumentNumber;
-    @NotNull
+    @NotNull(message = "El nombre del cliente no puede estar vacío")
     @Size(max = 100)
     private String name;
-    @NotNull
+    @NotNull(message = "El apodo del cliente no puede estar vacío")
     @Size(max = 100)
     private String surname;
     @Size(max = 100)
     private String lastname;
-    @NotNull
+    @NotNull(message = "El país del cliente no puede estar vacío")
     @Size(max = 3)
     private String country;
     private int telephone;
-    @NotNull
+    @NotNull(message = "La fecha de creación no puede estar vacío")
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date creationDate;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
