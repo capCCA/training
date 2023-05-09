@@ -26,10 +26,10 @@ public class CustomerDto implements Serializable {
     private String customerId;
     @NotNull(message = "El tipo de documento del cliente no puede estar vacío")
     @Size(max = 8)
-    private String DocumentType;
+    private String documentType;
     @NotNull(message = "El número de documento no puede estar vacío")
     @Size(max = 50)
-    private String DocumentNumber;
+    private String documentNumber;
     @NotNull(message = "El nombre del cliente no puede estar vacío")
     @Size(max = 100)
     private String name;

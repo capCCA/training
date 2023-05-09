@@ -32,7 +32,7 @@ public class UserDeleteController {
     })
     @DeleteMapping("/{customerId}")
     public ResponseEntity<String> deleteUser( @Valid @PathVariable @NotBlank(message="Inserte el ID del usuario que desea eliminar") String customerId) {
-        
+
         return userDeleteService.delete(customerId);
 
     }
