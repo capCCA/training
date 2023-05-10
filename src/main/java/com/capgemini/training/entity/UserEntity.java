@@ -10,52 +10,52 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @author ccsw
+ * @author ezorzome
  *
  */
 @Entity
 @Table(name = "customer")
 @Getter
 @Setter
-//@Builder
+@Builder
 public class UserEntity {
 
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false)
-    private String customer_id;
+    private String customerId;
 
     @Column(name = "document_type", nullable = false)
-    private String Document_type;
+    private String documentType;
 
     @Column(name = "name", nullable = false)
-    private String Name;
+    private String name;
 
     @Column(name = "document_number", nullable = false)
-    private String Document_number;
+    private String documentNumber;
 
     @Column(name = "sur_name", nullable = false)
-    private String SurName;
+    private String surName;
 
     @Column(name = "last_name")
-    private String LastName;
+    private String lastName;
 
     @Column(name = "country", nullable = false)
-    private String Country;
+    private String country;
 
     @Column(name = "telephone")
-    private Integer Telephone;
+    private Integer telephone;
 
     @Column(name = "creation_date", nullable = false)
     @CreationTimestamp
-    private Date Creation_date;
+    private Date creationDate;
 
     @Column(name = "update_date")
     @UpdateTimestamp
-    private Date Update_date;
+    private Date updateDate;
 
 }

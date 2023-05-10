@@ -1,17 +1,19 @@
 package com.capgemini.training.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.training.model.UserDto;
-import com.capgemini.training.service.UserGetService;
+import com.capgemini.training.service.GetUserService;
 
 import lombok.RequiredArgsConstructor;
 
 /**
- * @author ezm
+ * @author ezm description Controller to query User
  *
  */
 
@@ -20,15 +22,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserGetController {
 
-    private final UserGetService userService;
+    private final GetUserService userService;
 
-    // @RequestMapping(path = "", method = RequestMethod.GET)
-    // @GetMapping(path = "/{customerId}")
-    // http://localhost:8080/user/custom1
     @GetMapping(value = "/{customerId}")
-    public UserDto get(@PathVariable("customerId") String customerId) {
+    public ResponseEntity<UserDto> get(@PathVariable("customerId") String customerId) {
 
-        return this.userService.get(customerId);
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(this.userService.get(customerId));
+
+        } catch (Exception e) {
+            return ResponseEntity.noContent().build();
+
+        }
     }
 
 }

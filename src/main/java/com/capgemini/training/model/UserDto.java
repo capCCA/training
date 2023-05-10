@@ -3,6 +3,7 @@ package com.capgemini.training.model;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +12,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDto {
-
+    @NotNull
     private String customerId;
 
     @NotNull

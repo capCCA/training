@@ -1,33 +1,34 @@
 package com.capgemini.training.controller;
 
+import javax.persistence.EntityNotFoundException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.training.service.UserDeleteService;
+import com.capgemini.training.service.DeleteUserService;
 
 import lombok.RequiredArgsConstructor;
 
-//import io.swagger.v3.oas.annotations.Operation;
-
-/**
- * @author ccsw
- *
- */
-//@Tag(name = "User", description = "API of User")
 @RequestMapping(value = "/user")
 @RestController
-//@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UserDeleteController {
 
-    private final UserDeleteService userDeleteService;
+    private final DeleteUserService userDeleteService;
 
     @DeleteMapping(path = "/{customerId}")
-    public void delete(@PathVariable("customerId") String customerId) {
+    public ResponseEntity<Void> delete(@PathVariable("customerId") String customerId) {
+        try {
 
-        this.userDeleteService.delete(customerId);
+            this.userDeleteService.delete(customerId);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
 }

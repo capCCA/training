@@ -5,32 +5,24 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.training.entity.UserEntity;
+import com.capgemini.training.mapper.MapperUser;
+import com.capgemini.training.model.UserDto;
 import com.capgemini.training.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author ccsw
- *
- */
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserDeleteService {
+public class GetUserService {
 
     private final UserRepository userRepository;
 
-    public void delete(String customerId) {
+    public UserDto get(String customerId) {
 
-        UserEntity entity = null;
+        UserEntity entity = this.userRepository.getReferenceById(customerId);
 
-        if (customerId != null) {
-            entity = this.userRepository.getReferenceById(customerId);
-        }
-
-        if (entity != null) {
-            this.userRepository.delete(entity);
-        }
+        return MapperUser.converterDto(entity);
     }
 
 }
