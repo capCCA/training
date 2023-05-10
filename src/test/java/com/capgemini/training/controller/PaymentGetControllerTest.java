@@ -2,7 +2,9 @@ package com.capgemini.training.controller;
 
 import com.capgemini.training.config.PaymentMapper;
 import com.capgemini.training.dto.PaymentDto;
+import com.capgemini.training.entity.Beneficiary;
 import com.capgemini.training.entity.Payment;
+import com.capgemini.training.entity.User;
 import com.capgemini.training.service.PaymentGetService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,18 +28,34 @@ class PaymentGetControllerTest {
   @Mock private PaymentGetService paymentService;
 
   @InjectMocks private PaymentGetController paymentController;
-
+  
   public Payment createPayment(Long id, String type) {
     return Payment.builder()
-        .paymentId(id)
-        .customerId("123456" )
-        .beneficiaryId("23456" )
-        .paymentType(type)
-        .amount(BigDecimal.valueOf(2000333))
-        .creationDate(new Date())
-        .build();
+            .paymentId(id)
+            .customer( createUser("123456"))
+            .beneficiary(createBeneficiary("23456" ))
+            .paymentType(type)
+            .amount(BigDecimal.valueOf(2000333))
+            .creationDate(new Date())
+            .build();
   }
-
+  public User createUser(String id) {
+    return User.builder()
+            .customerId(id)
+            .documentType("dni")
+            .documentNumber("123" + id)
+            .name("john" + id)
+            .surname("green" + id)
+            .lastname("junior" + id)
+            .country("ESP")
+            .telephone(123)
+            .creationDate(new Date())
+            .build();
+  }
+  public Beneficiary createBeneficiary(String id) {
+    return Beneficiary.builder()
+            .beneficiaryId(id).build();
+  }
   @Test
   @DisplayName("Should return a list of payments with HTTP status OK")
   void testGetAllPayments() {

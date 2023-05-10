@@ -2,6 +2,7 @@ package com.capgemini.training.controller;
 
 import com.capgemini.training.dto.UserDto;
 import com.capgemini.training.service.UserPostService;
+import lombok.extern.java.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+@Log
 @ExtendWith(MockitoExtension.class)
 class UserPostControllerTest {
 
@@ -60,6 +62,7 @@ class UserPostControllerTest {
     ResponseEntity<UserDto> response = userController.save(expectedDto);
 
     // then
+    log.info( "responsebody" +response.getBody() );
     Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
     Assertions.assertEquals(expectedDto, response.getBody());
   }
@@ -69,7 +72,7 @@ class UserPostControllerTest {
   //Actual   :201 CREATED
   @Test
   @DisplayName("Should fail to create an invalid User (bad country) giving HTTP status BAD_REQUEST ")
-  void testCreateUserWithInvalidCountry() {
+  void testCreateUser_WithInvalid_Country() {
     // given
     String id = "11";
     UserDto expectedDto =createBadUserDto(id);
@@ -89,7 +92,7 @@ class UserPostControllerTest {
   //Actual   :201 CREATED
   @Test
   @DisplayName("Should fail to create an invalid User (bad document Type) giving HTTP status EXPECTATION_FAILED  ")
-  void testCreateUserWithInvalidDocumentType() {
+  void testCreateUser_WithInvalid_DocumentType() {
     // given
     String id = "12";
     UserDto expectedDto = createUserDto(id);
