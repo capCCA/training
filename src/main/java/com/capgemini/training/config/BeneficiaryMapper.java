@@ -2,13 +2,15 @@ package com.capgemini.training.config;
 
 import com.capgemini.training.dto.BeneficiaryDto;
 import com.capgemini.training.entity.Beneficiary;
+import lombok.experimental.UtilityClass;
 
-public final class BeneficiaryMapper {
-    public static Beneficiary toEntity(BeneficiaryDto dto) {
+@UtilityClass
+public  class BeneficiaryMapper {
+    public Beneficiary toEntity(BeneficiaryDto dto) {
         return Beneficiary.builder().beneficiaryId(dto.getBeneficiaryId()).build();
     }
 
-    public static BeneficiaryDto toDto(Beneficiary beneficiary) {
+    public BeneficiaryDto toDto(Beneficiary beneficiary) {
         return BeneficiaryDto.builder().beneficiaryId(beneficiary.getBeneficiaryId()).build();
     }
 }

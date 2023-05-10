@@ -17,7 +17,7 @@ public class BeneficiaryDto {
   private static final String NOTNULL_MESSAGE = " is mandatory, cannot be null";
   private static final String SIZE_MESSAGE = "The maximum length is ";
 
-  @NotBlank(message = "customerId" + NOTBLANK_MESSAGE)
+  @NotBlank(message = "beneficiaryId" + NOTBLANK_MESSAGE)
   @NotNull(message = "beneficiaryId" + NOTNULL_MESSAGE)
   @Size(max = 10, message = SIZE_MESSAGE + "10")
   private String beneficiaryId;

@@ -1,39 +1,42 @@
 package com.capgemini.training.config;
 
+import com.capgemini.training.dto.BeneficiaryDto;
 import com.capgemini.training.dto.PaymentDto;
+import com.capgemini.training.dto.UserDto;
+import com.capgemini.training.entity.Beneficiary;
 import com.capgemini.training.entity.Payment;
-import com.capgemini.training.entity.PaymentTry;
+import com.capgemini.training.entity.User;
+import lombok.experimental.UtilityClass;
 
-public final class PaymentMapper {
+@UtilityClass
+public class PaymentMapper {
 
-  public static Payment toEntity(PaymentDto dto) {
+
+  public Payment toEntity(PaymentDto dto) {
+    User customer = UserMapper.toEntity( dto.getCustomerDto());
+    Beneficiary ben = BeneficiaryMapper.toEntity (dto.getBeneficiaryDto());
+
     return Payment.builder()
-        .paymentId(dto.getPaymentId())
-        .customerId(dto.getCustomerId())
-        .beneficiaryId(dto.getBeneficiaryId())
-        .paymentType(dto.getPaymentType())
-        .amount(dto.getAmount())
-        .build();
+            .paymentId(dto.getPaymentId())
+            .customer ( customer)
+            .beneficiary( ben)
+            .paymentType(dto.getPaymentType())
+            .amount(dto.getAmount())
+            .build();
   }
 
-  public static PaymentDto toDto(Payment payment) {
+  public PaymentDto toDto(Payment payment) {
+    BeneficiaryDto benDto= BeneficiaryMapper.toDto( payment.getBeneficiary() );
+    UserDto customerDto= UserMapper.toDto( payment.getCustomer());
+
     return PaymentDto.builder()
         .paymentId(payment.getPaymentId())
-        .customerId(payment.getCustomerId())
-        .beneficiaryId(payment.getBeneficiaryId())
+        .customerDto( customerDto)
+        .beneficiaryDto(benDto)
         .paymentType(payment.getPaymentType())
         .amount(payment.getAmount())
         .build();
   }
 
-  //temporary: for PaymentTry
-  public static PaymentDto toDtoTry(PaymentTry payment) {
-    return PaymentDto.builder()
-        .paymentId(payment.getPaymentId())
-        .customerId(payment.getCustomer().getCustomerId())
-        .beneficiaryId(payment.getBeneficiary().getBeneficiaryId())
-        .paymentType(payment.getPaymentType())
-        .amount(payment.getAmount())
-        .build();
-  }
+  
 }

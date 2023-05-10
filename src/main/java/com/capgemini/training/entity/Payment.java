@@ -20,11 +20,13 @@ public class Payment {
   @Column(nullable = false)
   private Long paymentId;
 
-  @Column(nullable = false, length = 10)
-  private String customerId;
-
-  @Column(nullable = false, length = 10)
-  private String beneficiaryId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "customer_id") // campo id en Payment, no fk
+  private User customer;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "beneficiary_id") //campo id Payment, no fk
+  private Beneficiary beneficiary;
 
   @Column(nullable = false)
   private String paymentType;

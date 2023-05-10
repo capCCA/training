@@ -2,10 +2,12 @@ package com.capgemini.training.config;
 
 import com.capgemini.training.dto.UserDto;
 import com.capgemini.training.entity.User;
+import lombok.experimental.UtilityClass;
 
-public final class UserMapper {
+@UtilityClass
+public  class UserMapper {
 
-  public static User toEntity(UserDto dto) {
+  public User toEntity(UserDto dto) {
     return User.builder()
         .customerId(dto.getCustomerId())
         .documentType(dto.getDocumentType())
@@ -18,7 +20,7 @@ public final class UserMapper {
         .build();
   }
 
-  public static UserDto toDto(User user) {
+  public UserDto toDto(User user) {
     return UserDto.builder()
         .customerId(user.getCustomerId())
         .documentType(user.getDocumentType())
