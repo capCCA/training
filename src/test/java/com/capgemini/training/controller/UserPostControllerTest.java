@@ -51,7 +51,7 @@ class UserPostControllerTest {
   @DisplayName("Should return a UserDto with HTTP status CREATED")
   void testCreateUser() {
     // given
-    String id = "11";
+    String id = "10";
     UserDto expectedDto = createUserDto(id);
 
     Mockito.when(userService.save(ArgumentMatchers.any(UserDto.class))).thenReturn(expectedDto);
@@ -72,9 +72,6 @@ class UserPostControllerTest {
   void testCreateUserWithInvalidCountry() {
     // given
     String id = "11";
-    //UserDto expectedDto = createUserDto(id);
-    //expectedDto.setCountry("BAD_COUNTRY");
-
     UserDto expectedDto =createBadUserDto(id);
 
     Mockito.when(userService.save(ArgumentMatchers.any(UserDto.class))).thenReturn(expectedDto);
@@ -94,9 +91,9 @@ class UserPostControllerTest {
   @DisplayName("Should fail to create an invalid User (bad document Type) giving HTTP status EXPECTATION_FAILED  ")
   void testCreateUserWithInvalidDocumentType() {
     // given
-    String id = "11";
+    String id = "12";
     UserDto expectedDto = createUserDto(id);
-    expectedDto.setCountry("BAD_COUNTRY");
+    expectedDto.setDocumentType("BAD_DocumentType");
 
     Mockito.when(userService.save(ArgumentMatchers.any(UserDto.class))).thenReturn(expectedDto);
 
