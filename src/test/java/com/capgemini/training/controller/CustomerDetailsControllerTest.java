@@ -1,9 +1,9 @@
 package com.capgemini.training.controller;
 
-import com.capgemini.training.config.UserMapper;
-import com.capgemini.training.dto.UserDto;
-import com.capgemini.training.entity.User;
-import com.capgemini.training.service.UserGetService;
+import com.capgemini.training.config.CustomerMapper;
+import com.capgemini.training.dto.CustomerDetails;
+import com.capgemini.training.entity.CustomerEntity;
+import com.capgemini.training.service.CustomerDetailsService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,14 +20,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-class UserGetControllerTest {
+class CustomerDetailsControllerTest {
 
-  @Mock private UserGetService userService;
+  @Mock private CustomerDetailsService userService;
 
-  @InjectMocks private UserGetController userController;
+  @InjectMocks private CustomerDetailsController userController;
 
-  public User createUser(String id) {
-    return User.builder()
+  public CustomerEntity createUser(String id) {
+    return CustomerEntity.builder()
         .customerId(id)
         .documentType("dni")
         .documentNumber("123" + id)
@@ -44,14 +44,14 @@ class UserGetControllerTest {
   @DisplayName("Should return a list of Users with HTTP status OK")
   void testGetAllUsers() {
     // given
-    List<User> users = new ArrayList<>();
+    List<CustomerEntity> users = new ArrayList<>();
     users.add(createUser("11"));
     users.add(createUser("12"));
 
     Mockito.when(userService.findAll()).thenReturn(users);
 
     // when
-    ResponseEntity<List<UserDto>> response = userController.findAll();
+    ResponseEntity<List<CustomerDetails>> response = userController.findAll();
 
     // then
     Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -59,18 +59,18 @@ class UserGetControllerTest {
   }
 
   @Test
-  @DisplayName("Should return a User with HTTP status OK")
+  @DisplayName("Should return a CustomerEntity with HTTP status OK")
   void testGetUserById() {
     // given
     String id = "11";
-    User expectedUser = createUser(id);
-    Optional<User> expectedOptUser = Optional.of(expectedUser);
-    UserDto expectedDto = UserMapper.toDto(expectedUser);
+    CustomerEntity expectedUser = createUser(id);
+    Optional<CustomerEntity> expectedOptUser = Optional.of(expectedUser);
+    CustomerDetails expectedDto = CustomerMapper.toDto(expectedUser);
 
     Mockito.when(userService.findById(id)).thenReturn(expectedOptUser);
 
     // when
-    ResponseEntity<UserDto> response = userController.findById(id);
+    ResponseEntity<CustomerDetails> response = userController.findById(id);
 
     // then
     Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -78,16 +78,16 @@ class UserGetControllerTest {
   }
 
   @Test
-  @DisplayName("Should return HTTP status NOT_FOUND when User not found")
+  @DisplayName("Should return HTTP status NOT_FOUND when CustomerEntity not found")
   void testGetUserByIdNotFound() {
     // given
     String id = "12";
-    Optional<User> optionalUser = Optional.empty();
+    Optional<CustomerEntity> optionalUser = Optional.empty();
 
     Mockito.when(userService.findById(id)).thenReturn(optionalUser);
 
     // when
-    ResponseEntity<UserDto> response = userController.findById(id);
+    ResponseEntity<CustomerDetails> response = userController.findById(id);
 
     // then
     Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());

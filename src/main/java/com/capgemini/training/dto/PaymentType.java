@@ -1,4 +1,4 @@
-package com.capgemini.training.config;
+package com.capgemini.training.dto;
 
 public enum PaymentType {
     BIZUM, TRANSFER

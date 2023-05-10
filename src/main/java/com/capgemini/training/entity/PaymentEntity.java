@@ -14,19 +14,19 @@ import lombok.*;
 @Builder
 @ToString
 @EqualsAndHashCode
-public class Payment {
+public class PaymentEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(nullable = false)
   private Long paymentId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "customer_id") // campo id en Payment, no fk
-  private User customer;
+  @JoinColumn(name = "customer_id") // campo id en PaymentEntity, no fk
+  private CustomerEntity customer;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "beneficiary_id") //campo id Payment, no fk
-  private Beneficiary beneficiary;
+  @JoinColumn(name = "beneficiary_id") //campo id PaymentEntity, no fk
+  private BeneficiaryEntity beneficiary;
 
   @Column(nullable = false)
   private String paymentType;

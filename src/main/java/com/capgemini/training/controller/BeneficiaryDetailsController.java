@@ -1,9 +1,9 @@
 package com.capgemini.training.controller;
 
 import com.capgemini.training.config.BeneficiaryMapper;
-import com.capgemini.training.dto.BeneficiaryDto;
-import com.capgemini.training.entity.Beneficiary;
-import com.capgemini.training.service.BeneficiaryGetService;
+import com.capgemini.training.dto.BeneficiaryDetails;
+import com.capgemini.training.entity.BeneficiaryEntity;
+import com.capgemini.training.service.BeneficiaryDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -15,20 +15,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Beneficiary", description = "API of BeneficiaryGetController")
+@Tag(name = "BeneficiaryEntity", description = "API of BeneficiaryGetController")
 @RestController
 @RequestMapping(path = "/beneficiaries")
 @RequiredArgsConstructor
 
-public class BeneficiaryGetController {
+public class BeneficiaryDetailsController {
 
-  private final BeneficiaryGetService beneficiaryService;
+  private final BeneficiaryDetailsService beneficiaryService;
 
   @Operation(
       summary = "Find all ",
       description = "Method that returns a List of Beneficiaries with status OK 200")
   @GetMapping("")
-  public ResponseEntity<List<BeneficiaryDto>> findAll() {
+  public ResponseEntity<List<BeneficiaryDetails>> findAll() {
     return ResponseEntity.ok(
         beneficiaryService.findAll().stream()
             .map(BeneficiaryMapper::toDto)
@@ -38,17 +38,18 @@ public class BeneficiaryGetController {
   @Operation(
       summary = "Find one",
       description =
-          "Method that returns a Beneficiary for the provided id with status Ok 200 or NOT_FOUND 400")
+          "Method that returns a BeneficiaryEntity for the provided id with status Ok 200 or NOT_FOUND 404")
   @GetMapping("/{beneficiaryId}")
-  public ResponseEntity<BeneficiaryDto> findById(@PathVariable("beneficiaryId") String id) {
-    Beneficiary beneficiary = beneficiaryService.findById(id);
+  public ResponseEntity<BeneficiaryDetails> findById(@PathVariable("beneficiaryId") String id) {
+    BeneficiaryEntity beneficiary = beneficiaryService.findById(id);
     if (beneficiary != null) return ResponseEntity.ok(BeneficiaryMapper.toDto(beneficiary));
     else return ResponseEntity.notFound().build();
+   
   }
 }
 
 // Notas: antes
-//    public BeneficiaryDto findById(@PathVariable("beneficiaryId") String id) {
+//    public BeneficiaryDetails findById(@PathVariable("beneficiaryId") String id) {
 //        return BeneficiaryMapper.toDto(beneficiaryService.findById(id));
 //
 //    }

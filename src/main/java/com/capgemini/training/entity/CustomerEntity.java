@@ -14,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class User {
+public class CustomerEntity {
     @Id
     @Column(length = 10)
     private String customerId;

@@ -1,6 +1,6 @@
 package com.capgemini.training.service;
 
-import com.capgemini.training.entity.User;
+import com.capgemini.training.entity.CustomerEntity;
 import com.capgemini.training.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
@@ -9,27 +9,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-
-public class UserGetService {
+public class CustomerDetailsService {
   private final UserRepository userRepository;
   
-  public List<User> findAll() {
+  public List<CustomerEntity> findAll() {
     return userRepository.findAll();
   }
 
-  public Optional<User> findById(String userId) {
+  public Optional<CustomerEntity> findById(String userId) {
     return userRepository.findById(userId);
   }
 
-
-  public User findById_2(String userId) {
+  public CustomerEntity findById_2(String userId) {
     return userRepository.findById(userId).orElse(null);
   }
 }
 
-
 // Motas
-//  public User getReferenceById(String userId) {
+//  public CustomerEntity getReferenceById(String userId) {
 //    return userRepository.getReferenceById(userId);
 //  }
-

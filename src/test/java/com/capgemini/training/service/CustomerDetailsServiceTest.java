@@ -7,24 +7,22 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.capgemini.training.entity.CustomerEntity;
+import com.capgemini.training.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.capgemini.training.entity.User;
-import com.capgemini.training.repository.UserRepository;
-
-public class UserServiceTest {
+public class CustomerDetailsServiceTest {
     @Mock
     private UserRepository userRepository;
 
     @InjectMocks
-    private UserGetService userService;
+    private CustomerDetailsService userService;
 
     @BeforeEach
     public void setUp() {
@@ -34,15 +32,15 @@ public class UserServiceTest {
     @Test
     public void testGetUsers() {
         // Given
-//        List<User> users = List.of(new User(1L, "user1", DeckType.FIBONACCI, "link"),
-//                new User(2L, "user2", DeckType.TIME, "link2"));
+//        List<CustomerEntity> users = List.of(new CustomerEntity(1L, "user1", DeckType.FIBONACCI, "link"),
+//                new CustomerEntity(2L, "user2", DeckType.TIME, "link2"));
 
-        List<User> users = new ArrayList<User>();// List.of(new User(), new User());
+        List<CustomerEntity> users = new ArrayList<CustomerEntity>();// List.of(new CustomerEntity(), new CustomerEntity());
 
         when(userRepository.findAll()).thenReturn(users);
 
         // When
-        List<User> returnedUsers = userService.findAll();
+        List<CustomerEntity> returnedUsers = userService.findAll();
 
         // Then
         assertNotNull(returnedUsers);
@@ -55,11 +53,11 @@ public class UserServiceTest {
 //    public void testGetUserById() {
 //        // Given
 //        long userId = 1L;
-//        User user = new User(userId, "user1", DeckType.FIBONACCI, "link");
+//        CustomerEntity user = new CustomerEntity(userId, "user1", DeckType.FIBONACCI, "link");
 //        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 //
 //        // When
-//        Optional<User> returnedUser = userService.getUserById(userId);
+//        Optional<CustomerEntity> returnedUser = userService.getUserById(userId);
 //
 //        // Then
 //        assertTrue(returnedUser.isPresent());
@@ -70,11 +68,11 @@ public class UserServiceTest {
 //    @Test
 //    public void testCreateUser() {
 //        // Given
-//        User user = new User(1L, "user1", DeckType.FIBONACCI, "link");
+//        CustomerEntity user = new CustomerEntity(1L, "user1", DeckType.FIBONACCI, "link");
 //        when(userRepository.save(user)).thenReturn(user);
 //
 //        // When
-//        User createdUser = userService.save(user);
+//        CustomerEntity createdUser = userService.save(user);
 //
 //        // Then
 //        assertNotNull(createdUser);
@@ -87,7 +85,7 @@ public class UserServiceTest {
 //        // Given
 //        long userId = 1L;
 //        when(userRepository.findById(userId))
-//                .thenReturn(Optional.of(new User(userId, "user1", DeckType.SIZES, "link")));
+//                .thenReturn(Optional.of(new CustomerEntity(userId, "user1", DeckType.SIZES, "link")));
 //
 //        // When
 //        ResponseEntity<?> response = userService.deleteUser(userId);

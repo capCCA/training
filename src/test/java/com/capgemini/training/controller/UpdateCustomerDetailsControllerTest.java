@@ -1,7 +1,8 @@
 package com.capgemini.training.controller;
 
-import com.capgemini.training.dto.UserDto;
-import com.capgemini.training.service.UserPutService;
+import com.capgemini.training.dto.CustomerDetails;
+import com.capgemini.training.dto.DocumentType;
+import com.capgemini.training.service.UpdateCustomerDetailsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,16 +16,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
-class UserPutControllerTest {
+class UpdateCustomerDetailsControllerTest {
 
-  @Mock private UserPutService userService;
+  @Mock private UpdateCustomerDetailsService userService;
 
-  @InjectMocks private UserPutController userController;
+  @InjectMocks private UpdateCustomerDetailsController userController;
 
-  public UserDto createUserDto(String id) {
-    return UserDto.builder()
+  public CustomerDetails createUserDto(String id) {
+    return CustomerDetails.builder()
         .customerId(id)
-        .documentType("dni")
+        .documentType(DocumentType.valueOf("PASSPORT"))
         .documentNumber("123" + id)
         .name("john" + id)
         .surname("green" + id)
@@ -35,20 +36,16 @@ class UserPutControllerTest {
   }
 
   @Test
-  @DisplayName("Should update a UserDto with HTTP status OK")
+  @DisplayName("Should update a CustomerDetails with HTTP status OK")
   void testUpdateUser() {
     // given
     String id = "11";
-    UserDto expectedDto = createUserDto(id);
+    CustomerDetails expectedDto = createUserDto(id);
 
-    try{
-    Mockito.when(userService.update(id,ArgumentMatchers.any(UserDto.class))).thenReturn(expectedDto);
-    } catch(Exception e){
-
-    }
+    Mockito.when(userService.update(id, ArgumentMatchers.any(CustomerDetails.class))).thenReturn(expectedDto);
 
     // when
-    ResponseEntity<UserDto> response = userController.update(id, expectedDto);
+    ResponseEntity<CustomerDetails> response = userController.update(id, expectedDto);
 
     // then
     Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -57,6 +54,6 @@ class UserPutControllerTest {
   }
 
   @Test
-  @DisplayName("Should update a UserDto with HTTP status NOT_FOUND")
+  @DisplayName("Should fail to update  CustomerDetails  and return with HTTP status NOT_FOUND ")
   void testUpdateUserNotFound() {}
 }

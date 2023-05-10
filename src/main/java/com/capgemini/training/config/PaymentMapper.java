@@ -1,42 +1,41 @@
 package com.capgemini.training.config;
 
-import com.capgemini.training.dto.BeneficiaryDto;
-import com.capgemini.training.dto.PaymentDto;
-import com.capgemini.training.dto.UserDto;
-import com.capgemini.training.entity.Beneficiary;
-import com.capgemini.training.entity.Payment;
-import com.capgemini.training.entity.User;
+import com.capgemini.training.dto.BeneficiaryDetails;
+import com.capgemini.training.dto.CustomerDetails;
+import com.capgemini.training.dto.PaymentDetails;
+import com.capgemini.training.entity.BeneficiaryEntity;
+import com.capgemini.training.entity.CustomerEntity;
+import com.capgemini.training.entity.PaymentEntity;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class PaymentMapper {
 
+  public PaymentEntity toEntity(PaymentDetails dto) {
+    CustomerEntity customer = CustomerMapper.toEntity(dto.getCustomerDetails());
+    BeneficiaryEntity ben = BeneficiaryMapper.toEntity(dto.getBeneficiaryDto());
 
-  public Payment toEntity(PaymentDto dto) {
-    User customer = UserMapper.toEntity( dto.getCustomerDto());
-    Beneficiary ben = BeneficiaryMapper.toEntity (dto.getBeneficiaryDto());
-
-    return Payment.builder()
-            .paymentId(dto.getPaymentId())
-            .customer ( customer)
-            .beneficiary( ben)
-            .paymentType(dto.getPaymentType())
-            .amount(dto.getAmount())
-            .build();
+    return PaymentEntity.builder()
+        .paymentId(dto.getPaymentId())
+        .customer(customer)
+        .beneficiary(ben)
+        // .paymentType(String.valueOf(dto.getPaymentType()))
+        .paymentType(dto.getPaymentType())
+        .amount(dto.getAmount())
+        .build();
   }
 
-  public PaymentDto toDto(Payment payment) {
-    BeneficiaryDto benDto= BeneficiaryMapper.toDto( payment.getBeneficiary() );
-    UserDto customerDto= UserMapper.toDto( payment.getCustomer());
+  public PaymentDetails toDto(PaymentEntity payment) {
+    BeneficiaryDetails benDto = BeneficiaryMapper.toDto(payment.getBeneficiary());
+    CustomerDetails customerDetails = CustomerMapper.toDto(payment.getCustomer());
 
-    return PaymentDto.builder()
+    return PaymentDetails.builder()
         .paymentId(payment.getPaymentId())
-        .customerDto( customerDto)
+        .customerDetails(customerDetails)
         .beneficiaryDto(benDto)
+        // .paymentType(PaymentType.valueOf(payment.getPaymentType()))
         .paymentType(payment.getPaymentType())
         .amount(payment.getAmount())
         .build();
   }
-
-  
 }

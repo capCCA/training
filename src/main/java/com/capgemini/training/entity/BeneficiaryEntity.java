@@ -18,7 +18,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Beneficiary {
+public class BeneficiaryEntity {
   @Id
   @Column(name = "beneficiary_id", nullable = false, length = 10)
   private String beneficiaryId;

@@ -1,5 +1,6 @@
 package com.capgemini.training.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.math.BigDecimal;
 import lombok.*;
 
@@ -10,11 +11,13 @@ import lombok.*;
 @Builder
 @ToString
 @EqualsAndHashCode
-public class PaymentDto {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PaymentDetails {
   private Long paymentId;
-  private UserDto customerDto;
-  private BeneficiaryDto beneficiaryDto;
+  private CustomerDetails customerDetails;
+  private BeneficiaryDetails beneficiaryDto;
 
+  //private PaymentType paymentType;
   private String paymentType;
   private BigDecimal amount;
 }
