@@ -1,6 +1,7 @@
 package com.capgemini.training.mappers;
 
 import com.capgemini.training.dto.CustomerDto;
+import com.capgemini.training.dto.DocumentTypeEnum;
 import com.capgemini.training.models.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,20 +17,18 @@ public class CustomerMapper {
     private final Customer customer;
     public CustomerDto customerConverterDto( Customer customer,String customMessage ){
 
-        customerDto.setCustomerId(customer.getCustomerId());
-        customerDto.setDocumentType(customer.getDocumentType());
-        customerDto.setDocumentNumber(customer.getDocumentNumber());
-        customerDto.setName(customer.getName());
-        customerDto.setSurname(customer.getSurname());
-        customerDto.setLastname(customer.getLastname());
-        customerDto.setCountry(customer.getCountry());
-        customerDto.setTelephone(customer.getTelephone());
-        customerDto.setCreationDate(customer.getCreationDate());
-        customerDto.setUpdateDate(customer.getUpdateDate());
-        //For setting a responseEntity custom message
-        customerDto.setCustomMessage(customMessage);
+        return CustomerDto.builder()
+                .customerId(customer.getCustomerId())
+                .country(customer.getCountry())
+                .name(customer.getName())
+                .surname(customer.getSurname())
+                .telephone(customer.getTelephone())
+                .lastname(customer.getLastname())
+                .documentNumber(customer.getDocumentNumber())
+                .documentType(DocumentTypeEnum.valueOf(customer.getDocumentType()))
+                .creationDate(customer.getCreationDate())
+                .updateDate(customer.getUpdateDate()).build();
 
-        return customerDto;
     }
 
     public List<CustomerDto> customerConverterDto( List<Customer> customer ){
@@ -40,17 +39,17 @@ public class CustomerMapper {
 
     public Customer requestConvertEntity(CustomerDto customerDto ){
 
-        customer.setCustomerId( customerDto.getCustomerId() );
-        customer.setName( customerDto.getName() );
-        customer.setTelephone( customerDto.getTelephone() );
-        customer.setCountry( customerDto.getCountry() );
-        customer.setDocumentNumber( customerDto.getDocumentNumber() );
-        customer.setDocumentType( customerDto.getDocumentType() );
-        customer.setLastname( customerDto.getLastname() );
-        customer.setSurname( customerDto.getSurname() );
-        customer.setCreationDate( customerDto.getCreationDate() );
-        customer.setUpdateDate( customerDto.getUpdateDate() );
-
-        return customer;
+        return Customer.builder()
+                .customerId(customerDto.getCustomerId())
+                .name(customerDto.getName())
+                .telephone(customerDto.getTelephone())
+                .country(customerDto.getCountry())
+                .documentNumber(customerDto.getDocumentNumber())
+                .documentType(String.valueOf(customerDto.getDocumentType()))
+                .surname(customerDto.getSurname())
+                .lastname(customerDto.getLastname())
+                .creationDate(customerDto.getCreationDate())
+                .updateDate(customerDto.getUpdateDate())
+                .build();
     }
 }

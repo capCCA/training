@@ -9,13 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
 @ToString
+@Builder
 @Entity
 @Table
 @Component
@@ -46,4 +46,5 @@ public class Customer {
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
   @Column(name = "update_date")
   private LocalDate updateDate;
+
 }

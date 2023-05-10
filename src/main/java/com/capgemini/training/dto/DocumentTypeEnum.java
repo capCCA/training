@@ -5,7 +5,7 @@ import lombok.Getter;
 
     @Getter
     @AllArgsConstructor
-    public enum DocumentEnum{
+    public enum DocumentTypeEnum {
         DNI,
         PASSPORT
     }
