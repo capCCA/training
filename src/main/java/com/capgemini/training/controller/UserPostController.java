@@ -37,10 +37,9 @@ public class UserPostController {
     try {
       UserDto savedDto = userService.save(dto);
       return ResponseEntity.status(HttpStatus.CREATED).body(savedDto);
-    } catch (Exception e) { // MethodArgumentNotValidException  if @Valid fails-> BAD_REQUEST-
+    } catch (Exception e) { // MethodArgumentNotValidException  if @Valid fails-> ya va a BAD_REQUEST-
       log.info("Problem found :" + e.getMessage());
-      //eturn ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build(); // for check Type fail
     }
   }
 }

@@ -41,7 +41,6 @@ public class UserPutController {
       return ResponseEntity.ok(userService.update(userId, dto));
     } catch (Exception e) {
       log.info("Problem found :" + e.getMessage());
-      //return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
       return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
     }
   }
