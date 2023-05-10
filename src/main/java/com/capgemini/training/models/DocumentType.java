@@ -1,4 +1,4 @@
-package com.capgemini.training.dtos;
+package com.capgemini.training.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -3,32 +3,33 @@ package com.capgemini.training.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.dtos.CustomerDTO;
-import com.capgemini.training.dtos.DocumentType;
+import com.capgemini.training.models.CustomerDetails;
+import com.capgemini.training.models.DocumentType;
 import com.capgemini.training.errors.CustomerBadRequestException;
-import com.capgemini.training.models.CustomerEntity;
+import com.capgemini.training.repositories.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
 import java.time.LocalDateTime;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@WebMvcTest(AddCustomerServiceTest.class)
+@ExtendWith(MockitoExtension.class)
 class AddCustomerServiceTest {
 
-  private CustomerDTO customerDTO;
-  private CustomerEntity customer;
   @InjectMocks private AddCustomerService addCustomerService;
   @Mock private CustomerRepository repository;
 
-  @BeforeEach
-  public void createDto() {
-    customerDTO =
-        CustomerDTO.builder()
+  @Test
+  @DisplayName("Return customer if it has been added successfully")
+  void shouldReturnCustomerWhenCustomerIsValid() {
+    CustomerDetails customerDetails =
+        CustomerDetails.builder()
             .customerId("0999")
             .documentType(DocumentType.DNI)
             .documentNumber("123456789")
@@ -38,7 +39,7 @@ class AddCustomerServiceTest {
             .country("ESP")
             .telephone(1234567)
             .build();
-    customer =
+    CustomerEntity customer =
         CustomerEntity.builder()
             .customerId("0999")
             .documentType("DNI")
@@ -51,22 +52,32 @@ class AddCustomerServiceTest {
             .creationDate(LocalDateTime.now())
             .updateDate(LocalDateTime.now())
             .build();
-  }
 
-  @Test
-  void addCustomer_whenCustomerProvided_shouldReturnCustomer() {
-    when(repository.existsById(customerDTO.getCustomerId())).thenReturn(false);
+    when(repository.existsById(anyString())).thenReturn(false);
     when(repository.save(any(CustomerEntity.class))).thenReturn(customer);
 
-    CustomerDTO response = addCustomerService.addCustomer(customerDTO);
+    CustomerDetails response = addCustomerService.addCustomer(customerDetails);
 
-    assertEquals(customerDTO.getCustomerId(), response.getCustomerId());
+    assertEquals(customerDetails.getCustomerId(), response.getCustomerId());
   }
 
   @Test
-  void addCustomer_BadRequest() {
-    when(repository.existsById(customerDTO.getCustomerId())).thenReturn(true);
+  @DisplayName("Throws 400 Bad Request if Id already exists")
+  void shouldThrowBadRequestWhenIdAlreadyExists() {
+    CustomerDetails customerDetails =
+        CustomerDetails.builder()
+            .customerId("0999")
+            .documentType(DocumentType.DNI)
+            .documentNumber("123456789")
+            .name("Luca")
+            .surname("GARCIA")
+            .lastname("LOPEZ")
+            .country("ESP")
+            .telephone(1234567)
+            .build();
+
+    when(repository.existsById(anyString())).thenReturn(true);
     assertThrows(
-        CustomerBadRequestException.class, () -> addCustomerService.addCustomer(customerDTO));
+        CustomerBadRequestException.class, () -> addCustomerService.addCustomer(customerDetails));
   }
 }

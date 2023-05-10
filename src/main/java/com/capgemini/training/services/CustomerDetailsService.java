@@ -1,6 +1,6 @@
 package com.capgemini.training.services;
 
-import com.capgemini.training.dtos.CustomerDTO;
+import com.capgemini.training.models.CustomerDetails;
 import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.mappers.CustomerMapper;
 import com.capgemini.training.repositories.CustomerRepository;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class CustomerDetailsService {
   private final CustomerRepository repository;
 
-  public CustomerDTO getCustomerDetail(String id) {
+  public CustomerDetails getCustomerDetail(String id) {
     return repository
         .findById(id)
         .map(CustomerMapper::toDTO)

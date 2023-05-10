@@ -5,29 +5,30 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.dtos.CustomerDTO;
-import com.capgemini.training.dtos.DocumentType;
+import com.capgemini.training.models.CustomerDetails;
+import com.capgemini.training.models.DocumentType;
 import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.services.UpdateCustomerService;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-@WebMvcTest(UpdateCustomerControllerTest.class)
+@ExtendWith(MockitoExtension.class)
 class UpdateCustomerControllerTest {
 
-  private CustomerDTO customerDTO;
   @InjectMocks private UpdateCustomerController controller;
   @Mock private UpdateCustomerService service;
 
-  @BeforeEach
-  public void createDto() {
-    customerDTO =
-        CustomerDTO.builder()
+  @Test
+  @DisplayName("Return 200 OK if it has been update successfully")
+  void shouldReturnOKWhenParamsProvided() {
+    CustomerDetails customerDetails =
+        CustomerDetails.builder()
             .customerId("0999")
             .documentType(DocumentType.DNI)
             .documentNumber("123456789")
@@ -37,22 +38,20 @@ class UpdateCustomerControllerTest {
             .country("ESP")
             .telephone(1234567)
             .build();
-  }
 
-  @Test
-  void updateCustomer_whenParamsProvided_shouldReturnOK() {
-    when(service.updateCustomer(any(CustomerDTO.class))).thenReturn(customerDTO);
-    ResponseEntity<CustomerDTO> response = controller.updateCustomer(customerDTO);
+    when(service.updateCustomer(any(CustomerDetails.class))).thenReturn(customerDetails);
+    ResponseEntity<CustomerDetails> response = controller.updateCustomer(customerDetails);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertEquals(customerDTO, response.getBody());
+    assertEquals(customerDetails, response.getBody());
   }
 
   @Test
-  void updateCustomer_whenIdNoExist_shouldReturnNotFound() {
-    when(service.updateCustomer(any(CustomerDTO.class))).thenThrow(CustomerNotFoundException.class);
+  void shouldReturnNotFoundWhenIdNoExist() {
+    when(service.updateCustomer(any(CustomerDetails.class)))
+        .thenThrow(CustomerNotFoundException.class);
     assertThrows(
         CustomerNotFoundException.class,
-        () -> controller.updateCustomer(CustomerDTO.builder().build()));
+        () -> controller.updateCustomer(CustomerDetails.builder().build()));
   }
 }

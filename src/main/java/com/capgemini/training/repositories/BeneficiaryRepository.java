@@ -1,6 +1,6 @@
 package com.capgemini.training.repositories;
 
-import com.capgemini.training.models.BeneficiaryEntity;
+import com.capgemini.training.repositories.models.BeneficiaryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

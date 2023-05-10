@@ -1,26 +1,28 @@
 package com.capgemini.training.mappers;
 
-import com.capgemini.training.dtos.CustomerDTO;
-import com.capgemini.training.dtos.DocumentType;
-import com.capgemini.training.models.CustomerEntity;
+import com.capgemini.training.models.CustomerDetails;
+import com.capgemini.training.models.DocumentType;
+import com.capgemini.training.repositories.models.CustomerEntity;
+import lombok.experimental.UtilityClass;
 
-public final class CustomerMapper {
+@UtilityClass
+public class CustomerMapper {
 
-  public static CustomerEntity toEntity(CustomerDTO customerDTO) {
+  public CustomerEntity toEntity(CustomerDetails customerDetails) {
     return CustomerEntity.builder()
-        .customerId(customerDTO.getCustomerId())
-        .documentType(customerDTO.getDocumentType().getValue())
-        .documentNumber(customerDTO.getDocumentNumber())
-        .name(customerDTO.getName())
-        .surname(customerDTO.getSurname())
-        .lastname(customerDTO.getLastname())
-        .country(customerDTO.getCountry())
-        .telephone(customerDTO.getTelephone())
+        .customerId(customerDetails.getCustomerId())
+        .documentType(customerDetails.getDocumentType().getValue())
+        .documentNumber(customerDetails.getDocumentNumber())
+        .name(customerDetails.getName())
+        .surname(customerDetails.getSurname())
+        .lastname(customerDetails.getLastname())
+        .country(customerDetails.getCountry())
+        .telephone(customerDetails.getTelephone())
         .build();
   }
 
-  public static CustomerDTO toDTO(CustomerEntity customer) {
-    return CustomerDTO.builder()
+  public CustomerDetails toDTO(CustomerEntity customer) {
+    return CustomerDetails.builder()
         .customerId(customer.getCustomerId())
         .documentType(DocumentType.valueOf(customer.getDocumentType()))
         .documentNumber(customer.getDocumentNumber())

@@ -1,6 +1,6 @@
 package com.capgemini.training.controllers;
 
-import com.capgemini.training.dtos.CustomerDTO;
+import com.capgemini.training.models.CustomerDetails;
 import com.capgemini.training.errors.CustomError;
 import com.capgemini.training.services.CustomerDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +32,7 @@ public class CustomerDetailsController {
             content = {
               @Content(
                   mediaType = MediaType.APPLICATION_JSON_VALUE,
-                  schema = @Schema(implementation = CustomerDTO.class))
+                  schema = @Schema(implementation = CustomerDetails.class))
             }),
         @ApiResponse(
             responseCode = "400",
@@ -52,7 +52,7 @@ public class CustomerDetailsController {
             })
       })
   @GetMapping(path = "/{customerId}")
-  public ResponseEntity<CustomerDTO> getCustomerDetails(
+  public ResponseEntity<CustomerDetails> getCustomerDetails(
       @PathVariable(name = "customerId") @NotBlank String customerId) {
     return ResponseEntity.ok(service.getCustomerDetail(customerId));
   }

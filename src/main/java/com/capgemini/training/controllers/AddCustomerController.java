@@ -1,6 +1,6 @@
 package com.capgemini.training.controllers;
 
-import com.capgemini.training.dtos.CustomerDTO;
+import com.capgemini.training.models.CustomerDetails;
 import com.capgemini.training.errors.CustomError;
 import com.capgemini.training.services.AddCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +37,7 @@ public class AddCustomerController {
             content = {
               @Content(
                   mediaType = MediaType.APPLICATION_JSON_VALUE,
-                  schema = @Schema(implementation = CustomerDTO.class))
+                  schema = @Schema(implementation = CustomerDetails.class))
             }),
         @ApiResponse(
             responseCode = "400",
@@ -57,8 +57,8 @@ public class AddCustomerController {
             })
       })
   @PostMapping
-  public ResponseEntity<CustomerDTO> addCustomer(
-      @RequestBody @ParameterObject @Valid CustomerDTO customer) {
+  public ResponseEntity<CustomerDetails> addCustomer(
+      @RequestBody @ParameterObject @Valid CustomerDetails customer) {
     return ResponseEntity.status(HttpStatus.CREATED).body(service.addCustomer(customer));
   }
 }

@@ -6,25 +6,23 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.dtos.CustomerDTO;
 import com.capgemini.training.errors.CustomerNotFoundException;
-import com.capgemini.training.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@WebMvcTest(DeleteCustomerServiceTest.class)
+@ExtendWith(MockitoExtension.class)
 class DeleteCustomerServiceTest {
-
-  private CustomerDTO customerDTO;
-  private CustomerEntity customerEntity;
   @InjectMocks private DeleteCustomerService service;
   @Mock private CustomerRepository repository;
 
   @Test
-  void deleteCustomer_whenIdExist_shouldReturnOK() {
+  @DisplayName("does not return anything if the user has been successfully deleted")
+  void shouldNotReturnNotingWhenIdExists() {
     when(repository.existsById(anyString())).thenReturn(true);
     doNothing().when(repository).deleteById("0000");
 
@@ -34,7 +32,8 @@ class DeleteCustomerServiceTest {
   }
 
   @Test
-  void deleteCustomer_whenIdDoesNotExist_shouldThrowBadRequest() {
+  @DisplayName("Throws 400 Bad Request if Id does not exists")
+  void shouldThrowBadRequestWhenIdNotExist() {
     when(repository.existsById(anyString())).thenReturn(false);
     assertThrows(CustomerNotFoundException.class, () -> service.deleteCustomer(""));
   }

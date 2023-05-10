@@ -1,6 +1,6 @@
 package com.capgemini.training.controllers;
 
-import com.capgemini.training.dtos.CustomerDTO;
+import com.capgemini.training.models.CustomerDetails;
 import com.capgemini.training.errors.CustomError;
 import com.capgemini.training.services.UpdateCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +32,7 @@ public class UpdateCustomerController {
             content = {
               @Content(
                   mediaType = MediaType.APPLICATION_JSON_VALUE,
-                  schema = @Schema(implementation = CustomerDTO.class))
+                  schema = @Schema(implementation = CustomerDetails.class))
             }),
         @ApiResponse(
             responseCode = "400",
@@ -52,8 +52,8 @@ public class UpdateCustomerController {
             })
       })
   @PutMapping
-  public ResponseEntity<CustomerDTO> updateCustomer(
-      @RequestBody @ParameterObject @Valid CustomerDTO customer) {
+  public ResponseEntity<CustomerDetails> updateCustomer(
+      @RequestBody @ParameterObject @Valid CustomerDetails customer) {
     return ResponseEntity.ok(service.updateCustomer(customer));
   }
 }

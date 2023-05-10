@@ -5,32 +5,35 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.dtos.CustomerDTO;
-import com.capgemini.training.dtos.DocumentType;
 import com.capgemini.training.errors.CustomerNotFoundException;
-import com.capgemini.training.models.CustomerEntity;
+import com.capgemini.training.models.CustomerDetails;
+import com.capgemini.training.models.DocumentType;
 import com.capgemini.training.repositories.CustomerRepository;
+import com.capgemini.training.repositories.models.CustomerEntity;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@WebMvcTest(UpdateCustomerServiceTest.class)
+@ExtendWith(MockitoExtension.class)
 class UpdateCustomerServiceTest {
 
-  private CustomerDTO customerDTO;
-  private CustomerEntity customer;
-
-  @InjectMocks private UpdateCustomerService service;
-
+  private UpdateCustomerService service;
   @Mock private CustomerRepository repository;
 
   @BeforeEach
-  public void createDto() {
-    customerDTO =
-        CustomerDTO.builder()
+  void setUp() {
+    service = new UpdateCustomerService(repository);
+  }
+
+  @Test
+  @DisplayName("Return customer if it has been update successfully")
+  void shouldReturnCustomerWhenCustomerIsValid() {
+    CustomerDetails customerDetails =
+        CustomerDetails.builder()
             .customerId("0999")
             .documentType(DocumentType.DNI)
             .documentNumber("123456789")
@@ -40,7 +43,7 @@ class UpdateCustomerServiceTest {
             .country("ESP")
             .telephone(1234567)
             .build();
-    customer =
+    CustomerEntity customer =
         CustomerEntity.builder()
             .customerId("0999")
             .documentType("DNI")
@@ -53,19 +56,28 @@ class UpdateCustomerServiceTest {
             .creationDate(LocalDateTime.now())
             .updateDate(LocalDateTime.now())
             .build();
-  }
-
-  @Test
-  void updateCustomer_whenParamsProvided_shouldReturnCustomer() {
     when(repository.existsById(anyString())).thenReturn(true);
     when(repository.save(any(CustomerEntity.class))).thenReturn(customer);
-    CustomerDTO response = service.updateCustomer(customerDTO);
-    assertEquals(customerDTO.getCustomerId(), response.getCustomerId());
+    CustomerDetails response = service.updateCustomer(customerDetails);
+    assertEquals(customerDetails.getCustomerId(), response.getCustomerId());
   }
 
   @Test
-  void updateCustomer_whenIdNoExist_shouldReturnNotFound() {
-    when(repository.existsById(customerDTO.getCustomerId())).thenReturn(false);
-    assertThrows(CustomerNotFoundException.class, () -> service.updateCustomer(customerDTO));
+  @DisplayName("Throws 400 Bad Request if Id does not exists")
+  void shouldThrowsNotFoundWhenIdNotExists() {
+    CustomerDetails customerDetails =
+        CustomerDetails.builder()
+            .customerId("0999")
+            .documentType(DocumentType.DNI)
+            .documentNumber("123456789")
+            .name("Luca")
+            .surname("GARCIA")
+            .lastname("LOPEZ")
+            .country("ESP")
+            .telephone(1234567)
+            .build();
+
+    when(repository.existsById(anyString())).thenReturn(false);
+    assertThrows(CustomerNotFoundException.class, () -> service.updateCustomer(customerDetails));
   }
 }

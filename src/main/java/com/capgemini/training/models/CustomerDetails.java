@@ -1,4 +1,4 @@
-package com.capgemini.training.dtos;
+package com.capgemini.training.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,7 +13,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Schema(description = "CustomerDetails")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CustomerDTO {
+public class CustomerDetails {
   private static final String NOTNULL_MESSAGE = "is mandatory, cannot be null";
   private static final String SIZE_MESSAGE = "the length must be less than ";
 

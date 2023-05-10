@@ -1,9 +1,9 @@
 package com.capgemini.training.services;
 
-import com.capgemini.training.dtos.CustomerDTO;
+import com.capgemini.training.models.CustomerDetails;
 import com.capgemini.training.errors.CustomerBadRequestException;
 import com.capgemini.training.mappers.CustomerMapper;
-import com.capgemini.training.models.CustomerEntity;
+import com.capgemini.training.repositories.models.CustomerEntity;
 import com.capgemini.training.repositories.CustomerRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +17,8 @@ public class AddCustomerService {
 
   private final CustomerRepository repository;
 
-  public CustomerDTO addCustomer(CustomerDTO customerDTO) {
-    CustomerEntity customer = CustomerMapper.toEntity(customerDTO);
+  public CustomerDetails addCustomer(CustomerDetails customerDetails) {
+    CustomerEntity customer = CustomerMapper.toEntity(customerDetails);
     if (repository.existsById(customer.getCustomerId())) {
       throw new CustomerBadRequestException("This id already exists in the database");
     }

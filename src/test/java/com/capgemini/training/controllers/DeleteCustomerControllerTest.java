@@ -6,49 +6,37 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
-import com.capgemini.training.dtos.CustomerDTO;
-import com.capgemini.training.dtos.DocumentType;
 import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.services.DeleteCustomerService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@WebMvcTest(DeleteCustomerControllerTest.class)
+@ExtendWith(MockitoExtension.class)
 class DeleteCustomerControllerTest {
 
-  private CustomerDTO customerDTO;
-
-  @InjectMocks private DeleteCustomerController controller;
-
+  private DeleteCustomerController controller;
   @Mock private DeleteCustomerService service;
 
   @BeforeEach
-  public void createDto() {
-    customerDTO =
-        CustomerDTO.builder()
-            .customerId("0999")
-            .documentType(DocumentType.DNI)
-            .documentNumber("123456789")
-            .name("null")
-            .surname("GARCIA")
-            .lastname("LOPEZ")
-            .country("ESP")
-            .telephone(1234567)
-            .build();
+  void setUp() {
+    controller = new DeleteCustomerController(service);
   }
 
   @Test
-  void deleteCustomer_whenIdExist_shouldReturnOK() {
+  @DisplayName("does not return anything if the user has been successfully deleted")
+  void shouldReturnOKWhenIdExists() {
     doNothing().when(service).deleteCustomer(anyString());
     controller.deleteCustomer("0");
     verify(service).deleteCustomer(anyString());
   }
 
   @Test
-  void deleteCustomer_whenIdDoesNotExist_shouldThrowBadRequest() {
+  @DisplayName("throws 400 Bad Request if Id does not exists")
+  void shouldThrowBadRequestWhenIdDoesNotExists() {
     doThrow(CustomerNotFoundException.class).when(service).deleteCustomer(anyString());
     assertThrows(CustomerNotFoundException.class, () -> service.deleteCustomer("null"));
   }

@@ -1,4 +1,4 @@
-package com.capgemini.training.models;
+package com.capgemini.training.repositories.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Date;
