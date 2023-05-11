@@ -9,125 +9,87 @@ import static org.mockito.Mockito.when;
 
 import com.capgemini.training.entity.CustomerEntity;
 import com.capgemini.training.repository.UserRepository;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 public class CustomerDetailsServiceTest {
-    @Mock
-    private UserRepository userRepository;
+  @Mock private UserRepository userRepository;
 
-    @InjectMocks
-    private CustomerDetailsService userService;
+  @InjectMocks private CustomerDetailsService userService;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+  @BeforeEach
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
+  }
 
-    @Test
-    public void testGetUsers() {
-        // Given
-//        List<CustomerEntity> users = List.of(new CustomerEntity(1L, "user1", DeckType.FIBONACCI, "link"),
-//                new CustomerEntity(2L, "user2", DeckType.TIME, "link2"));
+  public CustomerEntity createUserEntity(String id) {
+    return CustomerEntity.builder()
+        .customerId(id)
+        .documentType("DNI")
+        .documentNumber("123" + id)
+        .name("john" + id)
+        .surname("green" + id)
+        .lastname("junior" + id)
+        .country("ESP")
+        .telephone(123)
+        .build();
+  }
 
-        List<CustomerEntity> users = new ArrayList<CustomerEntity>();// List.of(new CustomerEntity(), new CustomerEntity());
+  @Test
+  @DisplayName("Should return an empty List of customers")
+  public void testGetUsers_EmptyList() {
+    // Given
+    List<CustomerEntity> users = List.of();
+    when(userRepository.findAll()).thenReturn(users);
 
-        when(userRepository.findAll()).thenReturn(users);
+    // When
+    List<CustomerEntity> returnedUsers = userService.findAll();
 
-        // When
-        List<CustomerEntity> returnedUsers = userService.findAll();
+    // Then
+    assertNotNull(returnedUsers);
+    assertEquals(users.size(), returnedUsers.size());
+    assertTrue(returnedUsers.containsAll(users));
+    verify(userRepository, times(1)).findAll();
+  }
 
-        // Then
-        assertNotNull(returnedUsers);
-        assertEquals(users.size(), returnedUsers.size());
-        assertTrue(returnedUsers.containsAll(users));
-        verify(userRepository, times(1)).findAll();
-    }
-//
-//    @Test
-//    public void testGetUserById() {
-//        // Given
-//        long userId = 1L;
-//        CustomerEntity user = new CustomerEntity(userId, "user1", DeckType.FIBONACCI, "link");
-//        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-//
-//        // When
-//        Optional<CustomerEntity> returnedUser = userService.getUserById(userId);
-//
-//        // Then
-//        assertTrue(returnedUser.isPresent());
-//        assertEquals(user, returnedUser.get());
-//        verify(userRepository, times(1)).findById(userId);
-//    }
-//
-//    @Test
-//    public void testCreateUser() {
-//        // Given
-//        CustomerEntity user = new CustomerEntity(1L, "user1", DeckType.FIBONACCI, "link");
-//        when(userRepository.save(user)).thenReturn(user);
-//
-//        // When
-//        CustomerEntity createdUser = userService.save(user);
-//
-//        // Then
-//        assertNotNull(createdUser);
-//        assertEquals(user, createdUser);
-//        verify(userRepository, times(1)).save(user);
-//    }
-//
-//    @Test
-//    public void testDeleteUser() {
-//        // Given
-//        long userId = 1L;
-//        when(userRepository.findById(userId))
-//                .thenReturn(Optional.of(new CustomerEntity(userId, "user1", DeckType.SIZES, "link")));
-//
-//        // When
-//        ResponseEntity<?> response = userService.deleteUser(userId);
-//
-//        // Then
-//        assertEquals(HttpStatus.OK, response.getStatusCode());
-//    }
-//
-//    @Test
-//    public void testDeleteUserNotFound() {
-//        // Given
-//        long userId = 1L;
-//        when(userRepository.findById(userId)).thenReturn(Optional.empty());
-//
-//        // When
-//        ResponseEntity<?> response = userService.deleteUser(userId);
-//
-//        // Then
-//        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-//        verify(userRepository, never()).deleteById(userId);
-//    }
-//
-//    @Test
-//    public void testDeleteAll() {
-//        // When
-//        ResponseEntity<?> response = userService.deleteAll();
-//
-//        // Then
-//        assertEquals(HttpStatus.OK, response.getStatusCode());
-//        verify(userRepository, times(1)).deleteAll();
-//    }
-//
-//    @Test
-//    public void testDeleteAllNotFound() {
-//        // Given
-//        doThrow(new RuntimeException()).when(userRepository).deleteAll();
-//
-//        // When
-//        ResponseEntity<?> response = userService.deleteAll();
-//
-//        // Then
-//        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-//        verify(userRepository, times(1)).deleteAll();
-//    }
+  @Test
+  @DisplayName("Should return the List of customers provided (by mock repository) ")
+  public void testGetUsers() {
+    // Given
+    List<CustomerEntity> users = List.of(createUserEntity("2"), createUserEntity("22"));
+
+    when(userRepository.findAll()).thenReturn(users);
+
+    // When
+    List<CustomerEntity> returnedUsers = userService.findAll();
+
+    // Then
+    assertNotNull(returnedUsers);
+    assertEquals(users.size(), returnedUsers.size());
+    assertTrue(returnedUsers.containsAll(users));
+    verify(userRepository, times(1)).findAll();
+  }
+
+  @Test
+  @DisplayName("Should get the customer with the Id (by mock repository)")
+  public void testGetUserById() {
+    // Given
+    String userId = "1334";
+    CustomerEntity expectedCustomer = createUserEntity("2");
+    when(userRepository.findById(userId)).thenReturn(Optional.of(expectedCustomer));
+
+    // When
+    Optional<CustomerEntity> returnedCustomer = userService.findById(userId);
+
+    // Then
+    assertTrue(returnedCustomer.isPresent());
+    assertEquals(expectedCustomer, returnedCustomer.get());
+    verify(userRepository, times(1)).findById(userId);
+  }
 }

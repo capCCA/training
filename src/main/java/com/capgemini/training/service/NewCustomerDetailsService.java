@@ -16,14 +16,14 @@ public class NewCustomerDetailsService {
   private final UserRepository userRepository;
 
   @Transactional
-  public CustomerDetails save(CustomerDetails dto) throws CustomerBadRequestException {
+  public CustomerDetails save(CustomerDetails dto) {
     CustomerEntity user = CustomerMapper.toEntity(dto);
     if (userRepository.existsById(user.getCustomerId())) {
-      throw new CustomerBadRequestException("This id already exists in the database");
+      throw new CustomerBadRequestException("This id already exists.");
     }
     user.setCreationDate(new Date());
     // get the savedUser
-    user= userRepository.save(user);
-    return CustomerMapper.toDto( user);
+    user = userRepository.save(user);
+    return CustomerMapper.toDto(user);
   }
 }
