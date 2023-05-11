@@ -1,6 +1,7 @@
 package com.capgemini.training.repositories.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,9 +26,7 @@ public class BeneficiaryEntity {
   @Column(length = 10, nullable = false)
   private String beneficiaryId;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date creationDate;
+  @Column private LocalDateTime creationDate;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date updateDate;
+  @Column private LocalDateTime updateDate;
 }

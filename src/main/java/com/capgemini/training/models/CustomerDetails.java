@@ -12,7 +12,7 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 @Schema(description = "CustomerDetails")
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CustomerDetails {
   private static final String NOTNULL_MESSAGE = "is mandatory, cannot be null";
   private static final String SIZE_MESSAGE = "the length must be less than ";

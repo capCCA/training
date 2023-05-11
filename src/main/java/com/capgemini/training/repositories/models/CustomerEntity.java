@@ -2,9 +2,13 @@ package com.capgemini.training.repositories.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,4 +53,7 @@ public class CustomerEntity {
   @Column private LocalDateTime creationDate;
 
   @Column private LocalDateTime updateDate;
+
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<PaymentEntity> payments;
 }

@@ -3,6 +3,7 @@ package com.capgemini.training.repositories.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,9 +50,7 @@ public class PaymentEntity {
   @Column(length = 10, nullable = false)
   private BigDecimal account;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date creationDate;
+  @Column private LocalDateTime creationDate;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date updateDate;
+  @Column private LocalDateTime updateDate;
 }
