@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/user")
 @RestController
 @RequiredArgsConstructor
-public class UserPostController {
+public class PostUserController {
 
     private final SaveUserService userSaveService;
 

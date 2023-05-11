@@ -10,7 +10,6 @@ import com.capgemini.training.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-//@Transactional
 @RequiredArgsConstructor
 public class GetUserService {
 
@@ -21,13 +20,6 @@ public class GetUserService {
         return userRepository.findById(customerId).map(MapperUser::converterDto)
                 .orElseThrow(() -> new UserNotFoundException("customer does not exist in database"));
 
-        /*
-         * Optional<UserEntity> entity = this.userRepository.findById(customerId);
-         * 
-         * if (entity.isEmpty()) { throw new EntityNotFoundException(); }
-         * 
-         * return MapperUser.converterDto(entity);
-         */
     }
 
 }

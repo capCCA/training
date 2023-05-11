@@ -13,16 +13,10 @@ import com.capgemini.training.service.GetUserService;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author ezm
- * @description Controller to query User
- *
- */
-
 @RequestMapping(value = "/user")
 @RestController
 @RequiredArgsConstructor
-public class UserGetController {
+public class GetUserController {
 
     private final GetUserService userService;
 

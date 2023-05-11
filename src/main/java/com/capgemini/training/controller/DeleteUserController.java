@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/user")
 @RestController
 @RequiredArgsConstructor
-public class UserDeleteController {
+public class DeleteUserController {
 
     private final DeleteUserService userDeleteService;
 
@@ -26,6 +26,7 @@ public class UserDeleteController {
 
             this.userDeleteService.delete(customerId);
             return ResponseEntity.ok().build();
+
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

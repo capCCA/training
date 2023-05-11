@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/user")
-public class UserPutController {
+public class PutUserController {
 
     public final UpdateUserService userPutUpdateService;
 
