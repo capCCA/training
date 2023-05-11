@@ -37,17 +37,8 @@ public class UserPostController {
 
     @PostMapping
     public ResponseEntity<UserDto> saveUser(@Valid @RequestBody(required = true) UserDto userDto) {
-
-        try {
-            userSaveService.saveUser(userDto);
-            // 200 valor generico, 201 es el de creacion, se ha creado
-            return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
-
-        } catch (Exception e) {
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(userDto);
-
-        }
+        userSaveService.saveUser(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
 
     }
 

@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.training.exceptions.UserNotFoundException;
 import com.capgemini.training.model.UserDto;
 import com.capgemini.training.service.GetUserService;
 
 import lombok.RequiredArgsConstructor;
 
 /**
- * @author ezm description Controller to query User
+ * @author ezm
+ * @description Controller to query User
  *
  */
 
@@ -30,7 +32,7 @@ public class UserGetController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.userService.get(customerId));
 
-        } catch (Exception e) {
+        } catch (UserNotFoundException e) {
             return ResponseEntity.noContent().build();
 
         }

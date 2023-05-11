@@ -1,10 +1,8 @@
 package com.capgemini.training.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 
-import com.capgemini.training.entity.UserEntity;
+import com.capgemini.training.exceptions.UserNotFoundException;
 import com.capgemini.training.mapper.MapperUser;
 import com.capgemini.training.model.UserDto;
 import com.capgemini.training.repository.UserRepository;
@@ -12,7 +10,7 @@ import com.capgemini.training.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@Transactional
+//@Transactional
 @RequiredArgsConstructor
 public class GetUserService {
 
@@ -20,9 +18,16 @@ public class GetUserService {
 
     public UserDto get(String customerId) {
 
-        UserEntity entity = this.userRepository.getReferenceById(customerId);
+        return userRepository.findById(customerId).map(MapperUser::converterDto)
+                .orElseThrow(() -> new UserNotFoundException("customer does not exist in database"));
 
-        return MapperUser.converterDto(entity);
+        /*
+         * Optional<UserEntity> entity = this.userRepository.findById(customerId);
+         * 
+         * if (entity.isEmpty()) { throw new EntityNotFoundException(); }
+         * 
+         * return MapperUser.converterDto(entity);
+         */
     }
 
 }

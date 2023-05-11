@@ -22,40 +22,6 @@ public final class MapperUser {
                 .telephone(userEntity.getTelephone()).build();
     }
 
-    /*
-     * public static UserDto converterDto(UserEntity userEntity) {
-     * 
-     * UserDto userDto = new UserDto();
-     * 
-     * userDto.setCustomerId(userEntity.getCustomerId());
-     * userDto.setDocumentType(userEntity.getDocumentType());
-     * userDto.setDocumentNumber(userEntity.getDocumentNumber());
-     * userDto.setName(userEntity.getName());
-     * userDto.setSurName(userEntity.getSurName());
-     * userDto.setLastName(userEntity.getLastName());
-     * userDto.setCountry(userEntity.getCountry());
-     * userDto.setTelephone(userEntity.getTelephone());
-     * 
-     * return userDto; }
-     */
-
-    /*
-     * public static UserEntity converterToEntity(UserDto userDto) {
-     * 
-     * UserEntity userEntity = new UserEntity();
-     * 
-     * userEntity.setCustomerId(userDto.getCustomerId());
-     * userEntity.setDocumentType(userDto.getDocumentType());
-     * userEntity.setDocumentNumber(userDto.getDocumentNumber());
-     * userEntity.setName(userDto.getName());
-     * userEntity.setSurName(userDto.getSurName());
-     * userEntity.setLastName(userDto.getLastName());
-     * userEntity.setCountry(userDto.getCountry());
-     * userEntity.setTelephone(userDto.getTelephone());
-     * 
-     * return userEntity; }
-     */
-
     public void mapToEntity(UserDto userDto, UserEntity userEntity) {
 
         userEntity.setDocumentType(userDto.getDocumentType());
