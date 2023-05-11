@@ -26,7 +26,7 @@ class CustomerDetailsControllerTest {
 
   @InjectMocks private CustomerDetailsController userController;
 
-  public CustomerEntity createUser(String id) {
+  public CustomerEntity createCustomerEntity(String id) {
     return CustomerEntity.builder()
         .customerId(id)
         .documentType("dni")
@@ -41,12 +41,12 @@ class CustomerDetailsControllerTest {
   }
 
   @Test
-  @DisplayName("Should return a list of Users with HTTP status OK")
+  @DisplayName("When getting all customers it Should return a list of Users with HTTP status OK")
   void testGetAllUsers() {
     // given
     List<CustomerEntity> users = new ArrayList<>();
-    users.add(createUser("11"));
-    users.add(createUser("12"));
+    users.add(createCustomerEntity("11"));
+    users.add(createCustomerEntity("12"));
 
     Mockito.when(userService.findAll()).thenReturn(users);
 
@@ -59,11 +59,12 @@ class CustomerDetailsControllerTest {
   }
 
   @Test
-  @DisplayName("Should return a CustomerEntity with HTTP status OK")
+  @DisplayName(
+      "When getting existing customer it Should return a CustomerEntity with HTTP status OK")
   void testGetUserById() {
     // given
     String id = "11";
-    CustomerEntity expectedUser = createUser(id);
+    CustomerEntity expectedUser = createCustomerEntity(id);
     Optional<CustomerEntity> expectedOptUser = Optional.of(expectedUser);
     CustomerDetails expectedDto = CustomerMapper.toDto(expectedUser);
 
@@ -78,7 +79,7 @@ class CustomerDetailsControllerTest {
   }
 
   @Test
-  @DisplayName("Should return HTTP status NOT_FOUND when CustomerEntity not found")
+  @DisplayName("When getting non existing customer it Should return HTTP status NOT_FOUND ")
   void testGetUserByIdNotFound() {
     // given
     String id = "12";
