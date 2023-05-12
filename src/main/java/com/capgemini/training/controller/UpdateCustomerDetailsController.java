@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/users")
 @RequiredArgsConstructor
 @Log
+
 public class UpdateCustomerDetailsController {
 
   public final UpdateCustomerDetailsService userService;
