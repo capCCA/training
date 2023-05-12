@@ -6,7 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum PaymentType {
-    BIZUM("BIZUM"), TRANSFER("TRANSFER");
+  BIZUM("BIZUM"),
+  TRANSFER("TRANSFER");
 
-    private final String value;
+  private final String value;
 }

@@ -8,6 +8,5 @@ import lombok.Getter;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class BeneficiaryResponse {
-
   private String beneficiaryId;
 }

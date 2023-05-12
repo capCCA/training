@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class CustomError {
-    private HttpStatus status;
-    private int error;
-    private List<String> messages;
+  private HttpStatus status;
+  private int error;
+  private List<String> messages;
 }

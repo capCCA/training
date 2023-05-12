@@ -1,8 +1,8 @@
 package com.capgemini.training.services;
 
-import com.capgemini.training.errors.BeneficiaryNotFoundException;
-import com.capgemini.training.errors.CustomerNotFoundException;
-import com.capgemini.training.errors.PaymentNotFoundException;
+import com.capgemini.training.errors.exceptions.BeneficiaryNotFoundException;
+import com.capgemini.training.errors.exceptions.CustomerNotFoundException;
+import com.capgemini.training.errors.exceptions.PaymentNotFoundException;
 import com.capgemini.training.mappers.PaymentMapper;
 import com.capgemini.training.models.PaymentRequest;
 import com.capgemini.training.models.PaymentResponse;
@@ -24,9 +24,9 @@ public class UpdatePaymentService {
   public PaymentResponse updatePayment(PaymentRequest paymentRequest) {
     if (paymentRepository.existsById(paymentRequest.getPaymentId())) {
       paymentRequest.setUpdateDate(LocalDateTime.now());
-      return paymentMapper.toResponse(
+      return paymentMapper.entityToResponse(
           paymentRepository.save(
-              paymentMapper.toEntity(
+              paymentMapper.requestToEntity(
                   paymentRequest,
                   customerRepository
                       .findById(paymentRequest.getCustomerId())

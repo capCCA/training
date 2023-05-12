@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PaymentMapper {
 
-  public PaymentResponse toResponse(PaymentEntity paymentEntity) {
+  public PaymentResponse entityToResponse(PaymentEntity paymentEntity) {
     return PaymentResponse.builder()
         .paymentId(paymentEntity.getPaymentId())
         .beneficiary(
@@ -34,11 +34,11 @@ public class PaymentMapper {
         .build();
   }
 
-  public List<PaymentResponse> toResponseList(List<PaymentEntity> paymentEntities) {
-    return paymentEntities.stream().map(this::toResponse).toList();
+  public List<PaymentResponse> entityToResponseList(List<PaymentEntity> paymentEntities) {
+    return paymentEntities.stream().map(this::entityToResponse).toList();
   }
 
-  public PaymentEntity toEntity(
+  public PaymentEntity requestToEntity(
       PaymentRequest paymentRequest,
       CustomerEntity customerEntity,
       BeneficiaryEntity beneficiaryEntity) {

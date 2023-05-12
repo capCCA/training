@@ -1,6 +1,5 @@
 package com.capgemini.training.repositories.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,32 +30,32 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "payment")
 public class PaymentEntity implements Serializable {
 
-    protected static final long serialVersionUID = 1L;
+  protected static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(length = 10)
-    private Long paymentId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(length = 10)
+  private Long paymentId;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonManagedReference
-    private CustomerEntity customer;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "customer_id", nullable = false)
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @JsonManagedReference
+  private CustomerEntity customer;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "beneficiary_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonManagedReference
-    private BeneficiaryEntity beneficiary;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "beneficiary_id", nullable = false)
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @JsonManagedReference
+  private BeneficiaryEntity beneficiary;
 
-    @Column(length = 10, nullable = false)
-    private String paymentType;
+  @Column(length = 10, nullable = false)
+  private String paymentType;
 
-    @Column(length = 10, nullable = false)
-    private BigDecimal account;
+  @Column(length = 10, nullable = false)
+  private BigDecimal account;
 
-    @Column private LocalDateTime creationDate;
+  @Column private LocalDateTime creationDate;
 
-    @Column private LocalDateTime updateDate;
+  @Column private LocalDateTime updateDate;
 }

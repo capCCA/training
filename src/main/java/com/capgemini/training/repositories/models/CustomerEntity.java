@@ -59,9 +59,8 @@ public class CustomerEntity implements Serializable {
 
   @Column private LocalDateTime updateDate;
 
-  @OneToMany(mappedBy = "customer",
-          cascade = CascadeType.ALL,
-          fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @JsonBackReference
-  private Set<PaymentEntity> payments;}
+  private Set<PaymentEntity> payments;
+}

@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ListPaymentService {
 
-  private PaymentRepository paymentRepository;
-  private CustomerRepository customerRepository;
-  private BeneficiaryRepository beneficiaryRepository;
-  private PaymentMapper paymentMapper;
+  private final PaymentRepository paymentRepository;
+  private final PaymentMapper paymentMapper;
 
   public List<PaymentResponse> getAllPaymentsByCustomerId(String customerId) {
-    return paymentMapper.toResponseList(paymentRepository.findAll());
+    return paymentMapper.entityToResponseList(paymentRepository.findAllByCustomerCustomerId(customerId));
+  }
+
+  public List<PaymentResponse> getAllPayments(){
+    return paymentMapper.entityToResponseList(paymentRepository.findAll());
   }
 }

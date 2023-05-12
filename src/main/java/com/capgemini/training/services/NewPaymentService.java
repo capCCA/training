@@ -1,8 +1,8 @@
 package com.capgemini.training.services;
 
-import com.capgemini.training.errors.BeneficiaryNotFoundException;
-import com.capgemini.training.errors.CustomerNotFoundException;
-import com.capgemini.training.errors.PaymentBadRequestException;
+import com.capgemini.training.errors.exceptions.BeneficiaryNotFoundException;
+import com.capgemini.training.errors.exceptions.CustomerNotFoundException;
+import com.capgemini.training.errors.exceptions.PaymentBadRequestException;
 import com.capgemini.training.mappers.PaymentMapper;
 import com.capgemini.training.models.PaymentRequest;
 import com.capgemini.training.models.PaymentResponse;
@@ -26,9 +26,9 @@ public class NewPaymentService {
     if (paymentRequest.getPaymentId() == null
         || !paymentRepository.existsById(paymentRequest.getPaymentId())) {
       paymentRequest.setCreationDate(LocalDateTime.now());
-      return paymentMapper.toResponse(
+      return paymentMapper.entityToResponse(
           paymentRepository.save(
-              paymentMapper.toEntity(
+              paymentMapper.requestToEntity(
                   paymentRequest,
                   customerRepository
                       .findById(paymentRequest.getCustomerId())
@@ -37,6 +37,6 @@ public class NewPaymentService {
                       .findById(paymentRequest.getBeneficiaryId())
                       .orElseThrow(BeneficiaryNotFoundException::new))));
     }
-    throw new PaymentBadRequestException();
+    throw new PaymentBadRequestException("Already exists this payment id");
   }
 }

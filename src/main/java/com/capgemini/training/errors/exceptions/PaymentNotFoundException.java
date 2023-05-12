@@ -1,3 +1,3 @@
-package com.capgemini.training.errors;
+package com.capgemini.training.errors.exceptions;
 
 public class PaymentNotFoundException extends RuntimeException{}
