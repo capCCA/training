@@ -18,7 +18,7 @@ public class UpdatePaymentController {
   private final UpdatePaymentService updatePaymentService;
 
   @PutMapping
-  public ResponseEntity<PaymentResponse> addPayment(@RequestBody PaymentRequest paymentRequest) {
+  public ResponseEntity<PaymentResponse> updatePayment(@RequestBody PaymentRequest paymentRequest) {
     return ResponseEntity.ok(updatePaymentService.updatePayment(paymentRequest));
   }
 }

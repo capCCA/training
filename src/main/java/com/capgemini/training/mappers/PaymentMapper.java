@@ -11,9 +11,9 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PaymentMapper {
+public final class PaymentMapper {
 
-  public PaymentResponse entityToResponse(PaymentEntity paymentEntity) {
+  public static PaymentResponse entityToResponse(PaymentEntity paymentEntity) {
     return PaymentResponse.builder()
         .paymentId(paymentEntity.getPaymentId())
         .beneficiary(
@@ -34,11 +34,11 @@ public class PaymentMapper {
         .build();
   }
 
-  public List<PaymentResponse> entityToResponseList(List<PaymentEntity> paymentEntities) {
-    return paymentEntities.stream().map(this::entityToResponse).toList();
+  public static List<PaymentResponse> entityToResponseList(List<PaymentEntity> paymentEntities) {
+    return paymentEntities.stream().map(PaymentMapper::entityToResponse).toList();
   }
 
-  public PaymentEntity requestToEntity(
+  public static PaymentEntity requestToEntity(
       PaymentRequest paymentRequest,
       CustomerEntity customerEntity,
       BeneficiaryEntity beneficiaryEntity) {
