@@ -4,8 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-import com.capgemini.training.errors.CustomerNotFoundException;
-import com.capgemini.training.service.DeleteCustomerDetailsService;
+import com.capgemini.training.api.controller.DeleteCustomerDetailsController;
+import com.capgemini.training.api.exceptions.CustomerNotFoundException;
+import com.capgemini.training.api.service.DeleteCustomerDetailsService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

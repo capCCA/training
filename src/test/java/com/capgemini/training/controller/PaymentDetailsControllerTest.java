@@ -1,11 +1,12 @@
 package com.capgemini.training.controller;
 
-import com.capgemini.training.config.PaymentMapper;
-import com.capgemini.training.dto.PaymentDetails;
-import com.capgemini.training.entity.BeneficiaryEntity;
-import com.capgemini.training.entity.CustomerEntity;
-import com.capgemini.training.entity.PaymentEntity;
-import com.capgemini.training.service.PaymentDetailsService;
+import com.capgemini.training.api.controller.PaymentDetailsController;
+import com.capgemini.training.api.model.PaymentDetails;
+import com.capgemini.training.api.repository.model.BeneficiaryEntity;
+import com.capgemini.training.api.repository.model.CustomerEntity;
+import com.capgemini.training.api.repository.model.PaymentEntity;
+import com.capgemini.training.api.service.PaymentDetailsService;
+import com.capgemini.training.api.service.mapper.PaymentMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;

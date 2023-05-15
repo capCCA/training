@@ -5,9 +5,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.capgemini.training.dto.CustomerDetails;
-import com.capgemini.training.errors.CustomerBadRequestException;
-import com.capgemini.training.service.NewCustomerDetailsService;
+import com.capgemini.training.api.controller.NewCustomerDetailsController;
+import com.capgemini.training.api.model.CustomerDetails;
+import com.capgemini.training.api.exceptions.CustomerBadRequestException;
+import com.capgemini.training.api.service.NewCustomerDetailsService;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Assertions;

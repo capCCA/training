@@ -9,11 +9,12 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.config.CustomerMapper;
-import com.capgemini.training.dto.CustomerDetails;
-import com.capgemini.training.entity.CustomerEntity;
-import com.capgemini.training.errors.CustomerBadRequestException;
-import com.capgemini.training.repository.UserRepository;
+import com.capgemini.training.api.service.mapper.CustomerMapper;
+import com.capgemini.training.api.model.CustomerDetails;
+import com.capgemini.training.api.service.NewCustomerDetailsService;
+import com.capgemini.training.api.repository.model.CustomerEntity;
+import com.capgemini.training.api.exceptions.CustomerBadRequestException;
+import com.capgemini.training.api.repository.UserRepository;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

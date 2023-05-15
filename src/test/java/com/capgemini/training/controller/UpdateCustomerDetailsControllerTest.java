@@ -3,9 +3,10 @@ package com.capgemini.training.controller;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 
-import com.capgemini.training.dto.CustomerDetails;
-import com.capgemini.training.errors.CustomerNotFoundException;
-import com.capgemini.training.service.UpdateCustomerDetailsService;
+import com.capgemini.training.api.controller.UpdateCustomerDetailsController;
+import com.capgemini.training.api.exceptions.CustomerNotFoundException;
+import com.capgemini.training.api.model.CustomerDetails;
+import com.capgemini.training.api.service.UpdateCustomerDetailsService;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -7,8 +7,9 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.errors.CustomerNotFoundException;
-import com.capgemini.training.repository.UserRepository;
+import com.capgemini.training.api.exceptions.CustomerNotFoundException;
+import com.capgemini.training.api.repository.UserRepository;
+import com.capgemini.training.api.service.DeleteCustomerDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

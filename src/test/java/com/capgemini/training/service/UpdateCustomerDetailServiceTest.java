@@ -8,10 +8,11 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.dto.CustomerDetails;
-import com.capgemini.training.entity.CustomerEntity;
-import com.capgemini.training.errors.CustomerNotFoundException;
-import com.capgemini.training.repository.UserRepository;
+import com.capgemini.training.api.exceptions.CustomerNotFoundException;
+import com.capgemini.training.api.model.CustomerDetails;
+import com.capgemini.training.api.repository.UserRepository;
+import com.capgemini.training.api.repository.model.CustomerEntity;
+import com.capgemini.training.api.service.UpdateCustomerDetailsService;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -58,24 +59,21 @@ public class UpdateCustomerDetailServiceTest {
   @DisplayName("F-------Should update existing customer ")
   void updateExistingCustomer() {
     String customerId = "999999";
-    CustomerDetails customerDetails = new CustomerDetails();
-    customerDetails.setCustomerId(customerId);
+    CustomerDetails expectedCustomerDetails = new CustomerDetails();
+    expectedCustomerDetails.setCustomerId(customerId);
 
     CustomerEntity existingCustomer = createUserEntity(customerId);
-
     // See update we use:
     // CustomerEntity user = userRepository.findById(id).orElse(null);
     // userRepository.save(user)
 
     when(userRepository.findById(customerId)).thenReturn(Optional.of(existingCustomer));
     when(userRepository.save(existingCustomer)).thenReturn(existingCustomer);
-    // tried to mock it, but gives same result.
-    // when(CustomerMapper.toDto(existingCustomer)).thenReturn(customerDetails);
+    
+    CustomerDetails actualCustomerDetails = customerService.update(customerId, expectedCustomerDetails);
 
-    CustomerDetails updatedCustomer = customerService.update(customerId, customerDetails);
-
-    assertNotNull(updatedCustomer);
-    assertEquals(customerId, updatedCustomer.getCustomerId());
+    assertNotNull(actualCustomerDetails);
+    assertEquals(expectedCustomerDetails, actualCustomerDetails);
 
     verify(userRepository).findById(customerId);
     verify(userRepository).save(existingCustomer);

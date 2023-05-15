@@ -7,8 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.entity.CustomerEntity;
-import com.capgemini.training.repository.UserRepository;
+import com.capgemini.training.api.service.CustomerDetailsService;
+import com.capgemini.training.api.repository.model.CustomerEntity;
+import com.capgemini.training.api.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;

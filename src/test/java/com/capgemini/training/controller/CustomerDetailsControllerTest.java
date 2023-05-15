@@ -1,9 +1,10 @@
 package com.capgemini.training.controller;
 
-import com.capgemini.training.config.CustomerMapper;
-import com.capgemini.training.dto.CustomerDetails;
-import com.capgemini.training.entity.CustomerEntity;
-import com.capgemini.training.service.CustomerDetailsService;
+import com.capgemini.training.api.controller.CustomerDetailsController;
+import com.capgemini.training.api.model.CustomerDetails;
+import com.capgemini.training.api.repository.model.CustomerEntity;
+import com.capgemini.training.api.service.CustomerDetailsService;
+import com.capgemini.training.api.service.mapper.CustomerMapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
