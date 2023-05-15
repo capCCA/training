@@ -1,5 +1,6 @@
 package com.capgemini.training.controller;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 
 import com.capgemini.training.dto.CustomerDetails;
@@ -10,17 +11,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Log
-@ExtendWith(MockitoExtension.class)
+// @ExtendWith(MockitoExtension.class)
 class UpdateCustomerDetailsControllerTest {
 
   @Mock private UpdateCustomerDetailsService userService;
@@ -48,15 +47,14 @@ class UpdateCustomerDetailsControllerTest {
 
   //
   @Test
-  @DisplayName("--Should update a CustomerDetails with HTTP status OK")
+  @DisplayName("Should update a CustomerDetails with HTTP status OK")
   void testUpdateUser() {
     // given
     String id = "11";
     CustomerDetails expectedDto = createUserDto(id);
 
     Mockito.when(userService.update(id, expectedDto)).thenReturn(expectedDto);
-    // userService.update(userId, dto)
-    // when
+
     ResponseEntity<CustomerDetails> response = userController.update(id, expectedDto);
 
     // then
@@ -67,28 +65,14 @@ class UpdateCustomerDetailsControllerTest {
 
   // Fails: Returns OK
   @Test
-  @DisplayName("--Should fail to update CustomerDetails and throws CustomerNotFoundException ")
+  @DisplayName("Should fail to update CustomerDetails and throws CustomerNotFoundException ")
   void testUpdateUserNotFound() {
-    Throwable exceptionExpected = null;
     String id = "11";
     CustomerDetails expectedDto = createUserDto(id);
 
-    Mockito.when(userService.update(id, expectedDto)).thenReturn(null);
+    Mockito.when(userService.update(id, expectedDto)).thenThrow(CustomerNotFoundException.class);
 
-    // Exception.
-
-    // when
-    ResponseEntity<CustomerDetails> response = null;
-    try {
-      response = userController.update(id, expectedDto);
-      Assertions.fail("Expected a CustomerNotFoundException to be thrown");
-    } catch (CustomerNotFoundException e) {
-      exceptionExpected = e;
-      log.info("Expected exception " + e.getMessage());
-    }
-    log.info("response " + response);
-
-    // then
-    Assertions.assertTrue( exceptionExpected instanceof CustomerNotFoundException);
+    assertThrows(CustomerNotFoundException.class, () -> userController.update(id, expectedDto));
+    verify(userService).update(id, expectedDto);
   }
 }

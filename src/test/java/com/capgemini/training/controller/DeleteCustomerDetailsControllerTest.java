@@ -2,20 +2,15 @@ package com.capgemini.training.controller;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import com.capgemini.training.errors.CustomerNotFoundException;
 import com.capgemini.training.service.DeleteCustomerDetailsService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,20 +22,28 @@ class DeleteCustomerDetailsControllerTest {
 
   @InjectMocks private DeleteCustomerDetailsController userController;
 
+  /*  si se usa @ExtendWith no hace falta.
+  private AutoCloseable closeable;
+
   @BeforeEach
   public void setUp() {
-    MockitoAnnotations.openMocks(this);
+    closeable=MockitoAnnotations.openMocks(this);
   }
+
+  @AfterEach public void releaseMocks() throws Exception {
+    closeable.close();
+  }
+  */
   // Mockito does not work for void methods, use doNothing o doAnswer..
   // https://stacktraceguru.com/unittest/mock-void-method
 
   @Test
-  @DisplayName("--Should return HTTP status NOT_FOUND")
-  void testDeleteUserNotFound_Old()  {
+  @DisplayName("Should throw CustomerNotFoundException ")
+  void testDeleteUserNotFound_OldStyle() {
     Throwable exceptionExpected = null;
     // given
     String id = "99";
-    Mockito.doNothing().when(userService).delete(id);
+    Mockito.doThrow(CustomerNotFoundException.class).when(userService).delete(id);
 
     ResponseEntity<Void> response = null;
     // when
@@ -56,28 +59,30 @@ class DeleteCustomerDetailsControllerTest {
   }
 
   @Test
-  @DisplayName("--Should throw CustomerNotFoundException")
-  void testDeleteUserNotFound_new() throws Exception {
+  @DisplayName("Should throw CustomerNotFoundException")
+  void testDeleteUserNotFound_NewStlyle() {
     // given
-    String customerId = "99";
-    doNothing().when(userService).delete(customerId);
-    assertThrows (CustomerNotFoundException.class, () -> userController.delete(customerId));
+    doThrow(CustomerNotFoundException.class).when(userService).delete(anyString());
 
-    verify(userService).delete(customerId);
+    assertThrows(CustomerNotFoundException.class, () -> userController.delete(anyString()));
+    // fails here
+
+    verify(userService).delete(anyString());
   }
 
   @Test
-  @DisplayName("--Should return HTTP status OK ")
+  @DisplayName("Should return HTTP status OK ")
   void testDeleteUserSuccess() {
     // given
     String customerId = "11";
-    doNothing().when(userService).delete(customerId);
-    assertDoesNotThrow(() -> userController.delete(customerId));
+    doNothing().when(userService).delete(anyString());
+    assertDoesNotThrow(() -> userController.delete(customerId)); // 1st time
 
     // when
-    ResponseEntity<Void> response = userController.delete(customerId);
+    ResponseEntity<Void> response = userController.delete(customerId); // 2nd time
 
     // then
     Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+    verify(userService, times(2)).delete(anyString());
   }
 }

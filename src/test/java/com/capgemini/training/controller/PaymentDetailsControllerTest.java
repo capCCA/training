@@ -15,16 +15,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-@ExtendWith(MockitoExtension.class)
 class PaymentDetailsControllerTest {
 
   @Mock private PaymentDetailsService paymentService;
@@ -66,7 +63,7 @@ class PaymentDetailsControllerTest {
   }
 
   @Test
-  @DisplayName("-Should return a list of payments with HTTP status OK")
+  @DisplayName("Should return a list of payments with HTTP status OK")
   void testGetAllPayments() {
     // given
     List<PaymentEntity> payments = new ArrayList<>();
@@ -84,7 +81,7 @@ class PaymentDetailsControllerTest {
   }
 
   @Test
-  @DisplayName("--Should return a PaymentEntity with HTTP status OK")
+  @DisplayName("Should return a PaymentEntity with HTTP status OK")
   void testGetUserById() {
     // given
     Long id = 11L;
@@ -102,9 +99,8 @@ class PaymentDetailsControllerTest {
     Assertions.assertEquals(expectedDto, response.getBody());
   }
 
-  // Error unnecesary stubbing
   @Test
-  @DisplayName("--Should return HTTP status NOT_FOUND when PaymentEntity not found")
+  @DisplayName("Should return HTTP status NOT_FOUND when PaymentEntity not found")
   void testGetUserByIdNotFound() {
     // given
     Long id = 13L;
