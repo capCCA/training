@@ -1,11 +1,9 @@
 package com.capgemini.training.mappers;
 
 import com.capgemini.training.models.PaymentDetails;
-import com.capgemini.training.repository.models.CustomerEntity;
 import com.capgemini.training.repository.models.PaymentEntity;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PaymentMapper {
