@@ -1,7 +1,7 @@
 package com.capgemini.training.services.user;
 
 import com.capgemini.training.mappers.CustomerMapper;
-import com.capgemini.training.models.Customer;
+import com.capgemini.training.repository.models.CustomerEntity;
 import com.capgemini.training.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,25 +11,25 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserEditService {
+public class EditCustomerService {
 
     //Repository injection
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
-    public ResponseEntity editUser( Customer customer ){
+    public ResponseEntity editUser( CustomerEntity customerEntity){
 
 
 
-        if( customerRepository.findById( customer.getCustomerId() ).isPresent() ){
+        if( customerRepository.findById( customerEntity.getCustomerId() ).isPresent() ){
 
-            Optional<Customer> customer1 = Optional.of(customerRepository.save(customer));
+            Optional<CustomerEntity> customer1 = Optional.of(customerRepository.save(customerEntity));
 
             //If customer has been saved correctly
             if( customer1.isPresent() ){
 
                 return ResponseEntity
-                        .ok( customerMapper.customerConverterDto( customer, "El usuario: " + customer + " ha sido actualizado correctamente "));
+                        .ok( customerMapper.customerConverterDto(customerEntity, "El usuario: " + customerEntity + " ha sido actualizado correctamente "));
 
             }
             return ResponseEntity
@@ -38,7 +38,7 @@ public class UserEditService {
         }
         return ResponseEntity
                 .badRequest()
-                .body( customerMapper.customerConverterDto(customer," El usuario con ID " + customer.getCustomerId() + " no existe y no ha podido ser modificado"));
+                .body( customerMapper.customerConverterDto(customerEntity," El usuario con ID " + customerEntity.getCustomerId() + " no existe y no ha podido ser modificado"));
 
     }
 }

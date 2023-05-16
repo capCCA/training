@@ -1,8 +1,8 @@
 package com.capgemini.training.controller.user;
 
-import com.capgemini.training.dto.CustomerDto;
-import com.capgemini.training.models.Customer;
-import com.capgemini.training.services.user.UserSaveService;
+import com.capgemini.training.models.CustomerDto;
+import com.capgemini.training.repository.models.Customer;
+import com.capgemini.training.services.user.SaveCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,9 +21,9 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class UserSaveController {
+public class CustomerDetailsController {
 
-    private final UserSaveService userSaveService;
+    private final SaveCustomerService saveCustomerService;
     @Operation(summary = "Save a new customer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Customer was correctly saved",
@@ -36,7 +36,7 @@ public class UserSaveController {
     @PostMapping("/")
     public ResponseEntity saveUser( @Valid @RequestBody @NotNull(message="El objeto customer enviado es incorrecto") CustomerDto customerDto ) {
 
-        return userSaveService.saveUser(customerDto);
+        return saveCustomerService.saveUser(customerDto);
 
     }
 }

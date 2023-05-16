@@ -1,4 +1,4 @@
-package com.capgemini.training.dto;
+package com.capgemini.training.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

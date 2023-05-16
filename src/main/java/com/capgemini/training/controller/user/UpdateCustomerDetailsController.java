@@ -1,9 +1,8 @@
 package com.capgemini.training.controller.user;
 
-import com.capgemini.training.dto.CustomerDto;
-import com.capgemini.training.mappers.CustomerMapper;
-import com.capgemini.training.models.Customer;
-import com.capgemini.training.services.user.UserEditService;
+import com.capgemini.training.models.CustomerDto;
+import com.capgemini.training.repository.models.Customer;
+import com.capgemini.training.services.user.EditCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,7 +19,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class UserPutController {
 
-    private final UserEditService userEditService;
+    private final EditCustomerService editCustomerService;
 
     @Operation(summary = "Update a customer")
     //Documentating Status codes
@@ -36,7 +35,7 @@ public class UserPutController {
     @PutMapping("/")
     public ResponseEntity<CustomerDto> updateUser( @Valid @RequestBody Customer customer) {
 
-        return userEditService.editUser(customer);
+        return editCustomerService.editUser(customer);
 
     }
 }

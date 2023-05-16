@@ -1,6 +1,6 @@
 package com.capgemini.training.controller.user;
 
-import com.capgemini.training.services.user.UserDeleteService;
+import com.capgemini.training.services.user.DeleteCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,7 +20,7 @@ import javax.validation.constraints.NotBlank;
 @RequiredArgsConstructor
 public class UserDeleteController {
 
-    private final UserDeleteService userDeleteService;
+    private final DeleteCustomerService deleteCustomerService;
     @Operation(summary = "Remove a customer by its ID")
     //Documentating Status codes
     @ApiResponses(value = {
@@ -33,7 +33,7 @@ public class UserDeleteController {
     @DeleteMapping("/{customerId}")
     public ResponseEntity<String> deleteUser( @Valid @PathVariable @NotBlank(message="Inserte el ID del usuario que desea eliminar") String customerId) {
 
-        return userDeleteService.delete(customerId);
+        return deleteCustomerService.delete(customerId);
 
     }
 }

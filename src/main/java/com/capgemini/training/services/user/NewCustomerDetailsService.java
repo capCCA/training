@@ -1,8 +1,8 @@
 package com.capgemini.training.services.user;
 
-import com.capgemini.training.dto.CustomerDto;
+import com.capgemini.training.models.CustomerDto;
 import com.capgemini.training.mappers.CustomerMapper;
-import com.capgemini.training.models.Customer;
+import com.capgemini.training.repository.models.CustomerEntity;
 import com.capgemini.training.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,12 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserSaveService {
+public class SaveCustomerService {
 
     //Repository injection
     private final CustomerRepository customerRepository;
@@ -30,7 +29,7 @@ public class UserSaveService {
         if( !customerRepository.findById( customerDto.getCustomerId() ).isPresent() ){
 
             customerDto.setCreationDate( LocalDate.now() );
-            Optional<Customer> customer  = Optional.of(customerRepository.save(customerMapper.requestConvertEntity(customerDto)));
+            Optional<CustomerEntity> customer  = Optional.of(customerRepository.save(customerMapper.requestConvertEntity(customerDto)));
 
             if ( customer.isPresent() ) {
 

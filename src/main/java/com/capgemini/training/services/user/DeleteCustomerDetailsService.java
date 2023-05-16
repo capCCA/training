@@ -5,11 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
-public class UserDeleteService {
+public class DeleteCustomerService {
 
   // Repository injection
   private final CustomerRepository customerRepository;

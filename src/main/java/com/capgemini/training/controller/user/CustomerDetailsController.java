@@ -1,7 +1,7 @@
 package com.capgemini.training.controller.user;
 
-import com.capgemini.training.models.Customer;
-import com.capgemini.training.services.user.UserGetService;
+import com.capgemini.training.repository.models.Customer;
+import com.capgemini.training.services.user.GetCustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,7 +22,7 @@ import javax.validation.constraints.NotBlank;
 @RequiredArgsConstructor
 public class UserGetController {
 
-  private final UserGetService userGetService;
+  private final GetCustomerService getCustomerService;
 
   @Operation(summary = "To list a customer by its ID")
   //Documentating Status codes
@@ -37,7 +37,7 @@ public class UserGetController {
   @GetMapping("users/{customerId}")
   public ResponseEntity getUser( @Valid @PathVariable @NotBlank(message = "ID de usuario no insertado") String customerId) {
 
-      return userGetService.getUserById(customerId);
+      return getCustomerService.getUserById(customerId);
 
   }
   /*@Operation(summary = "To list all the customers saved in database")

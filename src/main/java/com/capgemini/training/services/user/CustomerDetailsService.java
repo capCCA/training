@@ -1,11 +1,11 @@
 package com.capgemini.training.services.user;
 
 import com.capgemini.training.mappers.CustomerMapper;
-import com.capgemini.training.models.Customer;
+import com.capgemini.training.repository.models.CustomerEntity;
 import com.capgemini.training.repository.CustomerRepository;
 
-import java.util.List;
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserGetService {
+public class GetCustomerService {
 
     //Repository injection
     private final CustomerRepository customerRepository;
@@ -23,7 +23,7 @@ public class UserGetService {
 
         if (id != null) {
 
-            Optional<Customer> user = customerRepository.findById(id);
+            Optional<CustomerEntity> user = customerRepository.findById(id);
 
             if( user.isPresent() ){
 
