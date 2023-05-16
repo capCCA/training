@@ -25,6 +25,8 @@ public class ListingPaymentDetailsController {
                     content = @Content) })
     @GetMapping("/listing")
     public List<ResponseEntity> listPaymentsDetails(){
+
         return null;
+
     }
 }
