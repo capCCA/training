@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.training.exceptions.UserNotFoundException;
 import com.capgemini.training.model.UserDto;
 import com.capgemini.training.service.UpdateUserService;
 
@@ -32,13 +31,14 @@ public class PutUserController {
     public ResponseEntity<UserDto> update(@Valid @PathVariable(name = "customerId") String customerId,
             @RequestBody UserDto dto) throws Exception {
 
-        try {
+        // try {
 
-            return ResponseEntity.ok(userPutUpdateService.update(customerId, dto));
+        return ResponseEntity.ok(userPutUpdateService.update(customerId, dto));
 
-        } catch (UserNotFoundException e) {
-            return ResponseEntity.notFound().build();
-
-        }
+        /*
+         * } catch (UserNotFoundException e) { return ResponseEntity.notFound().build();
+         * 
+         * }
+         */
     }
 }

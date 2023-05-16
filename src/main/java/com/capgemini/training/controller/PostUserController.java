@@ -16,11 +16,6 @@ import com.capgemini.training.service.SaveUserService;
 
 import lombok.RequiredArgsConstructor;
 
-/**
- * 
- * @author ezorzome {@summary: Controller to call save Service}
- */
-
 @RequestMapping(value = "/user")
 @RestController
 @RequiredArgsConstructor
