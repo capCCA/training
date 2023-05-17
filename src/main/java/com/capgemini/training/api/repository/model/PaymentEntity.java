@@ -16,7 +16,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class PaymentEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false)
   private Long paymentId;
 

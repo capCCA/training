@@ -19,16 +19,22 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+  //country is longer than 3 characters
+  @ExceptionHandler(ConstraintViolationException.class)
+  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+  public void constraintViolationExceptionHandler(HttpServletResponse response) throws IOException {
+    response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
+  }
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public void illegalArgumentExceptionHandler(HttpServletResponse response) throws IOException {
     response.sendError(HttpStatus.BAD_REQUEST.value());
   }
-
-  @ExceptionHandler(ConstraintViolationException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public void constraintViolationExceptionHandler(HttpServletResponse response) throws IOException {
-    response.sendError(HttpStatus.BAD_REQUEST.value());
+ //example document type is not dni or passport
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+  public void dataIntegrityViolationExceptionHandler(HttpServletResponse response) throws IOException {
+    response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
   }
 
   @ExceptionHandler({CustomerNotFoundException.class})

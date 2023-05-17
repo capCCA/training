@@ -19,15 +19,17 @@ public class UpdateCustomerDetailsService {
 
   @Transactional
   public CustomerDetails update(String id, CustomerDetails dto) {
+//    if( ! userRepository.existsById( id) )
+//      throw new CustomerNotFoundException();
+//    Optional <CustomerEntity> optUser =  userRepository.findById(id);
+//    if (!optUser.isPresent()){
+//      throw new CustomerNotFoundException();
+//    }
+//    CustomerEntity user = optUser.get();
+      
+    CustomerEntity user =
+        userRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException());
 
-    // same as below.
-    //CustomerEntity user1 =
-    //    userRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException());
-
-    CustomerEntity user = userRepository.findById(id).orElseThrow(null);
-    if (user == null) {
-      throw new CustomerNotFoundException();
-    }
 
     Date wasCreated = user.getCreationDate();
     user = CustomerMapper.toEntity(dto);

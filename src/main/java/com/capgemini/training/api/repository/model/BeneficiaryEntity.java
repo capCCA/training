@@ -24,10 +24,10 @@ public class BeneficiaryEntity {
   private String beneficiaryId;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "creation_date", nullable = false)
+  @Column(nullable = false)
   Date creationDate;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "update_date")
+  @Column
   Date updateDate;
 }
