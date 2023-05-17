@@ -1,12 +1,16 @@
 package com.capgemini.training.controllers;
 
-import com.capgemini.training.models.PaymentDetails;
+import com.capgemini.training.mappers.PaymentMapper;
+import com.capgemini.training.models.PaymentDetailsRequest;
+import com.capgemini.training.models.PaymentDetailsResponse;
 import com.capgemini.training.repository.models.CustomerEntity;
+import com.capgemini.training.services.UpdatePaymentDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +22,11 @@ import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/payments")
+@RequiredArgsConstructor
 public class UpdatePaymentDetailsController {
+
+    private final UpdatePaymentDetailsService updatePaymentDetailsService;
+    private final PaymentMapper paymentMapper;
 
     @Operation(summary = "Update a payment")
     //Documentating Status codes
@@ -32,9 +40,9 @@ public class UpdatePaymentDetailsController {
                     content = @Content) })
 
     @PutMapping("/")
-    public ResponseEntity<PaymentDetails> updateUser( @Valid @RequestBody @NotNull(message="El objeto payment enviado es incorrecto") PaymentDetails paymentDetails) {
+    public ResponseEntity<PaymentDetailsResponse> updateUser(@Valid @RequestBody @NotNull(message="El objeto payment enviado es incorrecto") PaymentDetailsRequest paymentDetailsRequest) {
 
-        return null;
+        return ResponseEntity.ok( updatePaymentDetailsService.updatePayment(paymentDetailsRequest));
 
     }
 

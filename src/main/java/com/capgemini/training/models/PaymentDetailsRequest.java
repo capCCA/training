@@ -2,9 +2,10 @@ package com.capgemini.training.models;
 
 import com.capgemini.training.repository.models.BeneficiaryEntity;
 import com.capgemini.training.repository.models.CustomerEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.*;
@@ -15,7 +16,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentDetails {
+public class PaymentDetailsRequest {
 
         @NotNull
         private Long paymentId;
@@ -24,14 +25,16 @@ public class PaymentDetails {
         private CustomerEntity customer;
         @NotNull
         @Size( max = 10 )
-        private BeneficiaryEntity beneficiaryEntity;
+        private BeneficiaryEntity beneficiary;
         @NotNull
         @Size( max = 10 )
         private String paymentType;
         @NotNull
         private BigDecimal amount;
         @NotNull
+        @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
         private LocalDate creationDate;
+        @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
         private LocalDate updateDate;
         
 }

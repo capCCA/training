@@ -1,6 +1,7 @@
 package com.capgemini.training.repository.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "beneficiary")
-public class BeneficiaryEntity {
+public class BeneficiaryEntity implements Serializable {
 
     @Id
     @Column( name="beneficiary_id", length = 10, nullable = false )

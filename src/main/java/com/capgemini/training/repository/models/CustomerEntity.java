@@ -1,6 +1,7 @@
 package com.capgemini.training.repository.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "customer")
-public class CustomerEntity {
+public class CustomerEntity implements Serializable {
 
   @Id
   @Column(name = "customer_id" )
@@ -42,6 +43,7 @@ public class CustomerEntity {
   @Column(name = "update_date")
   private LocalDate updateDate;
 
+  @JsonManagedReference
   @OneToMany(mappedBy = "customer",
           cascade = CascadeType.ALL,
           fetch = FetchType.LAZY )

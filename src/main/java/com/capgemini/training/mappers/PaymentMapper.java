@@ -1,6 +1,7 @@
 package com.capgemini.training.mappers;
 
-import com.capgemini.training.models.PaymentDetails;
+import com.capgemini.training.models.PaymentDetailsRequest;
+import com.capgemini.training.models.PaymentDetailsResponse;
 import com.capgemini.training.repository.models.PaymentEntity;
 import java.time.LocalDate;
 import org.springframework.stereotype.Component;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class PaymentMapper {
 
-    public PaymentDetails toPaymentDetails(PaymentEntity paymentEntity){
+    public PaymentDetailsResponse toPaymentDetails(PaymentEntity paymentEntity){
 
-        return PaymentDetails.builder()
+        return PaymentDetailsResponse.builder()
                 .paymentId( paymentEntity.getPaymentId() )
                 .customer( paymentEntity.getCustomer() )
-                .beneficiaryEntity( paymentEntity.getBeneficiaryEntity() )
+                .beneficiary( paymentEntity.getBeneficiary() )
                 .paymentType( paymentEntity.getPaymentType() )
                 .amount( paymentEntity.getAmount() )
                 .creationDate( LocalDate.now() )
@@ -22,16 +23,16 @@ public class PaymentMapper {
 
     }
 
-    public PaymentEntity toEntityFromRequest ( PaymentDetails paymentDetails ){
+    public PaymentEntity toEntityFromRequest ( PaymentDetailsRequest paymentDetailsRequest){
 
         return PaymentEntity.builder()
-                .paymentId( paymentDetails.getPaymentId() )
-                .customer( paymentDetails.getCustomer() )
-                .beneficiaryEntity( paymentDetails.getBeneficiaryEntity() )
-                .paymentType( paymentDetails.getPaymentType() )
-                .amount( paymentDetails.getAmount() )
+                .paymentId( paymentDetailsRequest.getPaymentId() )
+                .customer( paymentDetailsRequest.getCustomer() )
+                .beneficiary( paymentDetailsRequest.getBeneficiary() )
+                .paymentType( paymentDetailsRequest.getPaymentType() )
+                .amount( paymentDetailsRequest.getAmount() )
                 .creationDate( LocalDate.now() )
-                .updateDate( paymentDetails.getUpdateDate() )
+                .updateDate( paymentDetailsRequest.getUpdateDate() )
                 .build();
     }
 }
