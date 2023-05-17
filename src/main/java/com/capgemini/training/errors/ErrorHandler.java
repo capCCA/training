@@ -22,11 +22,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class ErrorHandler extends ResponseEntityExceptionHandler {
-  @ExceptionHandler(ConstraintViolationException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public void constraintViolationExceptionHandler(HttpServletResponse response) throws IOException {
-    response.sendError(HttpStatus.BAD_REQUEST.value());
-  }
 
   @ExceptionHandler({CustomerNotFoundException.class})
   @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -83,6 +78,14 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
     return new ResponseEntity<>(error, new HttpHeaders(), error.getStatus());
   }
+
+  @ExceptionHandler(ConstraintViolationException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public void constraintViolationExceptionHandler(HttpServletResponse response) throws IOException {
+    response.sendError(HttpStatus.BAD_REQUEST.value());
+  }
+
+
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(

@@ -1,7 +1,6 @@
 package com.capgemini.training.repositories.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "beneficiary")
-public class BeneficiaryEntity implements Serializable {
-
-  protected static final long serialVersionUID = 71L;
+public class BeneficiaryEntity {
 
   @Id
   @Column(length = 10, nullable = false)

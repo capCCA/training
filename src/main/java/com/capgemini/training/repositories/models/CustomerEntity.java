@@ -3,7 +3,6 @@ package com.capgemini.training.repositories.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -17,19 +16,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "customer")
-public class CustomerEntity implements Serializable {
-
-  protected static final long serialVersionUID = 13L;
+public class CustomerEntity {
 
   @Id
   @Column(length = 10, nullable = false)

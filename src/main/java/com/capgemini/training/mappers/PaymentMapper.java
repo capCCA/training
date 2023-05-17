@@ -34,10 +34,6 @@ public final class PaymentMapper {
         .build();
   }
 
-  public static List<PaymentResponse> entityToResponseList(List<PaymentEntity> paymentEntities) {
-    return paymentEntities.stream().map(PaymentMapper::entityToResponse).toList();
-  }
-
   public static PaymentEntity requestToEntity(
       PaymentRequest paymentRequest,
       CustomerEntity customerEntity,

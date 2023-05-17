@@ -3,7 +3,6 @@ package com.capgemini.training.repositories.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -28,9 +27,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "payment")
-public class PaymentEntity implements Serializable {
-
-  protected static final long serialVersionUID = 1L;
+public class PaymentEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

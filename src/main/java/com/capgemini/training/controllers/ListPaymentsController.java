@@ -3,6 +3,7 @@ package com.capgemini.training.controllers;
 import com.capgemini.training.models.PaymentResponse;
 import com.capgemini.training.services.ListPaymentService;
 import java.util.List;
+import javax.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ListPaymentsController {
 
   @GetMapping("/{customerId}")
   public ResponseEntity<List<PaymentResponse>> getAllPaymentByCustomerId(
-      @PathVariable(name = "customerId") String customerId) {
+      @NotBlank @PathVariable(name = "customerId") String customerId) {
     return ResponseEntity.ok(listPaymentService.getAllPaymentsByCustomerId(customerId));
   }
 

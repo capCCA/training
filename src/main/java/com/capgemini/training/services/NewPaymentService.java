@@ -9,6 +9,8 @@ import com.capgemini.training.models.PaymentResponse;
 import com.capgemini.training.repositories.BeneficiaryRepository;
 import com.capgemini.training.repositories.CustomerRepository;
 import com.capgemini.training.repositories.PaymentRepository;
+import com.capgemini.training.repositories.models.BeneficiaryEntity;
+import com.capgemini.training.repositories.models.CustomerEntity;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,23 +22,28 @@ public class NewPaymentService {
   private final PaymentRepository paymentRepository;
   private final CustomerRepository customerRepository;
   private final BeneficiaryRepository beneficiaryRepository;
-  private final PaymentMapper paymentMapper;
 
   public PaymentResponse addPayment(PaymentRequest paymentRequest) {
     if (paymentRequest.getPaymentId() == null
         || !paymentRepository.existsById(paymentRequest.getPaymentId())) {
       paymentRequest.setCreationDate(LocalDateTime.now());
-      return paymentMapper.entityToResponse(
+      return PaymentMapper.entityToResponse(
           paymentRepository.save(
-              paymentMapper.requestToEntity(
+              PaymentMapper.requestToEntity(
                   paymentRequest,
-                  customerRepository
-                      .findById(paymentRequest.getCustomerId())
-                      .orElseThrow(CustomerNotFoundException::new),
-                  beneficiaryRepository
-                      .findById(paymentRequest.getBeneficiaryId())
-                      .orElseThrow(BeneficiaryNotFoundException::new))));
+                  findCustomerById(paymentRequest.getCustomerId()),
+                  findBeneficiaryById(paymentRequest.getBeneficiaryId()))));
     }
     throw new PaymentBadRequestException("Already exists this payment id");
+  }
+
+  private CustomerEntity findCustomerById(String customerId) {
+    return customerRepository.findById(customerId).orElseThrow(CustomerNotFoundException::new);
+  }
+
+  private BeneficiaryEntity findBeneficiaryById(String beneficiaryId) {
+    return beneficiaryRepository
+            .findById(beneficiaryId)
+            .orElseThrow(BeneficiaryNotFoundException::new);
   }
 }
