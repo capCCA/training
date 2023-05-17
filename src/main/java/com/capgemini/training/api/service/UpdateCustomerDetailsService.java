@@ -19,7 +19,12 @@ public class UpdateCustomerDetailsService {
 
   @Transactional
   public CustomerDetails update(String id, CustomerDetails dto) {
-    CustomerEntity user = userRepository.findById(id).orElse(null);
+
+    // same as below.
+    //CustomerEntity user1 =
+    //    userRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException());
+
+    CustomerEntity user = userRepository.findById(id).orElseThrow(null);
     if (user == null) {
       throw new CustomerNotFoundException();
     }
@@ -29,7 +34,8 @@ public class UpdateCustomerDetailsService {
     // corregir Date estan null al no existir en DTO
     user.setCreationDate(wasCreated);
     user.setUpdateDate(new Date());
-
+    
+    // Aqui se  puede hacer un Mapper.toEntity( user,dto)
     // corregir CustomerId - si se hubiera cambiado por estar en el Body y ser
     // distinto
     if (!id.equals(user.getCustomerId())) {
@@ -41,6 +47,7 @@ public class UpdateCustomerDetailsService {
               + dto.getCustomerId()
               + ", which is ignored.You can delete and create a new customer.");
     }
+
     return CustomerMapper.toDto(userRepository.save(user));
   }
 }
