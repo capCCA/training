@@ -38,7 +38,7 @@ public class NewPaymentDetailsController {
     @PostMapping("/")
     public ResponseEntity<PaymentDetailsResponse> createNewPayment(@Valid @RequestBody @NotNull(message="El objeto payment enviado es incorrecto") PaymentDetailsRequest paymentDetailsRequest) {
 
-        return ResponseEntity.status(HttpStatus.OK).body( newPaymentDetailsService.createNewPayment(paymentDetailsRequest));
+        return ResponseEntity.status(HttpStatus.OK).body( newPaymentDetailsService.createNewPayment( paymentDetailsRequest ));
 
     }
 

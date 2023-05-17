@@ -22,10 +22,10 @@ public class PaymentDetailsRequest {
         private Long paymentId;
         @NotNull
         @Size( max = 10 )
-        private CustomerEntity customer;
+        private String customerId;
         @NotNull
         @Size( max = 10 )
-        private BeneficiaryEntity beneficiary;
+        private String beneficiaryId;
         @NotNull
         @Size( max = 10 )
         private String paymentType;

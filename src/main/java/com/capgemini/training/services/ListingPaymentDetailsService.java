@@ -19,7 +19,7 @@ public class ListingPaymentDetailsService {
         
         return paymentRepository.findAll()
                 .stream()
-                .map( paymentMapper::toPaymentDetails )
+                .map( paymentMapper::toPaymentDetailsResponse)
                 .toList();
     }
 

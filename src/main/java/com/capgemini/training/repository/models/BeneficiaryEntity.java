@@ -26,4 +26,5 @@ public class BeneficiaryEntity implements Serializable {
     @Column( name="update_date" )
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate updateDate;
+
 }

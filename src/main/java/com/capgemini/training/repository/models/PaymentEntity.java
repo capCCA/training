@@ -20,7 +20,6 @@ public class PaymentEntity implements Serializable {
     @Column(name="payment_id", nullable = false)
     private Long paymentId;
 
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     @JsonBackReference
