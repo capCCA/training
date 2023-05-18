@@ -11,7 +11,6 @@ import com.capgemini.training.repository.CustomerRepository;
 import com.capgemini.training.repository.PaymentRepository;
 import com.capgemini.training.repository.models.BeneficiaryEntity;
 import com.capgemini.training.repository.models.CustomerEntity;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class NewPaymentDetailsService {
 
   public PaymentDetailsResponse createNewPayment(PaymentDetailsRequest paymentDetailsRequest) {
 
-    if (doRegistersesxistOnDataBase(paymentDetailsRequest)) {
+    if(doRegistersExistOnDataBase(paymentDetailsRequest)) {
 
       return paymentMapper.toPaymentDetailsResponse(
           paymentRepository.save(
@@ -38,10 +37,9 @@ public class NewPaymentDetailsService {
     throw new PaymentDetailsException("Fallo al crear pago");
   }
 
-  public boolean doRegistersesxistOnDataBase(PaymentDetailsRequest paymentDetailsRequest) {
+  public boolean doRegistersExistOnDataBase(PaymentDetailsRequest paymentDetailsRequest) {
 
-    return paymentRepository.existsById(paymentDetailsRequest.getPaymentId())
-            && customerRepository.existsById(paymentDetailsRequest.getCustomerId())
+    return  customerRepository.existsById(paymentDetailsRequest.getCustomerId())
             && beneficiaryRepository.existsById(paymentDetailsRequest.getBeneficiaryId())
         ? true
         : false;

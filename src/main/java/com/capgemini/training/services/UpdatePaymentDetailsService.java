@@ -4,7 +4,6 @@ import com.capgemini.training.exceptions.BeneficiaryDetailsException;
 import com.capgemini.training.exceptions.CustomerDetailsException;
 import com.capgemini.training.exceptions.PaymentDetailsException;
 import com.capgemini.training.mappers.PaymentMapper;
-import com.capgemini.training.models.PaymentDetailsRequest;
 import com.capgemini.training.models.PaymentDetailsResponse;
 import com.capgemini.training.repository.BeneficiaryRepository;
 import com.capgemini.training.repository.CustomerRepository;
@@ -26,7 +25,7 @@ public class UpdatePaymentDetailsService {
 
   public PaymentDetailsResponse updatePayment(PaymentEntity paymentEntity) {
 
-    if (doRegistersesxistOnDataBase(paymentEntity)) {
+    if (doRegistersEsxistOnDataBase(paymentEntity)) {
 
       return paymentMapper.toPaymentDetailsResponse(
           paymentRepository.save( paymentEntity ));
@@ -34,7 +33,7 @@ public class UpdatePaymentDetailsService {
     throw new PaymentDetailsException("Fallo al crear pago");
   }
 
-  public boolean doRegistersesxistOnDataBase(PaymentEntity paymentEntity) {
+  public boolean doRegistersEsxistOnDataBase(PaymentEntity paymentEntity) {
 
     return paymentRepository.existsById(paymentEntity.getPaymentId())
             && customerRepository.existsById(paymentEntity.getCustomer().getCustomerId())
