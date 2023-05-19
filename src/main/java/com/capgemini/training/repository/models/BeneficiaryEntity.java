@@ -4,27 +4,26 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Builder
 @Entity
 @Table(name = "beneficiary")
 public class BeneficiaryEntity implements Serializable {
 
-    @Id
-    @Column( name="beneficiary_id", length = 10, nullable = false )
-    private String beneficiaryId;
-    @Column( name="creation_date", nullable = false )
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    private LocalDate creationDate;
-    @Column( name="update_date" )
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    private LocalDate updateDate;
+  @Id
+  @Column(name = "beneficiary_id", length = 10, nullable = false)
+  private String beneficiaryId;
 
+  @Column(name = "creation_date", nullable = false)
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+  private LocalDate creationDate;
+
+  @Column(name = "update_date")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+  private LocalDate updateDate;
 }

@@ -14,6 +14,8 @@ import com.capgemini.training.repository.models.CustomerEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class NewPaymentDetailsService {
@@ -25,21 +27,23 @@ public class NewPaymentDetailsService {
 
   public PaymentDetailsResponse createNewPayment(PaymentDetailsRequest paymentDetailsRequest) {
 
-    if(doRegistersExistOnDataBase(paymentDetailsRequest)) {
+    if (doRegistersExistOnDataBase(paymentDetailsRequest)) {
 
-      return paymentMapper.toPaymentDetailsResponse(
-          paymentRepository.save(
-              paymentMapper.toEntityFromRequest(
-                  paymentDetailsRequest,
-                  getCustomerDetails(paymentDetailsRequest.getCustomerId()),
-                  getBeneficiaryDetails(paymentDetailsRequest.getBeneficiaryId()))));
+      return Optional.of(
+              paymentMapper.toPaymentDetailsResponse(
+                  paymentRepository.save(
+                      paymentMapper.toEntityFromRequest(
+                          paymentDetailsRequest,
+                          getCustomerDetails(paymentDetailsRequest.getCustomerId()),
+                          getBeneficiaryDetails(paymentDetailsRequest.getBeneficiaryId())))))
+          .orElseThrow(() -> new PaymentDetailsException("Fallo al crear pago"));
     }
-    throw new PaymentDetailsException("Fallo al crear pago");
+    throw new PaymentDetailsException("Algun detalle no se ha insertado correctamente");
   }
 
   public boolean doRegistersExistOnDataBase(PaymentDetailsRequest paymentDetailsRequest) {
 
-    return  customerRepository.existsById(paymentDetailsRequest.getCustomerId())
+    return customerRepository.existsById(paymentDetailsRequest.getCustomerId())
             && beneficiaryRepository.existsById(paymentDetailsRequest.getBeneficiaryId())
         ? true
         : false;

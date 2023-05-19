@@ -14,6 +14,8 @@ import com.capgemini.training.repository.models.PaymentEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UpdatePaymentDetailsService {
@@ -27,10 +29,11 @@ public class UpdatePaymentDetailsService {
 
     if (doRegistersEsxistOnDataBase(paymentEntity)) {
 
-      return paymentMapper.toPaymentDetailsResponse(
-          paymentRepository.save( paymentEntity ));
+      return Optional.of(
+              paymentMapper.toPaymentDetailsResponse(paymentRepository.save(paymentEntity)))
+          .orElseThrow(() -> new PaymentDetailsException("Fallo al intentar de actualizar el pago"));
     }
-    throw new PaymentDetailsException("Fallo al crear pago");
+    throw new PaymentDetailsException("Algun detalle no se ha insertado correctamente");
   }
 
   public boolean doRegistersEsxistOnDataBase(PaymentEntity paymentEntity) {
@@ -41,19 +44,4 @@ public class UpdatePaymentDetailsService {
         ? true
         : false;
   }
-
-  public BeneficiaryEntity getBeneficiaryDetails(String beneficiaryId) {
-
-    return beneficiaryRepository
-        .findById(beneficiaryId)
-        .orElseThrow(() -> new BeneficiaryDetailsException("El ID de beneficiario no existe"));
-  }
-
-  public CustomerEntity getCustomerDetails(String customerId) {
-
-    return customerRepository
-        .findById(customerId)
-        .orElseThrow(() -> new CustomerDetailsException("El ID de usuario no existe"));
-  }
-
 }
