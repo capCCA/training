@@ -1,6 +1,5 @@
 package com.capgemini.training.controller;
 
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -12,10 +11,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.capgemini.training.model.UserDto;
-
 import lombok.RequiredArgsConstructor;
+
+/*
+*
+* Ejemplo de Entrada en Postman:
+*
+    {
+        "paymentType": "BIZUM",
+        "amount": 2005,
+        "userDto": {
+            "customerId": "custom100"
+        },
+        "beneficiaryDto": {
+            "beneficiaryId": "1"
+        }
+    }
+
+ */
 
 @RequestMapping(value = "/payment")
 @RestController
@@ -24,12 +37,6 @@ public class SavePaymentController {
 
     private final SavePaymentService savePaymentService;
 
-    /**
-     * Method to save Users (customers)
-     *
-     * @return {@link List} de {@link UserDto}
-     * @throws Exception
-     */
 
     @PostMapping
     public ResponseEntity<PaymentDto> savePayment(@Valid @RequestBody(required = true) PaymentDto paymentDto) {

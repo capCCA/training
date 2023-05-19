@@ -13,11 +13,13 @@ import lombok.experimental.UtilityClass;
 public final class MapperPayment {
 
     public static PaymentEntity converterToEntity(PaymentDto dto) {
-        //UserEntity user = MapperUser.converterToEntity(dto.getUserDto());
-        //BeneficiaryEntity beneficiary = MapperBeneficiary.converterToEntity(dto.getBeneficiaryDto());
+        UserEntity user = MapperUser.converterToEntity(dto.getUserDto());
+        BeneficiaryEntity beneficiary = MapperBeneficiary.converterToEntity(dto.getBeneficiaryDto());
 
-        return PaymentEntity.builder().paymentId(dto.getPaymentId())//.customer(user)//.beneficiary(beneficiary)
+        return PaymentEntity.builder().paymentId(dto.getPaymentId()).customer(user).beneficiary(beneficiary)
                 .paymentType(dto.getPaymentType()).amount(dto.getAmount()).build();
+
+
     }
 
     public static PaymentDto converterDto(PaymentEntity paymentEntity) {
@@ -27,25 +29,28 @@ public final class MapperPayment {
 
         return PaymentDto.builder()
                 .paymentId(paymentEntity.getPaymentId())
-                .userDto(userDto).beneficiaryDto(benefDto)
+                //.customerId(paymentEntity.getCustomer().getCustomerId())
+                //.beneficiaryId(paymentEntity.getBeneficiary().getBeneficiaryId())
+                .userDto(userDto)
+                .beneficiaryDto(benefDto)
                 .paymentType(paymentEntity.getPaymentType())
                 .amount(paymentEntity.getAmount()).build();
 
     }
 
-    public void mapToEntity(PaymentDto paymentDto, PaymentEntity paymentEntity) {
+
+
+    public static PaymentEntity mapToEntity(PaymentDto paymentDto, PaymentEntity paymentEntity) {
 
         BeneficiaryDto benefDto = MapperBeneficiary.converterDto(paymentEntity.getBeneficiary());
         UserDto userDto = MapperUser.converterDto(paymentEntity.getCustomer());
 
-        //paymentEntity.setCustomer().setDocumentType(userDto.getDocumentType());
-        /*paymentEntity.setDocumentNumber(userDto.getDocumentNumber());
-        paymentEntity.setName(userDto.getName());
-        paymentEntity.setSurName(userDto.getSurName());
-        paymentEntity.setLastName(userDto.getLastName());
-        paymentEntity.setCountry(userDto.getCountry());
-        paymentEntity.setTelephone(userDto.getTelephone());*/
+        paymentEntity.setCustomer(paymentEntity.getCustomer());
+        paymentEntity.setBeneficiary(paymentEntity.getBeneficiary());
+        paymentEntity.setPaymentType(paymentDto.getPaymentType());
+        paymentEntity.setAmount(paymentDto.getAmount());
 
+        return paymentEntity;
     }
 
 }

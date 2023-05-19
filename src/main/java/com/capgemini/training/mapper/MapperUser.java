@@ -2,7 +2,6 @@ package com.capgemini.training.mapper;
 
 import com.capgemini.training.entity.UserEntity;
 import com.capgemini.training.model.UserDto;
-
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

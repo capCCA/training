@@ -39,8 +39,15 @@ public class PaymentDto {
     @Size(max = 10, message = SIZE_MESSAGE + "10")
     private String beneficiaryId;*/
 
+    /*@Size(max = 10, message = SIZE_MESSAGE + "10")
+    private String customerId;
+
+    @Size(max = 10, message = SIZE_MESSAGE + "10")
+    private String beneficiaryId;*/
+
     private String paymentType;
     private BigDecimal amount;
+
 
     private UserDto userDto;
     private BeneficiaryDto beneficiaryDto;

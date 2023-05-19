@@ -21,12 +21,10 @@ public class GetCustomerPaymentsController {
     private final GetPaymentService getPaymentService;
 
 
-
     @GetMapping(value = "/{customerId}")
-    public ResponseEntity<PaymentDto> get(@PathVariable("customerId") String customerId) {
-
+    public ResponseEntity<List<PaymentDto>> get(@PathVariable("customerId") String customerId) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body((PaymentDto) this.getPaymentService.get(customerId));
+            return ResponseEntity.status(HttpStatus.OK).body((List<PaymentDto>) this.getPaymentService.get(customerId));
 
         } catch (UserNotFoundException e) {
             return ResponseEntity.noContent().build();

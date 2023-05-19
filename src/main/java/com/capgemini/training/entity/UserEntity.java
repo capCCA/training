@@ -56,26 +56,8 @@ public class UserEntity {
     @UpdateTimestamp
     private Date updateDate;
 
-  /*  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    //@JsonBackReference
-    private Set<PaymentEntity> payments;*/
-
-    /**
-     * relation OneToMany size customer to payment
-     */
-    //@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JoinColumn(name = "customer_id")
-    /*@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PaymentEntity> payment;*/
-
-            //lazy: si no quiero acceder a los payments no hace el select hasta q no acceda al campo payment
-            //eager: tu cargalo siempre
-            //cascade: si borro user borro todos sus payments
-            //orphanRemoval si en la tabla tengo payment con users q los borre, borra los payment sin user
-            //mapperBy: campo del paymentEntity q referencia al user
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     Set<PaymentEntity> payments;
-    //set es lista q no puede repetir elementos
+    //set  lista q no puede repetir elementos
 
 }

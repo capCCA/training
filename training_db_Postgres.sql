@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS payment (
    customer_id VARCHAR(10),
    beneficiary_id VARCHAR(10),
    payment_type VARCHAR(10) NOT NULL,
-   account DECIMAL NOT NULL,
+   amount DECIMAL NOT NULL,
    creation_date TIMESTAMP NOT NULL,
    update_date TIMESTAMP,
    check(payment_type in ('BIZUM', 'TRANSFER')),

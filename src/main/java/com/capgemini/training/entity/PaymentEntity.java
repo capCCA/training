@@ -27,8 +27,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class PaymentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
+
     private Long paymentId;
 
     //hago un join. El paiment tiene un user, para aceder al user tendria q

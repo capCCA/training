@@ -1,18 +1,15 @@
 package com.capgemini.training.service;
 
+
 import com.capgemini.training.entity.PaymentEntity;
-import com.capgemini.training.exceptions.PaymentBadRequestException;
+import com.capgemini.training.exceptions.BeneficiaryNotFoundException;
+import com.capgemini.training.exceptions.UserNotFoundException;
 import com.capgemini.training.mapper.MapperPayment;
 import com.capgemini.training.model.PaymentDto;
+import com.capgemini.training.repository.BeneficiaryRepository;
 import com.capgemini.training.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
-
-import com.capgemini.training.entity.UserEntity;
-import com.capgemini.training.exceptions.UserBadRequestException;
-import com.capgemini.training.mapper.MapperUser;
-import com.capgemini.training.model.UserDto;
 import com.capgemini.training.repository.UserRepository;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -21,21 +18,26 @@ public class SavePaymentService {
 
     private final PaymentRepository paymentRepository;
     private final UserRepository userRepository;
+    private final BeneficiaryRepository beneficiaryRepository ;
+
 
     public PaymentDto savePayment(PaymentDto paymentDto) {
 
         PaymentEntity paymentEntity = MapperPayment.converterToEntity(paymentDto);
 
 
-        /*if (paymentRepository.existsById(paymentDto.getPaymentId())) {
-            throw new PaymentBadRequestException("This idPayment exits");
-        }*/
-        //paimentEntity.setcustomer(userRepositri.findbycustomerID
+        paymentEntity.setCustomer(userRepository.findById(paymentDto.
+                        getUserDto().
+                        getCustomerId())
+                        .orElseThrow(() -> new UserNotFoundException("User does not exist in database")));
 
-        paymentEntity.setCustomer(userRepository.findById(paymentDto.getUserDto().getCustomerId()).orElse(null));
+        paymentEntity.setBeneficiary(beneficiaryRepository.findById(paymentDto
+                .getBeneficiaryDto()
+                .getBeneficiaryId())
+                .orElseThrow(() -> new BeneficiaryNotFoundException("Beneficiary does not exist in database")));
+
         PaymentEntity save = paymentRepository.save(paymentEntity);
-        PaymentDto paymentDto1 = MapperPayment.converterDto(save);
-        return paymentDto1;
+        return MapperPayment.converterDto(save);
 
     }
 
