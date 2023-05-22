@@ -1,9 +1,10 @@
 package com.capgemini.training.api.repository.model;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
-import lombok.*;
 
 @Entity
 @Table(name = "payment")
@@ -15,30 +16,30 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class PaymentEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(nullable = false)
-  private Long paymentId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long paymentId;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "customer_id") // campo id en PaymentEntity, no fk
-  private CustomerEntity customer;
-  
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "beneficiary_id") //campo id PaymentEntity, no fk
-  private BeneficiaryEntity beneficiary;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id") // campo id en PaymentEntity, no fk
+    private CustomerEntity customer;
 
-  @Column(nullable = false)
-  private String paymentType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "beneficiary_id") //campo id PaymentEntity, no fk
+    private BeneficiaryEntity beneficiary;
 
-  @Column(nullable = false)
-  private BigDecimal amount;
+    @Column(nullable = false)
+    private String paymentType;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
-  Date creationDate;
+    @Column(nullable = false)
+    private BigDecimal amount;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column
-  Date updateDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    Date creationDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    Date updateDate;
 }

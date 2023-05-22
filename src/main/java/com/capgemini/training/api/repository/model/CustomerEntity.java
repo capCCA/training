@@ -1,8 +1,9 @@
 package com.capgemini.training.api.repository.model;
 
-import java.util.Date;
-import javax.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "customer")

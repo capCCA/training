@@ -13,9 +13,8 @@ import java.math.BigDecimal;
 @ToString
 @EqualsAndHashCode
 @JsonInclude(JsonInclude.Include.NON_NULL)
-//PaymentResponse
-public class PaymentDetails {
-    private Long paymentId;
+public class PaymentRequest {
+
     private CustomerDetails customerDetails;
     private BeneficiaryDetails beneficiaryDetails;
     private String paymentType;

@@ -5,7 +5,7 @@ import com.capgemini.training.api.repository.model.BeneficiaryEntity;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public  class BeneficiaryMapper {
+public class BeneficiaryMapper {
     public BeneficiaryEntity toEntity(BeneficiaryDetails dto) {
         return BeneficiaryEntity.builder().beneficiaryId(dto.getBeneficiaryId()).build();
     }
