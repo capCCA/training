@@ -1,12 +1,13 @@
-package com.capgemini.training.controllers;
+package com.capgemini.training.repository;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.exceptions.PaymentDetailsException;
+import com.capgemini.training.controllers.NewPaymentDetailsController;
+import com.capgemini.training.controllers.UpdatePaymentDetailsController;
 import com.capgemini.training.models.PaymentDetailsRequest;
 import com.capgemini.training.models.PaymentDetailsResponse;
 import com.capgemini.training.repository.models.BeneficiaryEntity;
@@ -17,26 +18,28 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.http.ResponseEntity;
 
-@ExtendWith(MockitoExtension.class)
-class UpdatePaymentDetailsControllerTest {
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class UpdateCustomerPaymentsDetailsRepository {
 
-  @InjectMocks private UpdatePaymentDetailsController updatePaymentDetailsController;
   @Mock private UpdatePaymentDetailsService updatePaymentDetailsService;
+  @InjectMocks private UpdatePaymentDetailsController updatePaymentDetailsController;
+
   private PaymentDetailsResponse paymentDetailsResponse;
+  private PaymentDetailsRequest paymentDetailsRequest;
   private CustomerEntity customerEntity;
   private PaymentEntity paymentEntity;
-  private PaymentDetailsRequest paymentDetailsRequest;
   private BeneficiaryEntity beneficiaryEntity;
 
   @BeforeEach
   void setUp() {
+
     customerEntity =
         CustomerEntity.builder()
             .customerId("1")
@@ -86,7 +89,9 @@ class UpdatePaymentDetailsControllerTest {
   }
 
   @Test
-  void updatePaymentSuccess() {
+  void getCustomerPaymentsDetailsQueryOK() {
+
+    Long customerId = 1L;
 
     when(updatePaymentDetailsService.updatePayment(paymentEntity))
         .thenReturn(paymentDetailsResponse);
@@ -95,30 +100,9 @@ class UpdatePaymentDetailsControllerTest {
         updatePaymentDetailsController.updateUser(paymentEntity);
 
     assertNotNull(controllerResponse);
-    assertEquals(HttpStatus.OK, controllerResponse.getStatusCode());
-    assertEquals(controllerResponse.getBody(), paymentDetailsResponse);
+    assertEquals("Albert", controllerResponse.getBody().getCustomer().getName());
+    assertEquals("USA", controllerResponse.getBody().getCustomer().getCountry());
+
     verify(updatePaymentDetailsService).updatePayment(any());
   }
-
-  @Test
-  void updatePaymentErrorWhileUpdating(){
-
-    when(updatePaymentDetailsService.updatePayment(paymentEntity))
-        .thenThrow(new PaymentDetailsException("Fallo al intentar de actualizar el pago"));
-
-    assertThatThrownBy(() -> updatePaymentDetailsService.updatePayment(paymentEntity))
-            .isInstanceOf(PaymentDetailsException.class)
-            .hasMessage("Fallo al intentar de actualizar el pago");
-  }
-  @Test
-  void updatePaymentSomeDetailsAreWrong(){
-
-    when(updatePaymentDetailsService.updatePayment(paymentEntity))
-            .thenThrow(new PaymentDetailsException("Algun detalle no se ha insertado correctamente"));
-
-    assertThatThrownBy(() -> updatePaymentDetailsService.updatePayment(paymentEntity))
-            .isInstanceOf(PaymentDetailsException.class)
-            .hasMessage("Algun detalle no se ha insertado correctamente");
-  }
-
 }

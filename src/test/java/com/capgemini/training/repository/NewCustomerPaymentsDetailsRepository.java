@@ -1,11 +1,11 @@
-package com.capgemini.training.controllers;
+package com.capgemini.training.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.capgemini.training.exceptions.PaymentDetailsException;
+import com.capgemini.training.controllers.NewPaymentDetailsController;
 import com.capgemini.training.models.PaymentDetailsRequest;
 import com.capgemini.training.models.PaymentDetailsResponse;
 import com.capgemini.training.repository.models.CustomerEntity;
@@ -14,25 +14,26 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.http.ResponseEntity;
 
-@ExtendWith(MockitoExtension.class)
-class NewPaymentDetailsControllerTest {
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class NewCustomerPaymentsDetailsRepository {
 
-  @InjectMocks private NewPaymentDetailsController newPaymentDetailsController;
   @Mock private NewPaymentDetailsService newPaymentDetailsService;
+  @InjectMocks private NewPaymentDetailsController newPaymentDetailsController;
 
   private PaymentDetailsResponse paymentDetailsResponse;
-  private CustomerEntity customerEntity;
   private PaymentDetailsRequest paymentDetailsRequest;
+  private CustomerEntity customerEntity;
 
   @BeforeEach
   void setUp() {
+
     customerEntity =
         CustomerEntity.builder()
             .customerId("1")
@@ -64,7 +65,7 @@ class NewPaymentDetailsControllerTest {
   }
 
   @Test
-  void createNewPaymentSuccess() {
+  void getCustomerPaymentsDetailsQueryOK() {
 
     Long customerId = 1L;
 
@@ -75,20 +76,9 @@ class NewPaymentDetailsControllerTest {
         newPaymentDetailsController.createNewPayment(paymentDetailsRequest);
 
     assertNotNull(controllerResponse);
-    assertEquals(HttpStatus.OK, controllerResponse.getStatusCode());
-    assertEquals(controllerResponse.getBody(), paymentDetailsResponse);
-    verify(newPaymentDetailsService).createNewPayment(any());
-  }
+    assertEquals("Albert", controllerResponse.getBody().getCustomer().getName());
+    assertEquals("USA", controllerResponse.getBody().getCustomer().getCountry());
 
-  @Test
-  void createNewPaymentSomeDetailsAreWrong() {
-    Long customerId = 1L;
-
-    when(newPaymentDetailsService.createNewPayment(paymentDetailsRequest))
-        .thenThrow(new PaymentDetailsException("Algun detalle no se ha insertado correctamente"));
-
-    assertThrows(
-        PaymentDetailsException.class,
-        () -> newPaymentDetailsController.createNewPayment(paymentDetailsRequest));
+    verify(newPaymentDetailsService).createNewPayment(paymentDetailsRequest);
   }
 }

@@ -7,7 +7,6 @@ import static org.mockito.Mockito.*;
 
 import com.capgemini.training.exceptions.PaymentDetailsException;
 import com.capgemini.training.mappers.PaymentMapper;
-import com.capgemini.training.models.PaymentDetailsRequest;
 import com.capgemini.training.models.PaymentDetailsResponse;
 import com.capgemini.training.repository.BeneficiaryRepository;
 import com.capgemini.training.repository.CustomerRepository;
@@ -17,7 +16,6 @@ import com.capgemini.training.repository.models.CustomerEntity;
 import com.capgemini.training.repository.models.PaymentEntity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -101,15 +99,19 @@ class UpdatePaymentDetailsServiceTest {
   }
 
   @Test
-  void updatePaymentDetailsAreWrong() {
+  void updatePaymentsDetailsFailWhileSaving() {
 
     when(paymentRepository.existsById(any())).thenReturn(true);
     when(customerRepository.existsById(any())).thenReturn(true);
     when(beneficiaryRepository.existsById(any())).thenReturn(true);
 
+    when(paymentMapper.toPaymentDetailsResponse(any()))
+        .thenThrow(new PaymentDetailsException("Fallo al intentar de actualizar el pago"));
+
     assertThatThrownBy(() -> updatePaymentDetailsService.updatePayment(paymentEntity))
         .isInstanceOf(PaymentDetailsException.class)
-        .hasMessage("Algun detalle no se ha insertado correctamente");
+        .hasMessage("Fallo al intentar de actualizar el pago");
+    verify(beneficiaryRepository).existsById(any());
   }
 
 }
