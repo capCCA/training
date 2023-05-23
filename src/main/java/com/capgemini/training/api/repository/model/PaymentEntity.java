@@ -4,8 +4,6 @@ package com.capgemini.training.api.repository.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.Date;
-import javax.persistence.*;
 import lombok.*;
 
 @Entity

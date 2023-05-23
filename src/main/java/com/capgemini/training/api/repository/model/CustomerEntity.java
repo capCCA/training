@@ -1,6 +1,5 @@
 package com.capgemini.training.api.repository.model;
 
-import java.util.Date;
 import javax.persistence.*;
 import lombok.*;
 import java.time.ZonedDateTime;
