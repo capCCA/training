@@ -12,8 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-Zoimport java.time.ZonedDateTime;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 import static java.time.ZoneOffset.UTC;
 

@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.Optional;
-
 import static java.time.ZoneOffset.UTC;
 
 @Service

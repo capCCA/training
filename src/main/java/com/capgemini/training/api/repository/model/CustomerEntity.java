@@ -1,10 +1,9 @@
 package com.capgemini.training.api.repository.model;
 
-import lombok.*;
-
-import javax.persistence.*;
-import java.time.ZonedDateTime;
 import java.util.Date;
+import javax.persistence.*;
+import lombok.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "customer")
