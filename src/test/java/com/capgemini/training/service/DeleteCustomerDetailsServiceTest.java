@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.capgemini.training.api.exceptions.CustomerNotFoundException;
-import com.capgemini.training.api.repository.UserRepository;
+import com.capgemini.training.api.repository.CustomerRepository;
 import com.capgemini.training.api.service.DeleteCustomerDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 class DeleteCustomerDetailsServiceTest {
 
-  @Mock private UserRepository userRepository;
+  @Mock private CustomerRepository userRepository;
 
   @InjectMocks private DeleteCustomerDetailsService deleteCustomerDetailsService;
 

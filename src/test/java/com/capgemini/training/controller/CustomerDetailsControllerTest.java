@@ -1,14 +1,12 @@
 package com.capgemini.training.controller;
 
-import com.capgemini.training.api.controller.CustomerDetailsController;
-import com.capgemini.training.api.model.CustomerDetails;
-import com.capgemini.training.api.repository.model.CustomerEntity;
-import com.capgemini.training.api.service.CustomerDetailsService;
-import com.capgemini.training.api.service.mapper.CustomerMapper;
+import static java.time.ZoneOffset.UTC;
+
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,78 +18,77 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.capgemini.training.api.controller.CustomerDetailsController;
+import com.capgemini.training.api.model.CustomerDetails;
+import com.capgemini.training.api.repository.model.CustomerEntity;
+import com.capgemini.training.api.service.CustomerDetailsService;
+import com.capgemini.training.api.service.mapper.CustomerMapper;
+
 @ExtendWith(MockitoExtension.class)
 class CustomerDetailsControllerTest {
 
-  @Mock private CustomerDetailsService userService;
+    @Mock
+    private CustomerDetailsService userService;
 
-  @InjectMocks private CustomerDetailsController userController;
+    @InjectMocks
+    private CustomerDetailsController userController;
 
-  public CustomerEntity createCustomerEntity(String id) {
-    return CustomerEntity.builder()
-        .customerId(id)
-        .documentType("dni")
-        .documentNumber("123" + id)
-        .name("john" + id)
-        .surname("green" + id)
-        .lastname("junior" + id)
-        .country("ESP")
-        .telephone(123)
-        .creationDate(new Date())
-        .build();
-  }
+    public CustomerEntity createCustomerEntity(String id) {
+        return CustomerEntity.builder().customerId(id).documentType("dni").documentNumber("123" + id).name("john" + id)
+                .surname("green" + id).lastname("junior" + id).country("ESP").telephone(123)
+                .creationDate(ZonedDateTime.now(UTC)).build();
+    }
 
-  @Test
-  @DisplayName("When getting all customers it Should return a list of Users with HTTP status OK")
-  void testGetAllUsers() {
-    // given
-    List<CustomerEntity> users = new ArrayList<>();
-    users.add(createCustomerEntity("11"));
-    users.add(createCustomerEntity("12"));
+    @Test
+    @DisplayName("When getting all customers it Should return a list of Users with HTTP status OK")
+    void testGetAllUsers() {
+        // given
+        List<CustomerEntity> users = new ArrayList<>();
+        users.add(createCustomerEntity("11"));
+        users.add(createCustomerEntity("12"));
 
-    Mockito.when(userService.findAll()).thenReturn(users);
+        Mockito.when(userService.findAll()).thenReturn(users);
 
-    // when
-    ResponseEntity<List<CustomerDetails>> response = userController.findAll();
+        // when
+        ResponseEntity<List<CustomerDetails>> response = userController.findAll();
 
-    // then
-    Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-    Assertions.assertEquals(2, response.getBody().size());
-  }
+        // then
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertEquals(2, response.getBody().size());
+    }
 
-  @Test
-  @DisplayName(
-      "When getting existing customer it Should return a CustomerEntity with HTTP status OK")
-  void testGetUserById() {
-    // given
-    String id = "11";
-    CustomerEntity expectedUser = createCustomerEntity(id);
-    Optional<CustomerEntity> expectedOptUser = Optional.of(expectedUser);
-    CustomerDetails expectedDto = CustomerMapper.toDto(expectedUser);
+    @Test
+    @DisplayName("When getting existing customer it Should return a CustomerEntity with HTTP status OK")
+    void testGetUserById() {
+        // given
+        String id = "11";
+        CustomerEntity expectedUser = createCustomerEntity(id);
+        Optional<CustomerEntity> expectedOptUser = Optional.of(expectedUser);
+        CustomerDetails expectedDto = CustomerMapper.toDto(expectedUser);
 
-    Mockito.when(userService.findById(id)).thenReturn(expectedOptUser);
+        Mockito.when(userService.findById(id)).thenReturn(expectedOptUser);
 
-    // when
-    ResponseEntity<CustomerDetails> response = userController.findById(id);
+        // when
+        ResponseEntity<CustomerDetails> response = userController.findById(id);
 
-    // then
-    Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-    Assertions.assertEquals(expectedDto, response.getBody());
-  }
+        // then
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertEquals(expectedDto, response.getBody());
+    }
 
-  @Test
-  @DisplayName("When getting non existing customer it Should return HTTP status NOT_FOUND ")
-  void testGetUserByIdNotFound() {
-    // given
-    String id = "12";
-    Optional<CustomerEntity> optionalUser = Optional.empty();
+    @Test
+    @DisplayName("When getting non existing customer it Should return HTTP status NOT_FOUND ")
+    void testGetUserByIdNotFound() {
+        // given
+        String id = "12";
+        Optional<CustomerEntity> optionalUser = Optional.empty();
 
-    Mockito.when(userService.findById(id)).thenReturn(optionalUser);
+        Mockito.when(userService.findById(id)).thenReturn(optionalUser);
 
-    // when
-    ResponseEntity<CustomerDetails> response = userController.findById(id);
+        // when
+        ResponseEntity<CustomerDetails> response = userController.findById(id);
 
-    // then
-    Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-  }
+        // then
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 }

@@ -1,8 +1,21 @@
 package com.capgemini.training.api.repository.model;
 
-import java.util.Date;
-import javax.persistence.*;
-import lombok.*;
+import java.time.ZonedDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "customer")
@@ -42,9 +55,9 @@ public class CustomerEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    Date creationDate;
+    ZonedDateTime creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    Date updateDate;
+    ZonedDateTime updateDate;
 
 }

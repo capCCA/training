@@ -1,7 +1,7 @@
 package com.capgemini.training.api.service;
 
 import com.capgemini.training.api.exceptions.CustomerNotFoundException;
-import com.capgemini.training.api.repository.UserRepository;
+import com.capgemini.training.api.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Log
 public class DeleteCustomerDetailsService {
-  private final UserRepository userRepository;
+  private final CustomerRepository userRepository;
 
   /**
    * Deletes a CustomerEntity with given id

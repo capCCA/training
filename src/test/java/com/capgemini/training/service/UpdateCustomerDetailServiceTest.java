@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.capgemini.training.api.exceptions.CustomerNotFoundException;
 import com.capgemini.training.api.model.CustomerDetails;
-import com.capgemini.training.api.repository.UserRepository;
+import com.capgemini.training.api.repository.CustomerRepository;
 import com.capgemini.training.api.repository.model.CustomerEntity;
 import com.capgemini.training.api.service.UpdateCustomerDetailsService;
 import java.util.Optional;
@@ -23,7 +23,7 @@ import org.mockito.MockitoAnnotations;
 
 public class UpdateCustomerDetailServiceTest {
 
-  @Mock private UserRepository userRepository;
+  @Mock private CustomerRepository userRepository;
   // private CustomerMapper mapper;
 
   @InjectMocks private UpdateCustomerDetailsService customerService;
