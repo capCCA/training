@@ -12,7 +12,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class PaymentMapper {
 
-    public PaymentEntity toEntity(PaymentDetails dto) {
+    public  PaymentEntity toEntity(PaymentDetails dto) {
         CustomerEntity customer = CustomerMapper.toEntity(dto.getCustomerDetails());
         BeneficiaryEntity ben = BeneficiaryMapper.toEntity(dto.getBeneficiaryDetails());
 
@@ -31,7 +31,7 @@ public class PaymentMapper {
 
     }
 
-    public PaymentDetails toDto(PaymentEntity payment) {
+    public  PaymentDetails toDto(PaymentEntity payment) {
         BeneficiaryDetails benDto = BeneficiaryMapper.toDto(payment.getBeneficiary());
         CustomerDetails customerDetails = CustomerMapper.toDto(payment.getCustomer());
 

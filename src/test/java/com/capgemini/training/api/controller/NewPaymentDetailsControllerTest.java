@@ -1,10 +1,12 @@
 package com.capgemini.training.api.controller;
 
+import com.capgemini.training.api.exceptions.PaymentBadRequestException;
+import com.capgemini.training.api.exceptions.PaymentNotFoundException;
 import com.capgemini.training.api.model.PaymentDetails;
-import com.capgemini.training.api.repository.model.BeneficiaryEntity;
-import com.capgemini.training.api.repository.model.CustomerEntity;
+
 import com.capgemini.training.api.repository.model.PaymentEntity;
-import com.capgemini.training.api.service.PaymentDetailsService;
+import com.capgemini.training.api.service.NewPaymentDetailsService;
+
 import com.capgemini.training.api.service.mapper.PaymentMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,15 +19,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import static org.mockito.ArgumentMatchers.*;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
+
 import java.util.Optional;
 
-import static java.time.ZoneOffset.UTC;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 
 
 /*
@@ -45,115 +45,44 @@ import static org.mockito.ArgumentMatchers.anyString;
 class NewPaymentDetailsControllerTest {
 
     @Mock
-    private PaymentDetailsService paymentService;
+    private NewPaymentDetailsService paymentService;
 
     @InjectMocks
-    private PaymentDetailsController paymentController;
+    private NewPaymentDetailsController paymentController;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-
-    public PaymentEntity createPayment(Long id, String type, String customerId) {
-        return PaymentEntity.builder().paymentId(id).customer(createUser(customerId))
-                .beneficiary(createBeneficiary("23456")).paymentType(type).amount(BigDecimal.valueOf(2000333))
-                .creationDate(ZonedDateTime.now(UTC)).build();
-    }
-
-    public CustomerEntity createUser(String id) {
-        //CustomerDetailsMother.init().getCustomerEntity();
-        return CustomerEntity.builder().customerId(id).documentType("dni").documentNumber("123" + id).name("john" + id)
-                .surname("green" + id).lastname("junior" + id).country("ESP").telephone(123)
-                .creationDate(ZonedDateTime.now(UTC)).build();
-    }
-
-    public BeneficiaryEntity createBeneficiary(String id) {
-        return BeneficiaryEntity.builder().beneficiaryId(id).build();
-    }
-
-    @Test
-    @DisplayName("Should return a list of all payments when no customerId provided with HTTP status OK")
-    void testGetAllPayments() {
+ @Test
+    @DisplayName("Should return new Payment with HTTP status OK")
+    void testNewPaymentSuccess() {
         // given
-        List<PaymentEntity> payments = new ArrayList<>();
-        payments.add(PaymentDetailsMother.init().getPaymentEntity());
-        payments.add(PaymentDetailsMother.init().getPaymentEntity());
+        PaymentDetails paymentDetails =PaymentDetailsMother.init().getPaymentDetails();
 
-        Mockito.when(paymentService.findAll()).thenReturn(payments);
+        Mockito.when(paymentService.createNewPayment( paymentDetails)).thenReturn(paymentDetails);
 
         // when
-        ResponseEntity<List<PaymentDetails>> response = paymentController.findByCustomerId(null);
+        ResponseEntity<PaymentDetails> response = paymentController.createNewPayment( paymentDetails );
 
         // then
+        assertNotNull(response);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(2, response.getBody().size());
+        Assertions.assertEquals(paymentDetails, response.getBody());
+        verify(paymentService).createNewPayment(any());
     }
 
     @Test
-    @DisplayName("Should return empty list of payments when customer Id Not found, with HTTP status OK")
-    void testReturnEmptyListByCustomerIdNotfound() {
-        // given
-        Mockito.when(paymentService.findByCustomerId(anyString())).thenReturn( List.of());
+    @DisplayName("Should throw PaymentBadRequestException when creating invalid Payment")
+    void testNewPaymentInvalid() {
 
-        // when
-        ResponseEntity<List<PaymentDetails>> response = paymentController.findByCustomerId("12345");
+        PaymentDetails paymentDetails =PaymentDetailsMother.init().getPaymentDetails();
 
-        // then
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(0, response.getBody().size());
-    }
-    @Test
-    @DisplayName("Should return the payments by customer Id Valid, with HTTP status OK")
-    void testGetPaymentsByCustomerIdValid() {
-        // given
-        List<PaymentEntity> payments = new ArrayList<>();
-        payments.add(PaymentDetailsMother.init().getPaymentEntity());
-        payments.add(PaymentDetailsMother.init().getPaymentEntity());
+        doThrow( new PaymentBadRequestException("Incorrect payment ")).when(this.paymentService)
+                .createNewPayment(paymentDetails);
 
-        String customerId = payments.get(0).getCustomer().getCustomerId();
+        Assertions.assertThrows(PaymentBadRequestException.class,
+                () -> this.paymentController.createNewPayment(paymentDetails));
 
-        Mockito.when(paymentService.findByCustomerId(customerId)).thenReturn(payments.stream().limit(2).toList());
-
-        // when
-        ResponseEntity<List<PaymentDetails>> response = paymentController.findByCustomerId(customerId);
-
-        // then
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(2, response.getBody().size());
-    }
-    @Test
-    @DisplayName("Should return a PaymentEntity give valid payment Id , with HTTP status OK")
-    void testGetPaymentByIdValid() {
-        // given
-
-        PaymentEntity expectedPayment = PaymentDetailsMother.init().getPaymentEntity();
-        Long id =expectedPayment.getPaymentId();
-
-       Mockito.when(paymentService.findById(id)).thenReturn(Optional.of(expectedPayment));
-
-        // when
-        ResponseEntity<PaymentDetails> response = paymentController.findById(id);
-
-        // then
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        PaymentDetails expectedPaymentDetails = PaymentMapper.toDto(expectedPayment);
-
-        Assertions.assertEquals(expectedPaymentDetails, response.getBody());
-    }
-
-    @Test
-    @DisplayName("Should return HTTP status NOT_FOUND when PaymentEntity NOt FOUND")
-    void testGetPaymentByIdNotFound() {
-        // given
-        Long id = 13L;
-
-        Mockito.when(paymentService.findById(anyLong())).thenReturn(Optional.empty());
-
-        // when
-        ResponseEntity<PaymentDetails> response = paymentController.findById(id);
-
-        // then
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

@@ -27,7 +27,7 @@ public class NewPaymentDetailsController {
 
     @Operation(summary = "Create a new payment ", description = "Method that creates a new Payment with status 200 OK")
     @PostMapping(path = "")
-    public ResponseEntity<PaymentDetails> createNewPayment(@Valid @RequestBody PaymentDetails paymentDetailsi) {
-        return ResponseEntity.ok(service.createNewPayment(paymentDetailsi));
+    public ResponseEntity<PaymentDetails> createNewPayment(@Valid @RequestBody PaymentDetails paymentDetails) {
+        return ResponseEntity.ok(service.createNewPayment(paymentDetails));
     }
 }

@@ -41,23 +41,6 @@ class PaymentDetailsControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    public PaymentEntity createPayment(Long id, String type, String customerId) {
-        return PaymentEntity.builder().paymentId(id).customer(createUser(customerId))
-                .beneficiary(createBeneficiary("23456")).paymentType(type).amount(BigDecimal.valueOf(2000333))
-                .creationDate(ZonedDateTime.now(UTC)).build();
-    }
-
-    public CustomerEntity createUser(String id) {
-        //CustomerDetailsMother.init().getCustomerEntity();
-        return CustomerEntity.builder().customerId(id).documentType("dni").documentNumber("123" + id).name("john" + id)
-                .surname("green" + id).lastname("junior" + id).country("ESP").telephone(123)
-                .creationDate(ZonedDateTime.now(UTC)).build();
-    }
-
-    public BeneficiaryEntity createBeneficiary(String id) {
-        return BeneficiaryEntity.builder().beneficiaryId(id).build();
-    }
-
     @Test
     @DisplayName("Should return a list of all payments when no customerId provided with HTTP status OK")
     void testGetAllPayments() {
