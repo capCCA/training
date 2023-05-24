@@ -2,7 +2,7 @@ package com.capgemini.training.api.service;
 
 import com.capgemini.training.api.exceptions.PaymentNotFoundException;
 import com.capgemini.training.api.model.PaymentDetails;
-import com.capgemini.training.api.model.PaymentRequest;
+import com.capgemini.training.api.model.UpdatePaymentRequest;
 import com.capgemini.training.api.repository.PaymentRepository;
 import com.capgemini.training.api.repository.model.BeneficiaryEntity;
 import com.capgemini.training.api.repository.model.CustomerEntity;
@@ -24,7 +24,7 @@ public class UpdatePaymentDetailsService {
     private final BeneficiaryDetailsService beneficiaryService;
 
     @Transactional
-    public PaymentDetails updatePayment(Long paymentId, PaymentRequest paymentRequest) {
+    public PaymentDetails updatePayment(Long paymentId, UpdatePaymentRequest paymentRequest) {
         PaymentEntity paymentEntity = repository.findById(paymentId)
                 .orElseThrow(() -> new PaymentNotFoundException("Payment does not exist, can not be updated "));
 

@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @ToString
 @EqualsAndHashCode
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PaymentRequest {
+public class UpdatePaymentRequest {
 
     private CustomerDetails customerDetails;
     private BeneficiaryDetails beneficiaryDetails;

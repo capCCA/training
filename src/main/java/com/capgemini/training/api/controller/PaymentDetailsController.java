@@ -35,8 +35,7 @@ public class PaymentDetailsController {
      */
 
     @Operation(summary = "Find all payments by customerId", description = "Method that returns a List of Payments by customerId if provided or All payments if not provided.")
-    @GetMapping() // compite con el anterior, solo 1 es posible, añadir required=false, y asi se
-                  // puede hacer os bus
+    @GetMapping() // add required=false so both can be added
     public ResponseEntity<List<PaymentDetails>> findByCustomerId(
             @RequestParam(value = "customerId", required = false) String customerId) {
         if (customerId == null || customerId.isEmpty()) {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.training.api.model.PaymentDetails;
-import com.capgemini.training.api.model.PaymentRequest;
+import com.capgemini.training.api.model.UpdatePaymentRequest;
 import com.capgemini.training.api.service.UpdatePaymentDetailsService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +30,7 @@ public class UpdatePaymentDetailsController {
     @Operation(summary = "Update payment ", description = "Method that updates a payment with 200 OK")
     @PutMapping(path = "/{paymentId}")
     public ResponseEntity<PaymentDetails> updatePayment(@PathVariable("paymentId") Long paymentId,
-            @Valid @RequestBody PaymentRequest paymentDetails) {
+            @Valid @RequestBody UpdatePaymentRequest paymentDetails) {
         return ResponseEntity.ok(service.updatePayment(paymentId, paymentDetails));
     }
 

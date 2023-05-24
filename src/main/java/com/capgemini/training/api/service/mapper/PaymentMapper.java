@@ -3,7 +3,7 @@ package com.capgemini.training.api.service.mapper;
 import com.capgemini.training.api.model.BeneficiaryDetails;
 import com.capgemini.training.api.model.CustomerDetails;
 import com.capgemini.training.api.model.PaymentDetails;
-import com.capgemini.training.api.model.PaymentRequest;
+import com.capgemini.training.api.model.UpdatePaymentRequest;
 import com.capgemini.training.api.repository.model.BeneficiaryEntity;
 import com.capgemini.training.api.repository.model.CustomerEntity;
 import com.capgemini.training.api.repository.model.PaymentEntity;
@@ -21,7 +21,7 @@ public class PaymentMapper {
     }
 
     // added: no ppaymentID
-    public static void updateEntityFromRequest(PaymentEntity entity, PaymentRequest paymentRequest) {
+    public static void updateEntityFromRequest(PaymentEntity entity, UpdatePaymentRequest paymentRequest) {
         CustomerEntity customer = CustomerMapper.toEntity(paymentRequest.getCustomerDetails());
         BeneficiaryEntity ben = BeneficiaryMapper.toEntity(paymentRequest.getBeneficiaryDetails());
         entity.setCustomer(customer);
