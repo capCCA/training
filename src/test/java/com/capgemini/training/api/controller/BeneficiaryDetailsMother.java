@@ -1,9 +1,7 @@
 package com.capgemini.training.api.controller;
 
 import com.capgemini.training.api.model.BeneficiaryDetails;
-import com.capgemini.training.api.model.CustomerDetails;
 import com.capgemini.training.api.repository.model.BeneficiaryEntity;
-import com.capgemini.training.api.repository.model.CustomerEntity;
 
 import java.util.UUID;
 
